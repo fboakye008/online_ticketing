@@ -1,11 +1,11 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text } from "react-native";
-import { defaultColors } from "../../../DefaultValues";
+import { MaterialIcons } from '@expo/vector-icons';
+import { View, Text } from 'react-native';
+import { defaultColors } from '../../../DefaultValues';
 const AppIntroButton = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "#00CCFF",
+        backgroundColor: '#00CCFF',
         paddingVertical: 0,
         paddingHorizontal: 10,
         borderRadius: 5,
