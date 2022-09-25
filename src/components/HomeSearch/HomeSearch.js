@@ -1,38 +1,57 @@
 import React from "react";
-import { View, Text , StyleSheet, inputText} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  inputText,
+  TouchableOpacity,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { EvilIcons } from '@expo/vector-icons'; 
+import { EvilIcons } from "@expo/vector-icons";
 import { Colors } from "../../contents";
 import { useNavigation } from "@react-navigation/native";
 
-const HomeSearch = ({navigation}) => {
-
-
+const HomeSearch = ({ navigation }) => {
   return (
-    <View>
-      <View style={styles.inputBox} >
-      <EvilIcons name="search" size={24} color="black" />
-        <Text style={styles.inputText} onPress={() => navigation.navigate('bookings')}>Where To?</Text>
-      </View>
-
-      <View style={styles.row}>
-        <View style={styles.iconContainer}>
-          <AntDesign name="clockcircle" size={16} color={"#ffffff"}></AntDesign>
-          
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.inputBox}
+        onPress={() => navigation.navigate("bookings")}
+      >
+        <EvilIcons name="search" size={24} color="black" />
+        <Text style={styles.inputText}>Where To?</Text>
+      </TouchableOpacity>
+      <View style={styles.tripHistoryWrapper}>
+        <View style={styles.row}>
+          <View style={styles.iconContainer}>
+            <AntDesign
+              name="clockcircle"
+              size={16}
+              color={"#ffffff"}
+            ></AntDesign>
+          </View>
           <Text style={styles.destinationText}>Accra-Kumasi</Text>
         </View>
-      </View>
 
-      <View style={styles.row}>
-        <View style={styles.iconContainer}>
-          <AntDesign name="clockcircle" size={16} color={"#ffffff"}></AntDesign>
+        <View style={styles.row}>
+          <View style={styles.iconContainer}>
+            <AntDesign
+              name="clockcircle"
+              size={16}
+              color={"#ffffff"}
+            ></AntDesign>
+          </View>
           <Text style={styles.destinationText}>Kumasi-Takoradi</Text>
         </View>
-      </View>
 
-      <View style={styles.row}>
-        <View style={styles.iconContainer}>
-          <AntDesign name="clockcircle" size={16} color={"#ffffff"}></AntDesign>
+        <View style={styles.row}>
+          <View style={styles.iconContainer}>
+            <AntDesign
+              name="clockcircle"
+              size={16}
+              color={"#ffffff"}
+            ></AntDesign>
+          </View>
           <Text style={styles.destinationText}>Cape-Coast-Kumasi</Text>
         </View>
       </View>
@@ -41,9 +60,12 @@ const HomeSearch = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+    marginTop: 30,
+  },
   inputBox: {
     backgroundColor: "#b0b0b0",
-    margin: 10,
     padding: 10,
     flexDirection: "row",
     alignItems: "center",
@@ -55,13 +77,16 @@ const styles = StyleSheet.create({
     color: "#6e6e6e",
     justifyContent: "space-between",
   },
+  tripHistoryWrapper: {
+    marginTop: 20,
+  },
+
   row: {
     flexDirection: "row",
     alignItems: "center",
     padding: 20,
     borderBottomWidth: 1,
     borderColor: "#dbdbdb",
-    
   },
   iconContainer: {
     backgroundColor: "#b3b3b3",
@@ -72,9 +97,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: "500",
     fontSize: 16,
-    
-    
   },
-})
+});
 
 export default HomeSearch;
