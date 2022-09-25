@@ -1,4 +1,11 @@
-import React from 'react';
-import Navigation from './src/Navigation';
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import MainStackNavigator from "./src/Navigation";
 
-export default () => <Navigation />;
+export default () => {
+  return (
+    <NavigationContainer>
+      <MainStackNavigator />
+    </NavigationContainer>
+  );
+};

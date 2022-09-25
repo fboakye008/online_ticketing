@@ -17,6 +17,7 @@ import TextField from '../components/CustomInput/TextInput';
 
 const SignUpScreen = ({ navigation }) => {
   const [isPasswordShow, setPasswordShow] = useState(false);
+  const [isConfirmPasswordShow, setConfirmPasswordShow] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,74 +32,28 @@ const SignUpScreen = ({ navigation }) => {
       <Text style={styles.content}>
         Enter your Email, choose a username and password.
       </Text>
-      <TextField />
+      <TextField placeholder={`Username`} icon={`user`} />
       <Separator height={15} />
-      <View style={styles.inputContainer}>
-        <View style={styles.inputSubContainer}>
-          <Feather
-            name="mail"
-            size={22}
-            color={Colors.DEFAULT_GREY}
-            style={{ marginRight: 10 }}
-          />
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor={Colors.DEFAULT_GREY}
-            SelectionColor={Colors.DEFAULT_GREY}
-            style={styles.inputText}
-          />
-        </View>
-      </View>
+      <TextField placeholder={`Email`} icon={`mail`} />
       <Separator height={15} />
-      <View style={styles.inputContainer}>
-        <View style={styles.inputSubContainer}>
-          <Feather
-            name="lock"
-            size={22}
-            color={Colors.DEFAULT_GREY}
-            style={{ marginRight: 10 }}
-          />
-          <TextInput
-            secureTextEntry={isPasswordShow ? false : true}
-            placeholder="Password"
-            placeholderTextColor={Colors.DEFAULT_GREY}
-            SelectionColor={Colors.DEFAULT_GREY}
-            style={styles.inputText}
-          />
-          <Feather
-            name={isPasswordShow ? 'eye' : 'eye-off'}
-            size={22}
-            color={Colors.DEFAULT_GREY}
-            style={{ marginRight: 10 }}
-            onPress={() => setPasswordShow(!isPasswordShow)}
-          />
-        </View>
-      </View>
+      <TextField
+        name="password"
+        placeholder={`Password`}
+        icon={`lock`}
+        isPasswordShow={isPasswordShow}
+        isPassword={true}
+        setPasswordShow={setPasswordShow}
+      />
       <Separator height={15} />
-      <View style={styles.inputContainer}>
-        <View style={styles.inputSubContainer}>
-          <Feather
-            name="lock"
-            size={22}
-            color={Colors.DEFAULT_GREY}
-            style={{ marginRight: 10 }}
-          />
-          <TextInput
-            secureTextEntry={isPasswordShow ? false : true}
-            placeholder="Confirm Password"
-            placeholderTextColor={Colors.DEFAULT_GREY}
-            SelectionColor={Colors.DEFAULT_GREY}
-            style={styles.inputText}
-          />
-          <Feather
-            name={isPasswordShow ? 'eye' : 'eye-off'}
-            size={22}
-            color={Colors.DEFAULT_GREY}
-            style={{ marginRight: 10 }}
-            onPress={() => setPasswordShow(!isPasswordShow)}
-          />
-        </View>
-      </View>
+      <TextField
+        name="confirmPassword"
+        placeholder={`Confirm Password`}
+        icon={`lock`}
+        isPasswordShow={isConfirmPasswordShow}
+        isPassword={true}
+        setPasswordShow={setConfirmPasswordShow}
+      />
+      <Separator height={15} />
       <TouchableOpacity
         style={styles.signinButton}
         onPress={() => navigation.navigate('RegisterPhone')}
@@ -116,14 +71,14 @@ const SignUpScreen = ({ navigation }) => {
       </View>
       <View style={{ marginHorizontal: 10 }}>
         <Text style={styles.accountText}>
-          By signing up, you confirm that you accept our{''}
+          By signing up, you confirm that you accept our {''}
           <Text
             style={styles.signupText}
             onPress={() => navigation.navigate(onTermsOfUsePressed)}
           >
-            Terms of Use
+            Terms of Use {''}
           </Text>
-          and{''}
+          and {''}
           <Text
             style={styles.signupText}
             onPress={() => navigation.navigate(onPrivacyPressed)}
@@ -150,6 +105,8 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 30,
     textAlign: 'center',
+    paddingVertical: 10,
+    paddingBottom: 15,
   },
   title: {
     fontSize: 20,
@@ -164,26 +121,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: 20,
   },
-  inputContainer: {
-    backgroundColor: Colors.LIGHT_GREY2,
-    paddingHorizontal: 20,
-    marginHorizontal: 20,
-    borderRadius: 8,
-    borderWidth: 0.5,
-    borderColor: Colors.DEFAULT_GREY,
-    justifyContent: 'center',
-  },
   inputSubContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  inputText: {
-    fontSize: 18,
-    textAlignVertical: 'center',
-    padding: 0,
-    height: Display.setHeight(6),
-    color: Colors.DEFAULT_BLACK,
-    flex: 1,
   },
   signinButton: {
     backgroundColor: Colors.DEFAULT_GREEN,
