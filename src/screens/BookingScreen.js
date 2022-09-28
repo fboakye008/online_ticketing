@@ -29,7 +29,10 @@ const Bookings = ({ navigation }) => {
         <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
         <BookingTextField placeholder={"2"} label="Number of passengers" />
         <BookingTextField placeholder={"Ghc 150"} label="Total Amount" />
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("Payment")}
+        >
           <Text style={styles.btnText}>Submit</Text>
         </TouchableOpacity>
       </View>

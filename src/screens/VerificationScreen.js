@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 import {
   View,
   Text,
@@ -8,27 +8,48 @@ import {
   TextInput,
   SafeAreaView,
   Dimensions,
-} from 'react-native';
-import Separator from '../components/WelcomeCard/Separator';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
-import { Colors, Image } from '../contents';
-import { Display } from './utils';
-import { useState } from 'react';
+} from "react-native";
+import Separator from "../components/WelcomeCard/Separator";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
+import { Colors, Image } from "../contents";
+import { Display } from "./utils";
+import { useState } from "react";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
+
+const Otp = Array(4).fill("");
 
 const VerificationScreen = ({ navigation, route }) => {
-  const firstInput = useRef();
-  const secondInput = useRef();
-  const thirdInput = useRef();
-  const fourthInput = useRef();
+  const otpInput = useRef([]);
 
   const data = route.params;
-  const [otp, setOtp] = useState({ 1: '', 2: '', 3: '', 4: '' });
+  const [otp, setOtp] = useState({ 0: "", 1: "", 2: "", 3: "" });
+
+  const handleChangeText = (text, index) => {
+    Otp[index] = text;
+    setOtp({ ...otp, [index]: text });
+    if (text !== "") {
+      if (index !== 3) {
+        otpInput[index + 1].focus();
+      } else {
+        otpInput[index].blur();
+      }
+    } else {
+      if (index !== 0) {
+        otpInput[index - 1].focus();
+      }
+    }
+  };
 
   const handleOTP = () => {
-    alert('Code has been sent to you');
+    let otpString = Object.values(otp).toString().split(",").join("");
+    if (otpString.length === 4) {
+      alert("OTP is " + otpString);
+      navigation.navigate("Home");
+    } else {
+      alert("Please enter a valid OTP");
+    }
   };
 
   return (
@@ -52,65 +73,21 @@ const VerificationScreen = ({ navigation, route }) => {
           Enter the OTP number sent to you on ~${data?.phoneNumber}
           <Text style={styles.phoneNumberText}>{data?.phoneNumber}</Text>
         </Text>
-        <View style={styles.otpContainer}>
-          <View style={styles.otpBox}>
+        <View style={styles.otpBox}>
+          {Otp.map((num, index) => (
             <TextInput
-              style={styles.otpText}
+              key={index}
+              style={styles.otpInput}
               keyboardType="phone-pad"
+              placeholder="0"
               maxLength={1}
-              ref={firstInput}
-              onChangeText={(text) => {
-                setOtp({ ...otp, 1: text });
-                text && secondInput.current.focus();
-              }}
+              value={otp[index]}
+              ref={(ref) => (otpInput[index] = ref)}
+              onChangeText={(text) => handleChangeText(text, index)}
             />
-          </View>
-
-          <View style={styles.otpBox}>
-            <TextInput
-              style={styles.otpText}
-              keyboardType="phone-pad"
-              maxLength={1}
-              ref={secondInput}
-              onChangeText={(text) => {
-                setOtp({ ...otp, 2: text });
-                text ? thirdInput.current.focus() : firstInput.current.focus();
-              }}
-            />
-          </View>
-
-          <View style={styles.otpBox}>
-            <TextInput
-              style={styles.otpText}
-              keyboardType="phone-pad"
-              maxLength={1}
-              ref={thirdInput}
-              onChangeText={(text) => {
-                setOtp({ ...otp, 3: text });
-                text
-                  ? fourthInput.current.focus()
-                  : secondInput.current.focus();
-              }}
-            />
-          </View>
-
-          <View style={styles.otpBox}>
-            <TextInput
-              style={styles.otpText}
-              keyboardType="phone-pad"
-              maxLength={1}
-              ref={fourthInput}
-              onChangeText={(text) => {
-                setOtp({ ...otp, 4: text });
-                !text && secondInput.current.focus();
-              }}
-            />
-          </View>
+          ))}
         </View>
-        <TouchableOpacity
-          style={styles.verifyButton}
-          onPress={() => navigation.navigate('Home')}
-        >
+        <TouchableOpacity style={styles.verifyButton} onPress={handleOTP}>
           <Text style={styles.verifyButtonText}>Verify</Text>
         </TouchableOpacity>
         <View>
@@ -133,8 +110,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.DEFAULT_WHITE,
   },
   headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
@@ -142,7 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 20 * 1.4,
     width: Display.setWidth(80),
-    textAlign: 'center',
+    textAlign: "center",
   },
   title: {
     fontSize: 20,
@@ -152,7 +129,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   contenWrapper: {
-    justifyContent: 'center',
+    justifyContent: "center",
     height: height / 2 + 50,
   },
   content: {
@@ -166,23 +143,25 @@ const styles = StyleSheet.create({
     lineHeight: 18 * 1.4,
     color: Colors.DEFAULT_YELLOW,
   },
-  otpContainer: {
-    marginHorizontal: 20,
-    marginBottom: 20,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
   otpBox: {
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  otpInput: {
+    width: 50,
+    height: 50,
     borderRadius: 5,
     borderColor: Colors.DEFAULT_GREEN,
     borderWidth: 0.5,
+    textAlign: "center",
+    fontSize: 20,
   },
   otpText: {
     fontSize: 25,
     color: Colors.DEFAULT_BLACK,
     padding: 0,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: 18,
     paddingVertical: 10,
   },
@@ -191,8 +170,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 20,
     height: Display.setHeight(6),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
   },
   verifyButtonText: {
@@ -205,8 +184,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 20,
     height: Display.setHeight(6),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
   },
 });
