@@ -70,7 +70,7 @@ const VerificationScreen = ({ navigation, route }) => {
       </View>
       <View style={styles.contenWrapper}>
         <Text style={styles.content}>
-          Enter the OTP number sent to you on ~${data?.phoneNumber}
+          Enter the OTP number sent to you on 
           <Text style={styles.phoneNumberText}>{data?.phoneNumber}</Text>
         </Text>
         <View style={styles.otpBox}>
@@ -103,7 +103,6 @@ const VerificationScreen = ({ navigation, route }) => {
   );
 };
 
-// styles.DEFAULT_GREEN;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -116,7 +115,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 25,
     lineHeight: 20 * 1.4,
     width: Display.setWidth(80),
     textAlign: "center",
@@ -134,9 +133,10 @@ const styles = StyleSheet.create({
   },
   content: {
     fontSize: 20,
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 20,
     marginHorizontal: 20,
+    textAlign: "center",
   },
   phoneNumberText: {
     fontSize: 18,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     height: Display.setHeight(6),
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
   },
 });
 

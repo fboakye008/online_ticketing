@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity, TextInput , inputText} from 'react-native';
+import { View, Text, StyleSheet, StatusBar, TouchableOpacity, TextInput} from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather'
 import {Colors} from '../contents';
 import { Display } from './utils';
-import { useState } from 'react';
+
 
 
 const ForgotPasswordScreen = ({navigation}) => {
