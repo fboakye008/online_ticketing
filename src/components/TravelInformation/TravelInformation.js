@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   readMore: {
-    color: "#fff",
+    color: Colors.DEFAULT_GREY,
     fontSize: 15,
     fontWeight: "bold",
   },

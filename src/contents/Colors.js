@@ -25,4 +25,11 @@ export default {
   DEFAULT_TERTIARY: '#3B71F3',
   DEFAULT_FGCOLOR: '#4765A9',
   DEFAULT_FGCOLOR2: '#DD4D44',
+  DarkBlue: '#00008B',
+  LightBlue: '#ADD8E6',
+  Silver: '#C0C0C0',
+  Pink: '#FFC0CB',
+  Blue_Gray: '#98AFC7',
+  Donut_Pink: '#FAAFBE',
+
 };
