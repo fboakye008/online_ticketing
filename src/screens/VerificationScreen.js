@@ -95,7 +95,7 @@ const VerificationScreen = ({ navigation, route }) => {
             Didn't receive any code?
           </Text>
           <TouchableOpacity style={styles.resendBtn} onPress={handleOTP}>
-            <Text> Resend Code.</Text>
+            <Text style={styles.resendText}> Resend Code.</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -106,7 +106,7 @@ const VerificationScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.DEFAULT_WHITE,
+    // backgroundColor: Colors.DEFAULT_WHITE,
   },
   headerContainer: {
     flexDirection: "row",
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   phoneNumberText: {
     fontSize: 18,
     lineHeight: 18 * 1.4,
-    color: Colors.DEFAULT_YELLOW,
+    // color: Colors.DEFAULT_YELLOW,
   },
   otpBox: {
     justifyContent: "space-evenly",
@@ -187,6 +187,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
+  },
+  resendText: {
+    fontSize: 16,
+    alignItems: "center",
   },
 });
 

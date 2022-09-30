@@ -94,7 +94,7 @@ const SignUpScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.DEFAULT_WHITE,
+    backgroundColor: Colors.LIGHT_GREY,
   },
   headerContainer: {
     flexDirection: 'row',
