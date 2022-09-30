@@ -61,6 +61,7 @@ const RegisterPhoneNumberScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    backgroundColor: Colors.LIGHT_GREY,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -88,11 +89,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   phoneInputContainer: {
-    backgroundColor: Colors.LIGHT_GREY,
+    backgroundColor: Colors.LIGHT_GREY2,
+    borderColor: Colors.Silver,
+    borderRadius: 8,
+    marginHorizontal: 10,
     paddingHorizontal: 25,
-    borderRadius: 30,
-    borderWidth: 0.5,
-    borderColor: Colors.LIGHT_GREY2,
+    marginTop: 10,
+    height: Display.setHeight(6),
     justifyContent: 'center',
   },
   inputText: {
