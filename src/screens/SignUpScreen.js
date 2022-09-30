@@ -147,12 +147,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   accountText: {
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 13 * 1.4,
   },
   signupText: {
     color: Colors.DEFAULT_GREEN,
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 13 * 1.4,
     marginLeft: 5,
   },

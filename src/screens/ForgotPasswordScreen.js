@@ -23,7 +23,7 @@ const ForgotPasswordScreen = ({navigation}) => {
     onPress={() => navigation.goBack()}/>
     <Text style={styles.headerTitle}>Forgot Password</Text>
     </View>
-    <Text style={styles.title}>Forgot Password</Text>
+  
     <Text style={styles.content}>Enter your email to help you recover your password
     </Text>
     <View style={styles.inputContainer}>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     },
     headerTitle:{
-      fontSize: 20,
+      fontSize: 25,
       lineHeight: 20*1.4,
       width: Display.setWidth(80),
       textAlign: 'center',
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
     },
     content:{
       fontSize: 20,
-      marginTop: 10,
-      marginBottom: 20,
-      marginHorizontal: 20,
+    marginTop: 10,
+    marginBottom: 20,
+    marginHorizontal: 20,
     },
     inputContainer:{
       backgroundColor: Colors.LIGHT_GREY2,
