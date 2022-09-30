@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     },
     content:{
       fontSize: 20,
-    marginTop: 10,
+    marginTop: 70,
     marginBottom: 20,
     marginHorizontal: 20,
     },

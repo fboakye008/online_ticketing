@@ -71,11 +71,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 60,
   },
+
   inputText: {
     fontSize: 20,
     fontWeight: "500",
     color: "#6e6e6e",
-    justifyContent: "space-between",
   },
   tripHistoryWrapper: {
     marginTop: 20,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   destinationText: {
     marginLeft: 10,
     fontWeight: "500",
-    fontSize: 16,
+    fontSize: 18,
   },
 });
 
