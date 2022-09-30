@@ -122,7 +122,7 @@ headerContainer: {
      alignItems: 'center',
   },
   forgotPasswordText:{
-    fontSize: 20,
+    fontSize: 18,
     lineHeight: 20 * 1.4,
     color: Colors.DEFAULT_GREEN,
  },
@@ -148,12 +148,12 @@ signupContainer:{
  alignItems: 'center',
 },
 accountText:{
-  fontSize: 15,
+  fontSize: 16,
   lineHeight: 13*1.4,
 },
 signupText:{
   color: Colors.DEFAULT_GREEN,
-  fontSize: 15,
+  fontSize: 16,
   lineHeight: 13*1.4,
   marginLeft: 5,
 },
@@ -166,7 +166,7 @@ orText: {
 },
 facebookButton:{
   backgroundColor: Colors.DEFAULT_FGCOLOR,
-  fontSize: 15,
+  fontSize: 16,
   paddingVertical: 15,
   marginHorizontal: 20,
   borderRadius: 8,
@@ -176,7 +176,7 @@ facebookButton:{
 },
 googleButton: {
   backgroundColor: Colors.Donut_Pink,
-  paddingVertical: 15,
+  paddingVertical: 16,
   marginHorizontal: 20,
   borderRadius: 8,
   justifyContent: 'center',
@@ -198,11 +198,11 @@ socialButtonContainer: {
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '100%',
+  width: '70%',
 },
 socialSigninButtonText: {
    color: Colors.DEFAULT_WHITE,
-   fontSize: 13,
+   fontSize: 15,
    lineHeight: 13*1.4,
 },
 });
