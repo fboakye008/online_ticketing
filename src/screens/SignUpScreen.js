@@ -94,7 +94,7 @@ const SignUpScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.DEFAULT_WHITE,
+    backgroundColor: Colors.LIGHT_GREY,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -147,12 +147,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   accountText: {
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 13 * 1.4,
   },
   signupText: {
     color: Colors.DEFAULT_GREEN,
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 13 * 1.4,
     marginLeft: 5,
   },

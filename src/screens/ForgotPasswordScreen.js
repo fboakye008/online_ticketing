@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity, TextInput , inputText} from 'react-native';
+import { View, Text, StyleSheet, StatusBar, TouchableOpacity, TextInput} from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather'
 import {Colors} from '../contents';
 import { Display } from './utils';
-import { useState } from 'react';
+
 
 
 const ForgotPasswordScreen = ({navigation}) => {
@@ -23,7 +23,7 @@ const ForgotPasswordScreen = ({navigation}) => {
     onPress={() => navigation.goBack()}/>
     <Text style={styles.headerTitle}>Forgot Password</Text>
     </View>
-    <Text style={styles.title}>Forgot Password</Text>
+  
     <Text style={styles.content}>Enter your email to help you recover your password
     </Text>
     <View style={styles.inputContainer}>
@@ -52,7 +52,7 @@ const ForgotPasswordScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container:{
       flex: 1,
-      backgroundColor: Colors.DEFAULT_WHITE,
+      backgroundColor: Colors.LIGHT_GREY,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     },
     headerTitle:{
-      fontSize: 20,
+      fontSize: 25,
       lineHeight: 20*1.4,
       width: Display.setWidth(80),
       textAlign: 'center',
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
     },
     content:{
       fontSize: 20,
-      marginTop: 10,
-      marginBottom: 20,
-      marginHorizontal: 20,
+    marginTop: 70,
+    marginBottom: 20,
+    marginHorizontal: 20,
     },
     inputContainer:{
       backgroundColor: Colors.LIGHT_GREY2,

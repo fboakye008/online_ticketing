@@ -7,7 +7,7 @@ const TravelInformation = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Ride with VIP today</Text>
-      <Text style={styles.readMore}>Read more</Text>
+      <Text style={styles.readMore} onPress={() => navigation.navigate('readMore')}>Read more</Text>
     </View>
   );
 };
@@ -15,7 +15,7 @@ const TravelInformation = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.DEFAULT_GREEN,
-    padding: 17,
+    padding: 19,
     borderTopLeftRadius: 17,
     borderTopRightRadius: 17,
     borderBottomLeftRadius: 17,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   readMore: {
-    color: "#fff",
+    color: Colors.DEFAULT_GREY,
     fontSize: 15,
     fontWeight: "bold",
   },
