@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   View,
   Text,
   StyleSheet,
   inputText,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import { Colors } from "../../contents";
 import { useNavigation } from "@react-navigation/native";
 
-const HomeSearch = ({ navigation }) => {
+const HomeSearch = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -70,6 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 60,
+    zIndex: 1,
   },
   inputText: {
     fontSize: 20,
