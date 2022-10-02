@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { View, Image, StyleSheet } from "react-native";
 import logo from "../../src/images/logo1.png";
 import TravelInformation from "../components/TravelInformation/TravelInformation";
@@ -12,7 +12,7 @@ const HomeScreen = (props) => {
       <View>
         <Image source={logo} style={[styles.Image]} resizeMode="cover" />
         <TravelInformation />
-        <HomeSearch navigation={props.navigation} />
+        <HomeSearch />
       </View>
     </View>
   );

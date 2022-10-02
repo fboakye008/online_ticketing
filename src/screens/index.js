@@ -8,6 +8,10 @@ import VerificationScreen from "./VerificationScreen";
 import BookingScreen from "./BookingScreen";
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
+import AccountScreen from "./SettingsScreen";
+import Help from "./Help";
+import Wallet from "./Wallet";
+import Trips from "./Trips";
 
 export {
   SplashScreen,
@@ -20,4 +24,8 @@ export {
   BookingScreen,
   HomeScreen,
   SettingsScreen,
+  AccountScreen,
+  Help,
+  Wallet,
+  Trips,
 };
