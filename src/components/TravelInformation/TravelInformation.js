@@ -7,7 +7,7 @@ const TravelInformation = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Ride with VIP today</Text>
-      <Text style={styles.readMore} onPress={() => navigation.navigate('readMore')}>Read more</Text>
+      {/* <Text style={styles.readMore} onPress={() => navigation.navigate('readMore')}>Read more</Text> */}
     </View>
   );
 };

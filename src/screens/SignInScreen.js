@@ -1,35 +1,42 @@
 import React,{useState}  from 'react';
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, TextInput, inputText, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather'
 import {Colors, image as MyImage} from '../contents';
 import TextField from '../components/CustomInput/TextInput';
 import { Display } from './utils';
+import SubmitButton from '../components/CustomInput/SubmitButton';
 
 
 const SignInScreen = ({navigation}) => {
+  const [fullName, onChangeFullName] = React.useState("");
 const [isPasswordShow, setPasswordShow] = useState(false);
 
   return (
+    
     <SafeAreaView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Ionicons
-          name="chevron-back-outline"
-          size={30}
-          onPress={() => navigation.goBack()}
-        />
-      </View>
+    <View style={styles.contentContainer}>
+    <Separator height={10} />
       <Text style={styles.headerTitle}>Welcome!</Text>
       <Text style={styles.content}>
       Enter your Username and password, and enjoy your trip!
       </Text>
-      <TextField placeholder={`Username`} icon={`user`} />
-      <Separator height={15} />
+      <TextField 
+      value = {fullName} 
+      onChangeText={(value) => handleOnChangeText(value, 'fullName')}  
+      label={`Full Name`} 
+      placeholder={`Full Name`} 
+      icon={`user`} 
+      autoCapitalize='none'
+ 
+      />
       <TextField
         name="password"
+        label={`Password`} 
         placeholder={`Password`}
         icon={`lock`}
+        secureTextEntry={isPasswordShow ? false : true}
         isPasswordShow={isPasswordShow}
         isPassword={true}
         setPasswordShow={setPasswordShow}
@@ -38,9 +45,11 @@ const [isPasswordShow, setPasswordShow] = useState(false);
     <View style={styles.forgotPasswordContainer}>
       <Text style={styles.forgotPasswordText} onPress={() => navigation.navigate('ForgotPassword')}>Forgot Password</Text>
     </View>
-    <TouchableOpacity style={styles.signinButton}>
+    <SubmitButton   onPress={() => navigation.navigate('Home')}title='Sign In'/>
+    {/* <TouchableOpacity style={styles.signinButton}>
       <Text style={styles.signinButtonText} onPress={() => navigation.navigate('Home')}>Sign In</Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
+
     <View style={styles.signupContainer}>
       <Text style={styles.accountText}>Don't have an account?</Text>
       <Text style={styles.signupText} onPress={() => navigation.navigate('Signup')}>Sign Up</Text>
@@ -62,6 +71,7 @@ const [isPasswordShow, setPasswordShow] = useState(false);
         <Text style={styles.socialSigninButtonText}>Connect with Google</Text>
       </View>
     </TouchableOpacity>
+    </View>
   </SafeAreaView>
   );
 };
@@ -69,41 +79,32 @@ const [isPasswordShow, setPasswordShow] = useState(false);
 const styles = StyleSheet.create({
 container: {
 flex: 1,
-backgroundColor: Colors.LIGHT_GREY,
+backgroundColor: Colors.DEFAULT_WHITE,
 },
-headerContainer: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  paddingVertical: 10,
-  paddingHorizontal: 20,
-  },
   headerTitle:{
+    Colors: Colors.DEFAULT_BLACK,
     fontSize: 30,
-    textAlign: 'center',
-    paddingVertical: 10,
-    paddingBottom: 15,
+    fontWeight: 'bold',
   },
-  title:{
-    fontSize: 20,
-    lineHeight: 20*1.4,
-    marginTop:50,
-    marginBottom: 10,
-    marginHorizontal: 20,
+  inputContainer: {
+    height: 55,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderRadius: 5,
+    borderWidth: 0.5,
+    backgroundColor: Colors.Light,
+    borderColor: Colors.LIGHT_GREEN,
+    alignItems: 'center',
   },
   content:{
-    fontSize: 20,
-    marginTop: 10,
-    marginBottom: 20,
-    marginHorizontal: 20,
+    colors: Colors.LIGHT_GREY,
+    fontSize: 18,
+    marginVertical: 15,
   },
-  inputContainer:{
-    backgroundColor: Colors.LIGHT_GREY2,
-    paddingHorizontal: 20,
-    marginHorizontal: 20,
-    borderRadius: 8,
-    borderWidth: 0.5,
-    borderColor: Colors.DEFAULT_GREY,
-    justifyContent: 'center',
+  contentContainer:{
+    paddingTop: 50,
+    paddingHorizontal: 20, 
   },
   inputSubContainer: {
     flexDirection: 'row',
@@ -126,20 +127,20 @@ headerContainer: {
     lineHeight: 20 * 1.4,
     color: Colors.DEFAULT_GREEN,
  },
- signinButton:{
-   backgroundColor: Colors.DEFAULT_GREEN,
-   borderRadius: 8,
-   marginHorizontal: 20,
-   height: Display.setHeight(6),
-   justifyContent: 'center',
-   alignItems: 'center',
-   marginTop: 20,
- },
- signinButtonText:{
-  color: Colors.DEFAULT_WHITE,
-  fontSize: 18,
-  lineHeight: 18*1.4,
-},
+//  signinButton:{
+//    backgroundColor: Colors.DEFAULT_GREEN,
+//    borderRadius: 5,
+//    paddingHorizontal: 30,
+//    height: Display.setHeight(6),
+//    justifyContent: 'center',
+//    alignItems: 'center',
+//    marginTop: 20,
+//  },
+//  signinButtonText:{
+//   color: Colors.DEFAULT_WHITE,
+//   fontSize: 18,
+//   lineHeight: 18*1.4,
+// },
 signupContainer:{
  marginHorizontal: 20,
  justifyContent: 'center',
@@ -168,8 +169,8 @@ facebookButton:{
   backgroundColor: Colors.DEFAULT_FGCOLOR,
   fontSize: 16,
   paddingVertical: 15,
-  marginHorizontal: 20,
-  borderRadius: 8,
+  paddingHorizontal: 30,
+  borderRadius: 5,
   marginVertical: 20,
   justifyContent: 'center',
   alignItems: 'center',
@@ -177,8 +178,8 @@ facebookButton:{
 googleButton: {
   backgroundColor: Colors.Donut_Pink,
   paddingVertical: 16,
-  marginHorizontal: 20,
-  borderRadius: 8,
+  paddingHorizontal: 30,
+  borderRadius: 5,
   justifyContent: 'center',
   alignItems: 'center',
 },

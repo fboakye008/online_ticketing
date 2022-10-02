@@ -45,30 +45,22 @@ const VerificationScreen = ({ navigation, route }) => {
   const handleOTP = () => {
     let otpString = Object.values(otp).toString().split(",").join("");
     if (otpString.length === 4) {
-      alert("OTP is " + otpString);
+      // alert("OTP is " + otpString);
       navigation.navigate("Home");
     } else {
-      alert("Please enter a valid OTP");
+      alert("Please enter the OTP sent to you");
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={Colors.DEFAULT_WHITE}
-        translucent
-      />
-      <Separator height={StatusBar.currentHeight} />
-      <View style={styles.headerContainer}>
-        <Ionicons
-          name="chevron-back-outline"
-          size={30}
-          onPress={() => navigation.goBack()}
-        />
+      <View style={styles.contentContainer}>
+    <Separator height={10} />
+      
+      
         <Text style={styles.headerTitle}>OTP Verification</Text>
-      </View>
-      <View style={styles.contenWrapper}>
+        <Separator height={40} />
+   
         <Text style={styles.content}>
           Enter the OTP number sent to you on 
           <Text style={styles.phoneNumberText}>{data?.phoneNumber}</Text>
@@ -91,7 +83,15 @@ const VerificationScreen = ({ navigation, route }) => {
           <Text style={styles.verifyButtonText}>Verify</Text>
         </TouchableOpacity>
         <View>
-          <Text style={{ ...styles.DEFAULT_BLACK, ...styles.content }}>
+          <Text style={{ 
+            color:Colors.DEFAULT_BLACK, 
+            justifyContent:'center',
+            fontSize: 20,
+            marginTop: 10,
+            marginBottom: 10,
+            paddingHorizontal: 60,
+             }}
+             >
             Didn't receive any code?
           </Text>
           <TouchableOpacity style={styles.resendBtn} onPress={handleOTP}>
@@ -106,19 +106,13 @@ const VerificationScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: Colors.DEFAULT_WHITE,
+    backgroundColor: Colors.DEFAULT_WHITE,
   },
-  headerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
+  
   headerTitle: {
-    fontSize: 25,
-    lineHeight: 20 * 1.4,
-    width: Display.setWidth(80),
-    textAlign: "center",
+    Colors: Colors.DEFAULT_BLACK,
+    fontSize: 30,
+    fontWeight: 'bold',
   },
   title: {
     fontSize: 20,
@@ -127,33 +121,33 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 20,
   },
-  contenWrapper: {
-    justifyContent: "center",
-    height: height / 2 + 50,
+  contentContainer:{
+    paddingTop: 50,
+    paddingHorizontal: 20, 
   },
   content: {
     fontSize: 20,
-    marginTop: 20,
-    marginBottom: 20,
-    marginHorizontal: 20,
-    textAlign: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    justifyContent: 'space-between',
   },
   phoneNumberText: {
     fontSize: 18,
     lineHeight: 18 * 1.4,
-    // color: Colors.DEFAULT_YELLOW,
+    color:Colors.Red,
   },
   otpBox: {
-    justifyContent: "space-evenly",
+    justifyContent: 'space-evenly',
     alignItems: "center",
     flexDirection: "row",
   },
   otpInput: {
     width: 50,
     height: 50,
-    borderRadius: 5,
+    borderRadius: 6,
     borderColor: Colors.DEFAULT_GREEN,
-    borderWidth: 0.5,
+    borderWidth: 1,
     textAlign: "center",
     fontSize: 20,
   },
