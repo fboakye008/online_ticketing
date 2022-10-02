@@ -11,12 +11,16 @@ import {
   VerificationScreen,
   HomeScreen,
   BookingScreen,
-  SettingsScreen,
+  AccountScreen,
+  Help,
+  Trips,
+  Wallet,
 } from "../screens";
 import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Colors } from "../contents";
 import PaymentScreen from "../screens/PaymentScreen";
+import { Text } from "react-native";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -31,6 +35,22 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen name="Booking" component={BookingScreen} />
       <HomeStack.Screen name="Payment" component={PaymentScreen} />
     </HomeStack.Navigator>
+  );
+};
+
+const AccountStack = createNativeStackNavigator();
+const AccountStackNavigator = () => {
+  return (
+    <AccountStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <AccountStack.Screen name="Account" component={AccountScreen} />
+      <AccountStack.Screen name="Help" component={Help} />
+      <AccountStack.Screen name="Wallet" component={Wallet} />
+      <AccountStack.Screen name="Trips" component={Trips} />
+    </AccountStack.Navigator>
   );
 };
 
@@ -62,8 +82,8 @@ const BottomTabNavigator = () => {
         }}
       />
       <BottomTab.Screen
-        name="Settings"
-        component={SettingsScreen}
+        name="AccountStack"
+        component={AccountStackNavigator}
         options={{
           tabBarLabel: "Account",
           tabBarIcon: ({ size, focused }) => (

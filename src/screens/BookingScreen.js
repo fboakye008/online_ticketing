@@ -39,6 +39,7 @@ const Bookings = ({ navigation }) => {
         <BookingTextField placeholder={"8:00 am"} label="Time" />
         <BookingTextField placeholder={"Kumasi - Accra"} label="Route" />
         <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
+<<<<<<< HEAD
         <BookingTextField placeholder={"2"} label="Number of passengers" />
         <TextInput
         style={styles.input}
@@ -46,6 +47,10 @@ const Bookings = ({ navigation }) => {
         placeholderTextColor={'black'}
         placeholder={"Ghc 150"} 
         />
+=======
+        <BookingTextField numOfPassenger={true} label="Number of passengers" />
+        <BookingTextField placeholder={"Ghc 150"} label="Total Amount" />
+>>>>>>> 8f21bcec259a1d1a2fe791df3bc1b706e2e9fc88
         <TouchableOpacity
           style={styles.btn}
           onPress={() => navigation.navigate("Payment")}
