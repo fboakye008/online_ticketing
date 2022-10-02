@@ -15,7 +15,7 @@ export {
   SignInScreen,
   SignUpScreen,
   ForgotPasswordScreen,
-  RegisterPhoneNumberScreen,
+  // RegisterPhoneNumberScreen,
   VerificationScreen,
   BookingScreen,
   HomeScreen,

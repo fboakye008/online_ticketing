@@ -9,6 +9,8 @@ export default {
   SECONDARY_WHITE: '#F8F8F8',
   SECONDARY_GREEN: '#24C869',
   SECONDARY_BLACK: '#191d35',
+  Black: '#000',
+  Red: 'red',
   LIGHT_GREEN: '#CEE8E7',
   LIGHT_GREY: '#F8F7F7',
   LIGHT_GREY2: '#EAEAEA',
@@ -31,5 +33,7 @@ export default {
   Pink: '#FFC0CB',
   Blue_Gray: '#98AFC7',
   Donut_Pink: '#FAAFBE',
+  Light: '#F3F4FB',
+  grey: '#BABBC3',
 
 };
