@@ -11,8 +11,9 @@ import {
   TextInput,
 } from "react-native";
 import BookingTextField from "../components/CustomBookingInput";
-import TextField from '../components/CustomInput/TextInput';
+import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import { Colors } from "../contents";
+import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 
 const { height, width } = Dimensions.get("window");
 
@@ -30,18 +31,26 @@ const Bookings = ({ navigation }) => {
       
       <View style={styles.container}>
       
-      <TextInput 
+      <ReadOnlyField 
        style={styles.input}
         editable={false}
         placeholderTextColor={'black'}
         placeholder="30th September, 2022"
+        label="Date"
         />
         <BookingTextField placeholder={"8:00 am"} label="Time" />
         <BookingTextField placeholder={"Kumasi - Accra"} label="Route" />
         <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
 
         <BookingTextField numOfPassenger={true} label="Number of passengers" />
-        <BookingTextField placeholder={"Ghc 150"} label="Total Amount" />
+        <ReadOnlyField 
+           style={styles.input}
+           editable={false}
+           placeholderTextColor={'black'}
+           placeholder={"Ghc 150"} 
+           label="Total Amount" 
+
+         />
         <TouchableOpacity
           style={styles.btn}
           onPress={() => navigation.navigate("Payment")}
