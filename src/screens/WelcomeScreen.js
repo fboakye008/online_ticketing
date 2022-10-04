@@ -78,6 +78,7 @@ const WelcomeScreen = ({ navigation }) => {
         >
           <Text style={styles.gettingStartedButtonText}>Get Started</Text>
         </TouchableOpacity>
+        
       ) : (
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -138,17 +139,17 @@ const styles = StyleSheet.create({
   },
   gettingStartedButton: {
     backgroundColor: Colors.DEFAULT_GREEN,
-    paddingVertical: 5,
-    paddingHorizontal: 40,
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 2,
+    borderRadius: 5,
+    paddingHorizontal: 80,
+    height: Display.setHeight(6),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
   },
   gettingStartedButtonText: {
-    fontSize: 20,
     color: Colors.DEFAULT_WHITE,
-    lineHeight: 20 * 1.4,
+    fontSize: 18,
+    lineHeight: 18 * 1.4,
   },
 });
 

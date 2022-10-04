@@ -113,10 +113,10 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Signin" component={SignInScreen} />
       <Stack.Screen name="Signup" component={SignUpScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="RegisterPhone"
         component={RegisterPhoneNumberScreen}
-      />
+      /> */}
       <Stack.Screen name="Verification" component={VerificationScreen} />
       <Stack.Screen name="Home" component={BottomTabNavigator} />
     </Stack.Navigator>
