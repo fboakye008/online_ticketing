@@ -75,8 +75,9 @@ const submitForm = () => {
 }
   return (
     <SafeAreaView style={styles.container}>
-    {error ? <Text style={{color: Colors.Red, fontSize: 12, textAlign:'center'}}>{error}</Text>: null}
+   
     <View style={styles.contentContainer}>
+    {error ? <Text style={{color: Colors.Red, fontSize: 12, textAlign:'center'}}>{error}</Text>: null}
     <Separator height={5} />
       <Text style={styles.headerTitle}>Create Account</Text>
       <Text style={styles.content}>
