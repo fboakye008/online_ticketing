@@ -13,44 +13,39 @@ import {
 import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import { Colors } from "../contents";
-import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 
 const { height, width } = Dimensions.get("window");
 
 const Bookings = ({ navigation }) => {
-  
   return (
     <SafeAreaView style={styles.wrapper}>
-    
       <TouchableOpacity
         style={styles.arrowContainer}
         onPress={() => navigation.goBack()}
       >
         <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
       </TouchableOpacity>
-      
+
       <View style={styles.container}>
-      
-      <ReadOnlyField 
-       style={styles.input}
-        editable={false}
-        placeholderTextColor={'black'}
-        placeholder="30th September, 2022"
-        label="Date"
+        <ReadOnlyField
+          style={styles.input}
+          editable={false}
+          placeholderTextColor={"black"}
+          placeholder="30th September, 2022"
+          label="Date"
         />
         <BookingTextField placeholder={"8:00 am"} label="Time" />
         <BookingTextField placeholder={"Kumasi - Accra"} label="Route" />
         <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
 
         <BookingTextField numOfPassenger={true} label="Number of passengers" />
-        <ReadOnlyField 
-           style={styles.input}
-           editable={false}
-           placeholderTextColor={'black'}
-           placeholder={"Ghc 150"} 
-           label="Total Amount" 
-
-         />
+        <ReadOnlyField
+          style={styles.input}
+          editable={false}
+          placeholderTextColor={"black"}
+          placeholder={"Ghc 150"}
+          label="Total Amount"
+        />
         <TouchableOpacity
           style={styles.btn}
           onPress={() => navigation.navigate("Payment")}
@@ -104,7 +99,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.121,
     shadowRadius: 9.11,
     elevation: 5,
-    
   },
   inputContainer: {
     backgroundColor: Colors.Silver,
@@ -113,7 +107,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 0.5,
     borderColor: Colors.DEFAULT_GREY,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   btn: {
     justifyContent: "center",

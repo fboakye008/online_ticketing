@@ -45,8 +45,9 @@ const VerificationScreen = ({ navigation, route }) => {
   const handleOTP = () => {
     let otpString = Object.values(otp).toString().split(",").join("");
     if (otpString.length === 4) {
-      // alert("OTP is " + otpString);
-      navigation.navigate("Home");
+      otpString === String(data?.otp)
+        ? navigation.navigate("Home")
+        : alert("Invalid OTP");
     } else {
       alert("Please enter the OTP sent to you");
     }
@@ -55,15 +56,14 @@ const VerificationScreen = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.contentContainer}>
-    <Separator height={10} />
-      
-      
+        <Separator height={10} />
+
         <Text style={styles.headerTitle}>OTP Verification</Text>
         <Separator height={40} />
-   
+
         <Text style={styles.content}>
-          Enter the OTP number sent to you on 
-          <Text style={styles.phoneNumberText}>{data?.phoneNumber}</Text>
+          Enter the OTP number sent to you on
+          <Text style={styles.phoneNumberText}>{data?.phone}</Text>
         </Text>
         <View style={styles.otpBox}>
           {Otp.map((num, index) => (
@@ -83,15 +83,16 @@ const VerificationScreen = ({ navigation, route }) => {
           <Text style={styles.verifyButtonText}>Verify</Text>
         </TouchableOpacity>
         <View>
-          <Text style={{ 
-            color:Colors.DEFAULT_BLACK, 
-            justifyContent:'center',
-            fontSize: 20,
-            marginTop: 10,
-            marginBottom: 10,
-            paddingHorizontal: 60,
-             }}
-             >
+          <Text
+            style={{
+              color: Colors.DEFAULT_BLACK,
+              justifyContent: "center",
+              fontSize: 20,
+              marginTop: 10,
+              marginBottom: 10,
+              paddingHorizontal: 60,
+            }}
+          >
             Didn't receive any code?
           </Text>
           <TouchableOpacity style={styles.resendBtn} onPress={handleOTP}>
@@ -108,11 +109,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.DEFAULT_WHITE,
   },
-  
+
   headerTitle: {
     Colors: Colors.DEFAULT_BLACK,
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   title: {
     fontSize: 20,
@@ -121,24 +122,24 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 20,
   },
-  contentContainer:{
+  contentContainer: {
     paddingTop: 50,
-    paddingHorizontal: 20, 
+    paddingHorizontal: 20,
   },
   content: {
     fontSize: 20,
     marginTop: 10,
     marginBottom: 10,
     paddingHorizontal: 10,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   phoneNumberText: {
     fontSize: 18,
     lineHeight: 18 * 1.4,
-    color:Colors.Red,
+    color: Colors.Red,
   },
   otpBox: {
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     alignItems: "center",
     flexDirection: "row",
   },
