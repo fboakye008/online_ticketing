@@ -24,6 +24,7 @@ const VerificationScreen = ({ navigation, route }) => {
   const otpInput = useRef([]);
 
   const data = route.params;
+  console.log(data);
   const [otp, setOtp] = useState({ 0: "", 1: "", 2: "", 3: "" });
 
   const handleChangeText = (text, index) => {
