@@ -6,13 +6,9 @@ import { Display } from "./utils";
 
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
-    const user = AsyncStorage.getItem("user");
+    // const user = AsyncStorage.getItem("user");
     setTimeout(() => {
-      if (user) {
-        navigation.navigate("Home");
-      } else {
-        navigation.navigate("Welcome");
-      }
+      navigation.navigate("Welcome");
     }, 1500);
   }, []);
 
