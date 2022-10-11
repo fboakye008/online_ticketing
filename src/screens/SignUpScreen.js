@@ -5,6 +5,7 @@ import Separator from "../components/WelcomeCard/Separator";
 import TextField from "../components/CustomInput/TextInput";
 import SubmitButton from "../components/CustomInput/SubmitButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CreateUser from "../apis/user";
 
 const isValidObjField = (obj) => {
   return Object.values(obj).every((value) => value.trim());
@@ -69,14 +70,21 @@ const SignUpScreen = ({ navigation }) => {
     return true;
   };
 
-  const submitForm = () => {
+  const submitForm = async () => {
     const { phone } = userInfo;
     const otp = Math.floor(1000 + Math.random() * 9000);
     if (isValidForm()) {
-      AsyncStorage.setItem("user", JSON.stringify(userInfo));
-      navigation.navigate("Verification", { phone, otp });
+      let result = await CreateUser(userInfo);
+      console.log(result);
+      if (result?.account_status === 1) {
+        alert("Successfully registered!");
+        navigation.replace("Verification", { phone, otp });
+      } else {
+        alert("Failed to register!", result?.error?.message);
+      }
     }
   };
+
   return (
     <SafeAreaView style={styles.container}>
       {error ? (
