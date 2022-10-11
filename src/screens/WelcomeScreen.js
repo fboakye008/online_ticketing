@@ -17,7 +17,7 @@ const pageStyle = (isActive) =>
     ? styles.page
     : { ...styles.page, backgroundColor: Colors.DEFAULT_GREY };
 
-const Pagination = ({index}) => {
+const Pagination = ({ index }) => {
   return (
     <View style={styles.pageContainer}>
       {[...Array(General.WELCOME_CONTENTS.length).keys()].map((_, i) =>
@@ -74,11 +74,10 @@ const WelcomeScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.gettingStartedButton}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate("Signup")}
+          onPress={() => navigation.replace("Signup")}
         >
           <Text style={styles.gettingStartedButtonText}>Get Started</Text>
         </TouchableOpacity>
-        
       ) : (
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -142,8 +141,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 80,
     height: Display.setHeight(6),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 5,
   },
   gettingStartedButtonText: {

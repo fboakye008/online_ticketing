@@ -15,6 +15,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { Colors, Image } from "../contents";
 import { Display } from "./utils";
 import { useState } from "react";
+import CustomNotification from "./utils/PushNotification";
 
 const { height } = Dimensions.get("window");
 
@@ -47,7 +48,7 @@ const VerificationScreen = ({ navigation, route }) => {
     let otpString = Object.values(otp).toString().split(",").join("");
     if (otpString.length === 4) {
       otpString === String(data?.otp)
-        ? navigation.navigate("Home")
+        ? navigation.replace("Signin") && alert("OTP Verified")
         : alert("Invalid OTP");
     } else {
       alert("Please enter the OTP sent to you");
@@ -64,7 +65,7 @@ const VerificationScreen = ({ navigation, route }) => {
 
         <Text style={styles.content}>
           Enter the OTP number sent to you on
-          <Text style={styles.phoneNumberText}>{data?.phone}</Text>
+          <Text style={styles.phoneNumberText}> {data?.phone}</Text>
         </Text>
         <View style={styles.otpBox}>
           {Otp.map((num, index) => (
@@ -80,9 +81,12 @@ const VerificationScreen = ({ navigation, route }) => {
             />
           ))}
         </View>
-        <TouchableOpacity style={styles.verifyButton} onPress={handleOTP}>
-          <Text style={styles.verifyButtonText}>Verify</Text>
-        </TouchableOpacity>
+        <CustomNotification
+          textStyle={styles.verifyButtonText}
+          touchStyle={styles.verifyButton}
+          otpString={Object.values(otp).toString().split(",").join("")}
+          otp={data?.otp}
+        />
         <View>
           <Text
             style={{
