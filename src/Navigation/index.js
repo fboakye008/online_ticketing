@@ -61,14 +61,14 @@ const BottomTabNavigator = () => {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: false,
-      }}
-      tabBarOptions={{
         activeTintColor: Colors.DEFAULT_BLACK,
         inactiveTintColor: Colors.DEFAULT_GREY,
+        tabBarActiveTintColor: Colors.DEFAULT_BLACK,
+        tabBarInactiveTintColor: Colors.DEFAULT_GREY,
       }}
     >
       <BottomTab.Screen
-        name="Home"
+        name="HomeTab"
         component={HomeStackNavigator}
         options={{
           tabBarLabel: "Home",
