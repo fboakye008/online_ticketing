@@ -1,11 +1,19 @@
 import React, { useLayoutEffect, useState } from "react";
-import { View, Text, StatusBar, StyleSheet, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { Colors } from "../contents";
 import Separator from "../components/WelcomeCard/Separator";
 import TextField from "../components/CustomInput/TextInput";
 import SubmitButton from "../components/CustomInput/SubmitButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CreateUser from "../apis/user";
+import LoadingScreen from "./utils/LoadingScreen";
 
 const isValidObjField = (obj) => {
   return Object.values(obj).every((value) => value.trim());
@@ -29,6 +37,7 @@ const isValidPhone = (value) => {
   return regx.test(value);
 };
 const SignUpScreen = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isPasswordShow, setPasswordShow] = useState(false);
   const [isConfirmPasswordShow, setConfirmPasswordShow] = useState(false);
@@ -74,9 +83,11 @@ const SignUpScreen = ({ navigation }) => {
     const { phone } = userInfo;
     const otp = Math.floor(1000 + Math.random() * 9000);
     if (isValidForm()) {
+      setLoading(true);
       let result = await CreateUser(userInfo);
       console.log(result);
       if (result?.account_status === 1) {
+        setLoading(false);
         alert("Successfully registered!");
         navigation.replace("Verification", { phone, otp });
       } else {
@@ -92,7 +103,11 @@ const SignUpScreen = ({ navigation }) => {
           {error}
         </Text>
       ) : null}
-      <View style={styles.contentContainer}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        style={styles.contentContainer}
+      >
         <Separator height={5} />
         <Text style={styles.headerTitle}>Create Account</Text>
         <Text style={styles.content}>
@@ -184,7 +199,8 @@ const SignUpScreen = ({ navigation }) => {
             </Text>
           </Text>
         </View>
-      </View>
+      </ScrollView>
+      {loading && <LoadingScreen />}
     </SafeAreaView>
   );
 };
