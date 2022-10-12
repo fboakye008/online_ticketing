@@ -44,9 +44,12 @@ export default function CustomNotification(props) {
 
   const handleOTP = async () => {
     if (props.otpString.length === 4) {
-      props.otpString === String(props.otp)
-        ? (await schedulePushNotification()) && navigation.replace("Signin")
-        : alert("Invalid OTP");
+      if (props.otpString === String(props.otp)) {
+        await schedulePushNotification();
+        return navigation.navigate("Signin");
+      } else {
+        alert("Invalid OTP");
+      }
     } else {
       alert("Please enter the OTP sent to you");
     }
