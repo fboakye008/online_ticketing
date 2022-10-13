@@ -69,7 +69,7 @@ const SignUpScreen = ({ navigation }) => {
       return updateError("Enter a valid email!", setError);
     // Phone number must have 9 digits
     if (!isValidPhone(phone))
-      return updateError("Phone number must have 9 digits!", setError);
+      return updateError("Phone number must have 10 digits!", setError);
     // password must have 8 or more characters
     if (!password.trim() || password.length < 8)
       return updateError("Password is less than 8 characters!", setError);
@@ -134,7 +134,7 @@ const SignUpScreen = ({ navigation }) => {
           value={phone}
           onChangeText={(value) => handleOnChangeText(value, "phone")}
           label={`Phone Number`}
-          placeholder={`Enter your Phone Number`}
+          placeholder={`Phone Number must be 10 digits`}
           icon={`phone`}
           selectionColor={Colors.DEFAULT_GREEN}
           keyboardType="number-pad"
@@ -147,7 +147,7 @@ const SignUpScreen = ({ navigation }) => {
           secureTextEntry={isPasswordShow ? false : true}
           label={`Password`}
           name="password"
-          placeholder={`Password`}
+          placeholder={`Password must be at least characters`}
           icon={`lock`}
           isPasswordShow={isPasswordShow}
           isPassword={true}
@@ -159,7 +159,7 @@ const SignUpScreen = ({ navigation }) => {
           autoCapitalize="none"
           name="password"
           label={`Password`}
-          placeholder={`Password`}
+          placeholder={`Password must be at least characters`}
           icon={`lock`}
           secureTextEntry={isConfirmPasswordShow ? false : true}
           isPasswordShow={isConfirmPasswordShow}
