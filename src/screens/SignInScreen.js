@@ -1,4 +1,4 @@
-import React,{useState}  from 'react';
+import React,{useEffect, useState}  from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,6 +9,7 @@ import { Display } from './utils';
 import LoginUser from "../apis/login";
 import LoadingScreen from "./utils/LoadingScreen";
 import SubmitButton from '../components/CustomInput/SubmitButton';
+import { AsyncStorage } from 'react-native';
 
 const isValidObjField = (obj) => {
   return Object.values(obj).every((value) => value.trim());
@@ -29,6 +30,17 @@ const isValidPhone = (value) => {
 
 const SignInScreen = ({navigation}) => {
 const [loading, setLoading] = useState(false);
+useEffect(() => {
+  async function removeUser() {
+  try{
+    await AsyncStorage.removeItem("user")
+  }catch(e){
+    
+  }
+   
+  }
+  removeUser();
+}, []);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isPasswordShow, setPasswordShow] = useState(false);
  
@@ -63,10 +75,12 @@ const [loading, setLoading] = useState(false);
   const submitForm = async () => {
     if (isValidForm()) {
       setLoading(true);
-      let result = await LoginUser(userInfo);
-      console.log(result);
-      if (result) {
+      let user = await LoginUser(userInfo);
+      if (user && user.phone) {
         setLoading(false);
+        const payload = {phone : user.phone, full_name: user.full_name, api_key: user.api_key};
+        await AsyncStorage.setItem("user",JSON.stringify(payload))
+        
         console.log("successfully sign in");
         navigation.replace("Home");
       } 
