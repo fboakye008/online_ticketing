@@ -6,56 +6,132 @@ import Feather from 'react-native-vector-icons/Feather'
 import {Colors, image as MyImage} from '../contents';
 import TextField from '../components/CustomInput/TextInput';
 import { Display } from './utils';
+import LoginUser from "../apis/login";
+import LoadingScreen from "./utils/LoadingScreen";
 import SubmitButton from '../components/CustomInput/SubmitButton';
 
+const isValidObjField = (obj) => {
+  return Object.values(obj).every((value) => value.trim());
+};
+
+const updateError = (error, stateUpdater) => {
+  stateUpdater(error);
+  setTimeout(() => {
+    stateUpdater("");
+  }, 2500);
+};
+
+const isValidPhone = (value) => {
+  const regx =
+    /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+  return regx.test(value);
+};
 
 const SignInScreen = ({navigation}) => {
-  const [fullName, onChangeFullName] = React.useState("");
-const [isPasswordShow, setPasswordShow] = useState(false);
+const [loading, setLoading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [isPasswordShow, setPasswordShow] = useState(false);
+ 
+  const [userInfo, setUserInfo] = useState({
+    
+    phone: "",
+    password: "",
+    
+  });
+
+  const [error, setError] = useState("");
+
+  const { phone, password } = userInfo;
+
+  const handleOnChangeText = (value, fieldName) => {
+    setUserInfo({ ...userInfo, [fieldName]: value });
+  };
+
+  const isValidForm = () => {
+    //We will accept only if all of the fielsa have value
+    if (!isValidObjField(userInfo))
+      return updateError("Required all fields!", setError);
+    // Phone number must have 9 digits
+    if (!isValidPhone(phone))
+      return updateError("Phone number is required and must be 10 digits!", setError);
+    // password must have 8 or more characters
+    if (!password.trim())
+      return updateError("Password is required!", setError);
+    return true;
+  };
+
+  const submitForm = async () => {
+    if (isValidForm()) {
+      setLoading(true);
+      let result = await LoginUser(userInfo);
+      console.log(result);
+      if (result) {
+        setLoading(false);
+        console.log("successfully sign in");
+        navigation.replace("Home");
+      } 
+      else {
+        setLoading(false);
+        return updateError("Password/phone number does not exist!", setError);
+      }
+    }
+  };
+
 
   return (
     
     <SafeAreaView style={styles.container}>
+    {error ? (
+        <Text style={{ color: Colors.Red, fontSize: 12, textAlign: "center" }}>
+          {error}
+        </Text>
+      ) : null}
     <View style={styles.contentContainer}>
     <Separator height={10} />
       <Text style={styles.headerTitle}>Welcome!</Text>
       <Text style={styles.content}>
       Enter your Username and password, and enjoy your trip!
       </Text>
-      <TextField 
-      value = {fullName} 
-      onChangeText={(value) => handleOnChangeText(value, 'fullName')}  
-      label={`Full Name`} 
-      placeholder={`Full Name`} 
-      icon={`user`} 
-      autoCapitalize='none'
- 
-      />
       <TextField
-        name="password"
-        label={`Password`} 
-        placeholder={`Password`}
-        icon={`lock`}
-        secureTextEntry={isPasswordShow ? false : true}
-        isPasswordShow={isPasswordShow}
-        isPassword={true}
-        setPasswordShow={setPasswordShow}
-      />
+          value={phone}
+          onChangeText={(value) => handleOnChangeText(value, "phone")}
+          label={`Phone Number`}
+          placeholder={`Enter 10 digit Phone Number`}
+          icon={`phone`}
+          selectionColor={Colors.DEFAULT_GREEN}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+        />
+        <TextField
+          value={password}
+          onChangeText={(value) => handleOnChangeText(value, "password")}
+          autoCapitalize="none"
+          secureTextEntry={isPasswordShow ? false : true}
+          label={`Password`}
+          name="password"
+          placeholder={`Enter Password`}
+          icon={`lock`}
+          isPasswordShow={isPasswordShow}
+          isPassword={true}
+          setPasswordShow={setPasswordShow}
+        />
     <Text></Text>
     <View style={styles.forgotPasswordContainer}>
       <Text style={styles.forgotPasswordText} onPress={() => navigation.navigate('ForgotPassword')}>Forgot Password</Text>
     </View>
-    <SubmitButton   onPress={() => navigation.navigate('Home')}title='Sign In'/>
-    {/* <TouchableOpacity style={styles.signinButton}>
-      <Text style={styles.signinButtonText} onPress={() => navigation.navigate('Home')}>Sign In</Text>
-    </TouchableOpacity> */}
-
+    
+    <SubmitButton
+          // onPress={() => navigation.navigate('RegisterPhone')}
+          onPress={submitForm}
+          title="Sign In"
+        />
     <View style={styles.signupContainer}>
       <Text style={styles.accountText}>Don't have an account?</Text>
       <Text style={styles.signupText} onPress={() => navigation.navigate('Signup')}>Sign Up</Text>
     </View>
     <Text style={styles.orText}>OR</Text>
-    <TouchableOpacity style={styles.facebookButton}>
+
+    <TouchableOpacity style={styles.facebookButton} disabled={true}>
       <View style={styles.socialButtonContainer}>
         <View style={styles.signinButtonLogo}>
           <Image source={MyImage.facebook} style={styles.signinButtonLogo}/>
@@ -63,7 +139,7 @@ const [isPasswordShow, setPasswordShow] = useState(false);
         <Text style={styles.socialSigninButtonText}>Connect with Facebook</Text>
       </View>
     </TouchableOpacity>
-    <TouchableOpacity style={styles.googleButton}>
+    <TouchableOpacity style={styles.googleButton} disabled={true}>
       <View style={styles.socialButtonContainer}>
         <View style={styles.signinButtonLogo}>
           <Image source={MyImage.google} style={styles.signinButtonLogo}/>
@@ -72,6 +148,7 @@ const [isPasswordShow, setPasswordShow] = useState(false);
       </View>
     </TouchableOpacity>
     </View>
+    {loading && <LoadingScreen />}
   </SafeAreaView>
   );
 };

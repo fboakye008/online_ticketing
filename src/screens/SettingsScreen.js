@@ -17,16 +17,16 @@ const items = [
     icon: "help-circle",
     path: "Help",
   },
-  {
-    id: 2,
-    label: "Wallet",
-    icon: "ios-wallet",
-    path: "Wallet",
-  },
+  // {
+  //   id: 2,
+  //   label: "Wallet",
+  //   icon: "ios-wallet",
+  //   path: "Wallet",
+  // },
   {
     id: 3,
     label: "Trips",
-    icon: "car",
+    icon: "bus",
     path: "Trips",
   },
 ];
@@ -35,26 +35,26 @@ const options = [
   {
     id: 1,
     label: "Messages",
-    icon: "help-circle",
+    icon: "infocirlce",
     path: "Messages",
   },
   {
     id: 2,
     label: "Settings",
-    icon: "ios-wallet",
+    icon: "setting",
     path: "Settings",
   },
   {
     id: 3,
     label: "Legal",
-    icon: "car",
+    icon: "exclamationcircle",
     path: "Legal",
   },
   {
-    id: 4,
-    label: "Admin",
-    icon: "car",
-    path: "Admin",
+    id: 3,
+    label: "Logout",
+    icon: "logout",
+    path: "Logout",
   },
 ];
 

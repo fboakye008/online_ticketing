@@ -1,17 +1,85 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { View, Text, StyleSheet,ScrollView,SafeAreaView, StatusBar, TouchableOpacity, TextInput} from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import SubmitButton from '../components/CustomInput/SubmitButton';
 import TextField from '../components/CustomInput/TextInput';
 import {Colors} from '../contents';
 import { Display } from './utils';
+import ResetUser from "../apis/reset";
+import LoadingScreen from "./utils/LoadingScreen";
 
+
+
+const isValidObjField = (obj) => {
+  return Object.values(obj).every((value) => value.trim());
+};
+
+const updateError = (error, stateUpdater) => {
+  stateUpdater(error);
+  setTimeout(() => {
+    stateUpdater("");
+  }, 2500);
+};
+
+const isValidEmail = (value) => {
+  const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  return regx.test(value);
+};
 
 
 const ForgotPasswordScreen = ({navigation}) => {
+
+  const [loading, setLoading] = useState(false);
+ 
+  const [userInfo, setUserInfo] = useState({
+    email: ""
+  });
+
+  const [error, setError] = useState("");
+
+  const { email } = userInfo;
+
+  const handleOnChangeText = (value, fieldName) => {
+    setUserInfo({ ...userInfo, [fieldName]: value });
+  };
+
+  const isValidForm = () => {
+    //We will accept only if all of the fields have value
+    if (!isValidObjField(userInfo))
+      return updateError("Field isRequired!", setError);
+
+      if (!isValidEmail(email))
+      return updateError("Enter a valid email!", setError);
+   
+  };
+  
+  const submitForm = async () => {
+    const { email } = userInfo;
+    const otp = Math.floor(1000 + Math.random() * 9000);
+    if (isValidForm()) {
+      setLoading(true);
+      let result = await ResetUser(userInfo);
+      console.log(result);
+      if (result?.account_status === 1) {
+        setLoading(false);
+        // alert("Received otp code in your email!");
+        console.log("email sent")
+        navigation.replace("Verification", { email, otp });
+      } else {
+        alert("Otp code has been sent to your mail!", result?.error?.message);
+      }
+    }
+  };
+
+
   return (
     
     <SafeAreaView style={styles.container}>
+    {error ? (
+        <Text style={{ color: Colors.Red, fontSize: 12, textAlign: "center" }}>
+          {error}
+        </Text>
+      ) : null}
     <View style={styles.contentContainer}>
     <Separator height={10} />
       <Text style={styles.headerTitle}>Forgot Password</Text>
@@ -19,8 +87,8 @@ const ForgotPasswordScreen = ({navigation}) => {
       Enter your email to help you recover your password
       </Text>
       <TextField 
-      // value = {fullName} 
-      // onChangeText={(value) => handleOnChangeText(value, 'fullName')}  
+      value={email}
+      onChangeText={(value) => handleOnChangeText(value, "email")}
       label={`Email`} 
       placeholder={`Example@gmail.com`} 
       icon={`mail`} 
@@ -28,11 +96,14 @@ const ForgotPasswordScreen = ({navigation}) => {
  
       />
       <Separator height={10} />
-    <SubmitButton onPress={() => navigation.navigate('Home')} title='Reset Paasword'/>
-    {/* <TouchableOpacity style={styles.signinButton}>
-      <Text style={styles.signinButtonText} onPress={() => navigation.navigate('Home')}>Sign In</Text>
-    </TouchableOpacity> */}
+      <SubmitButton
+          // onPress={() => navigation.navigate('RegisterPhone')}
+          onPress={submitForm}
+          title="Reset Password"
+        />
+    
    </View>
+   {loading && <LoadingScreen />}
   </SafeAreaView>
   );
 };
