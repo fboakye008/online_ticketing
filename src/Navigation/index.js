@@ -7,6 +7,7 @@ import {
   SignInScreen,
   SignUpScreen,
   ForgotPasswordScreen,
+  ResetPassword,
   RegisterPhoneNumberScreen,
   VerificationScreen,
   HomeScreen,
@@ -48,7 +49,7 @@ const AccountStackNavigator = () => {
     >
       <AccountStack.Screen name="Account" component={AccountScreen} />
       <AccountStack.Screen name="Help" component={Help} />
-      <AccountStack.Screen name="Wallet" component={Wallet} />
+      {/* <AccountStack.Screen name="Wallet" component={Wallet} /> */}
       <AccountStack.Screen name="Trips" component={Trips} />
     </AccountStack.Navigator>
   );
@@ -113,6 +114,7 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Signin" component={SignInScreen} />
       <Stack.Screen name="Signup" component={SignUpScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      <Stack.Screen name="ResetPassword" component={ResetPassword} />
       {/* <Stack.Screen
         name="RegisterPhone"
         component={RegisterPhoneNumberScreen}

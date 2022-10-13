@@ -3,6 +3,7 @@ import WelcomeScreen from "./WelcomeScreen";
 import SignInScreen from "./SignInScreen";
 import SignUpScreen from "./SignUpScreen";
 import ForgotPasswordScreen from "./ForgotPasswordScreen";
+import ResetPassword from "./ResetPassword";
 import RegisterPhoneNumberScreen from "./RegisterPhoneNumber";
 import VerificationScreen from "./VerificationScreen";
 import BookingScreen from "./BookingScreen";
@@ -19,6 +20,7 @@ export {
   SignInScreen,
   SignUpScreen,
   ForgotPasswordScreen,
+  ResetPassword,
   // RegisterPhoneNumberScreen,
   VerificationScreen,
   BookingScreen,
@@ -26,6 +28,6 @@ export {
   SettingsScreen,
   AccountScreen,
   Help,
-  Wallet,
+  // Wallet,
   Trips,
 };
