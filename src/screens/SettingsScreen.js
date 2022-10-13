@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -5,10 +6,11 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../contents";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const items = [
   {
@@ -17,12 +19,12 @@ const items = [
     icon: "help-circle",
     path: "Help",
   },
-  // {
-  //   id: 2,
-  //   label: "Wallet",
-  //   icon: "ios-wallet",
-  //   path: "Wallet",
-  // },
+  {
+    id: 2,
+    label: "Wallet",
+    icon: "ios-wallet",
+    path: "Wallet",
+  },
   {
     id: 3,
     label: "Trips",
@@ -35,35 +37,52 @@ const options = [
   {
     id: 1,
     label: "Messages",
-    icon: "infocirlce",
+    icon: "information-circle-sharp",
     path: "Messages",
   },
   {
     id: 2,
     label: "Settings",
-    icon: "setting",
+    icon: "settings",
     path: "Settings",
   },
   {
     id: 3,
     label: "Legal",
-    icon: "exclamationcircle",
+    icon: "hand-left-sharp",
     path: "Legal",
   },
   {
-    id: 3,
+    id: 4,
     label: "Logout",
-    icon: "logout",
-    path: "Logout",
+    icon: "log-out",
+    path: "Signin",
   },
 ];
 
 const AccountScreen = () => {
   const navigation = useNavigation();
+  const [userInfo, setUserInfo] = useState({
+    fullName: "",
+    phone: "",
+    apiKey: "",
+  });
+  const { fullName,phone,apiKey } = userInfo;
+
+  useEffect(() => {
+    async function retrieveUser() {
+      const y= await AsyncStorage.getItem("user")
+      const user = JSON.parse(y)
+      setUserInfo({ ...userInfo, ["fullName"]: user.full_name });
+      setUserInfo({ ...userInfo, ["phone"]: user.phone });
+      setUserInfo({ ...userInfo, ["apiKey"]: user.api_key });
+    }
+    retrieveUser();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userContainer}>
-        <Text style={styles.username}>Frank Boakye</Text>
+        <Text style={styles.username}>{userInfo.fullName}</Text>
         <Ionicons name="person-circle" size={34} color={Colors.DEFAULT_GREY} />
       </View>
       <View style={styles.itemsWrapper}>
@@ -110,7 +129,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   username: {
-    fontSize: 20,
+    fontSize: 50,
     fontWeight: "bold",
   },
   itemsWrapper: {
