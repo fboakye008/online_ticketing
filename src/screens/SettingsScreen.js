@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../contents";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const items = [
   {
@@ -74,10 +74,10 @@ const AccountScreen = () => {
       const y= await AsyncStorage.getItem("user")
       const user = JSON.parse(y)
       setUserInfo({ ...userInfo, ["fullName"]: user.full_name });
-      setUserInfo({ ...userInfo, ["phone"]: user.phone });
-      setUserInfo({ ...userInfo, ["apiKey"]: user.api_key });
+      //setUserInfo({ ...userInfo, ["phone"]: user.phone });
+     // setUserInfo({ ...userInfo, ["apiKey"]: user.api_key });
     }
-    retrieveUser();
+    retrieveUser().catch(console.error);
   }, []);
   return (
     <SafeAreaView style={styles.container}>
