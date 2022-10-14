@@ -1,5 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,10 +14,29 @@ import {
 import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import { Colors } from "../contents";
-
+import moment from 'moment';
+import { CreateBooking, RequestRoutes } from "../apis/booking";
 const { height, width } = Dimensions.get("window");
 
 const Bookings = ({ navigation }) => {
+  const [data, setData] = useState({
+    today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
+    routes: null,
+  });
+
+  useEffect(() => {
+    async function populateData() {
+      const routes = await RequestRoutes();
+      console.log(routes);
+      setData({
+        today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
+        routes: routes,
+      });
+
+      //Do other things here
+    }
+    populateData().catch();
+  }, []);
   return (
     <SafeAreaView style={styles.wrapper}>
       <TouchableOpacity
@@ -31,13 +51,13 @@ const Bookings = ({ navigation }) => {
           style={styles.input}
           editable={false}
           placeholderTextColor={"black"}
-          placeholder="30th September, 2022"
+          placeholder={data.today}
           label="Date"
         />
-        <BookingTextField placeholder={"8:00 am"} label="Time" />
         <BookingTextField placeholder={"Kumasi - Accra"} label="Route" />
-        <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
 
+        <BookingTextField placeholder={"8:00 am"} label="Time" />
+        <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
         <BookingTextField numOfPassenger={true} label="Number of passengers" />
         <ReadOnlyField
           style={styles.input}
