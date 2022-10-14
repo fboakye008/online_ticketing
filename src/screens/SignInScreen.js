@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather'
 import {Colors, image as MyImage} from '../contents';
 import TextField from '../components/CustomInput/TextInput';
 import {Display} from './utils';
