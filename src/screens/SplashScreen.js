@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, StatusBar, Image } from "react-native";
 import { Colors, image } from "../contents";
@@ -7,7 +6,6 @@ import { Display } from "./utils";
 
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
-    // const user = AsyncStorage.getItem("user");
     setTimeout(() => {
       navigation.replace("Welcome");
     }, 1500);
