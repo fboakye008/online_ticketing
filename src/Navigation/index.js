@@ -23,6 +23,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {Colors} from "../contents";
 import PaymentScreen from "../screens/PaymentScreen";
+import { PaymentMessage } from "../screens";
 import {Text} from "react-native";
 
 const HomeStack = createNativeStackNavigator();
@@ -39,6 +40,7 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="Route" component={RouteScreen}/>
             <HomeStack.Screen name="BusStopTime" component={BusStopTimeScreen}/>
             <HomeStack.Screen name="Payment" component={PaymentScreen}/>
+            <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
         </HomeStack.Navigator>
     );
 };

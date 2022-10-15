@@ -9,6 +9,7 @@ import VerificationScreen from "./VerificationScreen";
 import BookingScreen from "./BookingScreen";
 import RouteScreen from "./RouteScreen";
 import BusStopTimeScreen from "./BusStopTimeScreen";
+import PaymentMessage from "./PaymentMessage";
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import AccountScreen from "./SettingsScreen";
@@ -28,6 +29,7 @@ export {
     BookingScreen,
     RouteScreen,
     BusStopTimeScreen,
+    PaymentMessage,
     HomeScreen,
     SettingsScreen,
     AccountScreen,

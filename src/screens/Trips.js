@@ -1,12 +1,45 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Colors } from "../contents";
 
-const Trips = () => {
+const Trips = ({ navigation }) => {
   return (
-    <View>
+    <SafeAreaView>
+     <TouchableOpacity
+        style={styles.arrowContainer}
+        onPress={() => navigation.goBack()}
+      >
+        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+      </TouchableOpacity>
+      <View>
       <Text>Trips</Text>
     </View>
+    </SafeAreaView>
+    
   );
 };
 
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
+  arrowContainer: {
+    height: 40,
+    width: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.SECONDARY_WHITE,
+    borderRadius: 10,
+    marginLeft: 10,
+    shadowColor: Colors.DEFAULT_BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.121,
+    shadowRadius: 9.11,
+    elevation: 5,
+  },
+})
 export default Trips;
