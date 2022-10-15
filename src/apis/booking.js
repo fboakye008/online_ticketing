@@ -25,7 +25,6 @@ function RequestRoutes() {
 
 function CreateBooking(bookingInfo) {
     const booking = {
-        passengerId: bookingInfo?.passengerId,
         bus_stopId: bookingInfo?.bus_stopId,
         bus_scheduleId: bookingInfo?.bus_scheduleId,
         number_of_seats: bookingInfo?.number_of_seats,
@@ -33,10 +32,12 @@ function CreateBooking(bookingInfo) {
     };
     const fetchAPI = async () => {
         try {
+            const api_key = "xxxxxxxxx1";
             const response = await fetch(`${API_URL}/bookings`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "api_key" : api_key
                 },
                 body: JSON.stringify(booking),
             });
