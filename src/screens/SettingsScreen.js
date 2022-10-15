@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../contents";
 import { useNavigation } from "@react-navigation/native";
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const items = [
