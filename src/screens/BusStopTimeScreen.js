@@ -12,38 +12,70 @@ import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import { Colors } from "../contents";
 import moment from 'moment';
-import { RequestRoutes } from "../apis/routes";
 import _ from "underscore";
 const { height, width } = Dimensions.get("window");
-
-const Routes = ({ navigation }) => {
+//routes: data.routes, selectedRoute: selectedRoute
+const BusStopTimeScreen = ({ navigation,route }) => {
+  const selectedRouteId = route.params.selectedRoute;
+  const alRoutes = route.params.routes
   const [data, setData] = useState({
     today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
     routes: [],
   });
 
+  const FARE = 100;
   const [selectedRoute, setSelectedRoute] = useState();
-  const sendDataToParent = (index) => {
-    console.log("Selected Item",index);
-    setSelectedRoute(index.value);
-  };
-  const uniquify =  function (objArray) {
-    let result = objArray.map(a => ({"value":a.route_id, "label": a.route}));
-    return _.uniq(result, function (x) {
-      return x["value"];
-    });
-  }
-  useEffect(() => {
-    async function populateData() {
-      const routes = await RequestRoutes();
-      const uniqueRoutes = uniquify(routes);
-      setData({
-        today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
-        routes: routes,
-        uniqueRoutes: uniqueRoutes
+  const [amount, setAmount] = useState(0);
+  const [busStop, setBusStop] = useState("");
+  const [busStops, setBusStops] = useState([]);
+  const [time, setTime] = useState("");
+  const [times, setTimes] = useState([]);
+  const [numPassengers, setNumPassengers] = useState(1);
+
+  const extractBusStops =  function (objArray,route_id) {
+    const bus_stops = _.where(objArray,{route_id: route_id});
+    if(bus_stops && bus_stops.length > 0) {
+      let result = objArray.map(a => ({"value": a.bus_stop_id, "label": a.bus_stop,"order": a.bus_stop_order}));
+      const bustops = _.uniq(result, function (x) {
+        return x["value"];
       });
+      return _.sortBy(bustops, 'order');
     }
-    populateData().catch();
+    return [];
+  };
+
+  const extractTimes =  function (objArray,route_id) {
+    const bus_stops = _.where(objArray,{route_id: route_id});
+    if(bus_stops && bus_stops.length > 0) {
+      const moment = require("moment");
+      let result = objArray.map(a => ({"value": a.departure_time, "label": moment(a.departure_time).format("hh:mm A"),"order": a.departure_time}));
+      const times = _.uniq(result, function (x) {
+        return x["label"];
+      });
+      return _.sortBy(times, 'order');
+    }
+    return [];
+  }
+  const sendDataToBusStopTime = (index) => {
+    if(index.route){
+      setSelectedRoute(route);
+    }
+    if(index.busStop){
+      setBusStop(index.busStop);
+    }
+    if(index.time){
+      setTime(index.time);
+    }
+    if(index.numOfPassengers){
+      setNumPassengers(parseInt(index.numOfPassengers) );
+      setAmount(parseInt(index.numOfPassengers) * FARE);
+    }
+  };
+  useEffect(() => {
+    const busStops = extractBusStops(alRoutes,selectedRouteId);
+    setBusStops(busStops);
+    const times = extractTimes(alRoutes,selectedRouteId);
+    setTimes(times);
   }, []);
   return (
       <SafeAreaView style={styles.wrapper}>
@@ -60,12 +92,21 @@ const Routes = ({ navigation }) => {
               placeholder={data.today}
               label="Date"
           />
-          <BookingTextField label="Route" placeholder="Route" data={data.uniqueRoutes} sendDataToParent={sendDataToParent}/>
+          <BookingTextField placeholder="Bus Stop" data={busStops} sendDataToParent={sendDataToBusStopTime} label="Bus Stop"/>
+          <BookingTextField placeholder="Time" data={times} sendDataToParent={sendDataToBusStopTime} label="Time"/>
+          <BookingTextField numOfPassenger={true} label="Number of passengers" sendDataToParent={sendDataToBusStopTime}/>
+          <ReadOnlyField
+              style={styles.input}
+              editable={false}
+              placeholderTextColor={"black"}
+              placeholder={amount}
+              label="Total Amount"
+          />
           <TouchableOpacity
               style={styles.btn}
               onPress={() =>
-                  navigation.navigate('BusStopTime', {
-                    routes: data.routes, selectedRoute: selectedRoute
+                  navigation.navigate('BusStops', {
+                    routes: data.routes,route_id: route_id
                   })
               }
           >
@@ -153,5 +194,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Routes;
+export default BusStopTimeScreen;
 
