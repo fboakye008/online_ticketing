@@ -92,7 +92,9 @@ const PaymentScreen = ({navigation, route}) => {
                     </View>
                     <TouchableOpacity
                         style={styles.btn}
-                        onPress={submitForm}
+                        onPress={() => navigation.navigate("PaymentMessage")}
+                        // onPress={submitForm}
+                        // onPress=navigation
                     >
                         <Text style={styles.btnText}>Pay</Text>
                     </TouchableOpacity>
