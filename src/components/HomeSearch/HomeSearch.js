@@ -24,7 +24,7 @@ const HomeSearch = () => {
         <Text style={styles.inputText}>Where To?</Text>
       </TouchableOpacity>
       <View style={styles.tripHistoryWrapper}>
-        {/* <View style={styles.row}>
+        { <View style={styles.row}>
           <View style={styles.iconContainer}>
             <AntDesign
               name="clockcircle"
@@ -33,9 +33,9 @@ const HomeSearch = () => {
             ></AntDesign>
           </View>
           <Text style={styles.destinationText}>Accra-Kumasi</Text>
-        </View> */}
+        </View> }
 
-        {/* <View style={styles.row}>
+        {<View style={styles.row}>
           <View style={styles.iconContainer}>
             <AntDesign
               name="clockcircle"
@@ -44,9 +44,9 @@ const HomeSearch = () => {
             ></AntDesign>
           </View>
           <Text style={styles.destinationText}>Kumasi-Takoradi</Text>
-        </View> */}
+        </View>}
 
-        {/* <View style={styles.row}>
+        {<View style={styles.row}>
           <View style={styles.iconContainer}>
             <AntDesign
               name="clockcircle"
@@ -55,7 +55,7 @@ const HomeSearch = () => {
             ></AntDesign>
           </View>
           <Text style={styles.destinationText}>Cape-Coast-Kumasi</Text>
-        </View> */}
+        </View>}
       </View>
     </View>
   );
