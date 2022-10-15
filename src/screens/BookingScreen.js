@@ -27,7 +27,6 @@ const Bookings = ({ navigation }) => {
   useEffect(() => {
     async function populateData() {
       const routes = await RequestRoutes();
-      console.log(routes);
       setData({
         today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
         routes: routes,
