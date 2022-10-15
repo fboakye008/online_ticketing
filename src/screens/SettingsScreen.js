@@ -21,9 +21,9 @@ const items = [
   },
   {
     id: 2,
-    label: "Wallet",
+    label: "Ticket-Wallet",
     icon: "ios-wallet",
-    path: "Wallet",
+    path: "Tickets",
   },
   {
     id: 3,
@@ -83,7 +83,7 @@ const AccountScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.userContainer}>
         <Text style={styles.username}>{userInfo.fullName}</Text>
-        <Ionicons name="person-circle" size={34} color={Colors.DEFAULT_GREY} />
+        <Ionicons name="person-circle" size={40} color={Colors.DEFAULT_GREY} />
       </View>
       <View style={styles.itemsWrapper}>
         {items?.map((item) => (
