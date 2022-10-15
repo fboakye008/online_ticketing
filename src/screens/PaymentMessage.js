@@ -9,30 +9,29 @@ const PaymentMessage = () => {
     <SafeAreaView style={styles.wrapper}>
      <View style={styles.container}>
       <View style={styles.messageBox}>
-        <Text style={styles.text}>We are waiting for you
-Please follow the instructions below. Only leave this page to authorise the payment in another app or window.
+        <Text style={styles.text}>We are waiting for you .Please follow the instructions below. Only leave this page to authorise the payment in another app or window.
 This may take up to 2 minutes.
 You should receive a prompt on your mobile number to enter your PIN to authorize the payment.
 If you do not receive the prompt within 10 seconds follow the instructions below:</Text>
 
-<Text style={styles.text}>Dial *170# to see the main MTN USSD menu
-If the prompt appears instead, cancel it and dial *170# again</Text>
+<Text style={styles.text}>Dial *170# to see the main MTN USSD menu. If the prompt appears instead, cancel it and dial *170# again</Text>
 <Text>Choose 6) My Wallet</Text>
 <Text>Choose 3) My Approvals</Text>
 
 <Text style={styles.text}>Enter your PIN to proceed</Text>
 <Text style={styles.text}>Look for the transaction and follow the prompts to authorise it.</Text>
-<Text style={styles.text}>Make sure the amount is correct
-You have 5 mins to authorise the transaction so if anything goes wrong, simply dial and try again</Text>
+<Text style={styles.text}>Make sure the amount is correct You have 5 mins to authorise the transaction so if anything goes wrong, simply dial and try again</Text>
 
       </View>
-
-      <TouchableOpacity 
-      style={styles.btn} 
-      onPress={() => navigation.navigate('')}>Submit</TouchableOpacity>
+         <TouchableOpacity
+             style={styles.btn}
+             onPress={() => navigation.navigate("")}
+         >
+             <Text style={styles.btnText}>Submit</Text>
+         </TouchableOpacity>
     </View>
     </SafeAreaView>
-    
+
   )
 }
 
