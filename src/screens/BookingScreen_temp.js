@@ -15,7 +15,8 @@ import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import { Colors } from "../contents";
 import moment from 'moment';
-import { CreateBooking, RequestRoutes } from "../apis/booking";
+import { CreateBooking, RequestRoutes,uniquifyRoute} from "../apis/booking";
+import DropDownPicker from 'react-native-dropdown-picker';
 const { height, width } = Dimensions.get("window");
 
 const Bookings = ({ navigation }) => {
@@ -23,11 +24,15 @@ const Bookings = ({ navigation }) => {
     today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
     routes: null,
   });
-
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([]);
   useEffect(() => {
     async function populateData() {
       const routes = await RequestRoutes();
-      console.log(routes);
+      const items = uniquifyRoute(routes)
+      setItems(items);
+      //"route": "ACCRA-KUMASI", "route_id": 1
       setData({
         today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
         routes: routes,
@@ -37,6 +42,7 @@ const Bookings = ({ navigation }) => {
     }
     populateData().catch();
   }, []);
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <TouchableOpacity
@@ -55,9 +61,45 @@ const Bookings = ({ navigation }) => {
           label="Date"
         />
         <BookingTextField placeholder={"Kumasi - Accra"} label="Route" />
+        <DropDownPicker
+            label = 'Route'
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            onChangeValue={(value) => {
+              console.log(value);
+            }}
+        />
+        <DropDownPicker
+            label = 'Time'
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            onChangeValue={(value) => {
+              console.log(value);
+            }}
+        />
 
-        <BookingTextField placeholder={"8:00 am"} label="Time" />
-        <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
+        <DropDownPicker
+            label='Bus Stop'
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            onChangeValue={(value) => {
+              console.log(value);
+            }}
+        />
+        {/*<BookingTextField placeholder={"8:00 am"} label="Time" />*/}
+        {/*<BookingTextField placeholder={"Ejisu"} label="Bus Stop" />*/}
         <BookingTextField numOfPassenger={true} label="Number of passengers" />
         <ReadOnlyField
           style={styles.input}
@@ -68,11 +110,7 @@ const Bookings = ({ navigation }) => {
         />
         <TouchableOpacity
           style={styles.btn}
-          onPress={() =>
-            navigation.navigate('Payment', {
-            booking: bookingId,amount: amountToPay
-          })
-        }
+          onPress={() => navigation.navigate("Payment")}
         >
           <Text style={styles.btnText}>Submit</Text>
         </TouchableOpacity>

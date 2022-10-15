@@ -56,20 +56,10 @@ const Bookings = ({ navigation }) => {
         />
         <BookingTextField placeholder={"Kumasi - Accra"} label="Route" />
 
-        <BookingTextField placeholder={"8:00 am"} label="Time" />
-        <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
-        <BookingTextField numOfPassenger={true} label="Number of passengers" />
-        <ReadOnlyField
-          style={styles.input}
-          editable={false}
-          placeholderTextColor={"black"}
-          placeholder={"Ghc 150"}
-          label="Total Amount"
-        />
         <TouchableOpacity
           style={styles.btn}
           onPress={() =>
-            navigation.navigate('Payment', {
+            navigation.navigate('NumPassengers', {
             booking: bookingId,amount: amountToPay
           })
         }

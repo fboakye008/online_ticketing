@@ -10,14 +10,50 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import NetworkField from "../components/CustomBookingInput";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Colors } from "../contents";
+import CreateUser from "../apis/user";
 
 const { width } = Dimensions.get("window");
 
 const PaymentScreen = ({ navigation }) => {
+    const [loading, setLoading] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState("MTN");
+    const [amountPaid, setAmountPaid] = useState(null);
+
+    const [paymentInfo, setPaymentInfo] = useState({
+        paymentMethod: "MTN",
+        bookingId: "",
+        amountPaid: "",
+    });
+    const [error, setError] = useState("");
+  const isValidForm = () => {
+
+    if (!paymentMethod.trim() )
+      return updateError("Select payment method!", setError);
+    return true;
+  };
+  const submitForm = async () => {
+    try {
+        if (isValidForm()) {
+            setLoading(true);
+            let result = await CreatePayment(paymentInfo);
+            if (result) {
+                const { ticketId } = result.id;
+                alert("Payment successfully made!");
+                navigation.replace("Ticket", {ticketId});
+            } else {
+                alert("Failed to effect payment!", result?.error?.message);
+            }
+        }
+    }catch(e){
+        alert("Failed to effect payment!", e);
+    }finally{
+        setLoading(false);
+    }
+  };
   return (
     <SafeAreaView>
       <KeyboardAvoidingView
@@ -37,11 +73,21 @@ const PaymentScreen = ({ navigation }) => {
               style={styles.inputField}
               placeholder={"0330126723"}
               keyboardType="numeric"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </View>
+          <View style={{ marginVertical: 20 }}>
+            <Text style={styles.label}>Amount paid:</Text>
+            <TextInput
+                style={styles.inputField}
+                placeholder={amount}
+                keyboardType="numeric"
+                onChange={(e) => setA(e.target.value)}
             />
           </View>
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => navigation.navigate("Payment")}
+            onPress={submitForm}
           >
             <Text style={styles.btnText}>Pay</Text>
           </TouchableOpacity>
