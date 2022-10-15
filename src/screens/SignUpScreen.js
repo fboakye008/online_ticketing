@@ -11,7 +11,6 @@ import { Colors } from "../contents";
 import Separator from "../components/WelcomeCard/Separator";
 import TextField from "../components/CustomInput/TextInput";
 import SubmitButton from "../components/CustomInput/SubmitButton";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import CreateUser from "../apis/user";
 import LoadingScreen from "./utils/LoadingScreen";
 
@@ -85,7 +84,6 @@ const SignUpScreen = ({ navigation }) => {
     if (isValidForm()) {
       setLoading(true);
       let result = await CreateUser(userInfo);
-      console.log(result);
       if (result?.account_status === 1) {
         setLoading(false);
         alert("Successfully registered!");
