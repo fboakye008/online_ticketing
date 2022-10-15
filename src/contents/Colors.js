@@ -35,5 +35,6 @@ export default {
   Donut_Pink: '#FAAFBE',
   Light: '#F3F4FB',
   grey: '#BABBC3',
+  ticketbg: '#CBC9C9'
 
 };
