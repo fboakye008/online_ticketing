@@ -7,6 +7,8 @@ import ResetPassword from "./ResetPassword";
 import RegisterPhoneNumberScreen from "./RegisterPhoneNumber";
 import VerificationScreen from "./VerificationScreen";
 import BookingScreen from "./BookingScreen";
+import RouteScreen from "./RouteScreen";
+import BusStopTimeScreen from "./BusStopTimeScreen";
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import AccountScreen from "./SettingsScreen";
@@ -15,19 +17,21 @@ import Wallet from "./Wallet";
 import Trips from "./Trips";
 
 export {
-  SplashScreen,
-  WelcomeScreen,
-  SignInScreen,
-  SignUpScreen,
-  ForgotPasswordScreen,
-  ResetPassword,
-  // RegisterPhoneNumberScreen,
-  VerificationScreen,
-  BookingScreen,
-  HomeScreen,
-  SettingsScreen,
-  AccountScreen,
-  Help,
-  // Wallet,
-  Trips,
+    SplashScreen,
+    WelcomeScreen,
+    SignInScreen,
+    SignUpScreen,
+    ForgotPasswordScreen,
+    ResetPassword,
+    // RegisterPhoneNumberScreen,
+    VerificationScreen,
+    BookingScreen,
+    RouteScreen,
+    BusStopTimeScreen,
+    HomeScreen,
+    SettingsScreen,
+    AccountScreen,
+    Help,
+    // Wallet,
+    Trips,
 };

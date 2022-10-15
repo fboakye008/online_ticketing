@@ -18,7 +18,7 @@ const HomeSearch = () => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.inputBox}
-        onPress={() => navigation.navigate("Booking")}
+        onPress={() => navigation.navigate("Route")}
       >
         <EvilIcons name="search" size={24} color="black" />
         <Text style={styles.inputText}>Where To?</Text>

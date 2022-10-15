@@ -137,7 +137,9 @@ const SignInScreen = ({navigation}) => {
                 />
                 <View style={styles.signupContainer}>
                     <Text style={styles.accountText}>Don't have an account?</Text>
-                    <Text style={styles.signupText} onPress={() => navigation.navigate('Signup')}>Sign Up</Text>
+                    {/*<Text style={styles.signupText} onPress={() => navigation.navigate('Signup')}>Sign Up</Text>*/}
+
+                    <Text style={styles.signupText} onPress={() => navigation.navigate('Home')}>Sign Up</Text>
                 </View>
                 <Text style={styles.orText}>OR</Text>
 
