@@ -54,22 +54,11 @@ const Bookings = ({ navigation }) => {
           placeholder={data.today}
           label="Date"
         />
-        <BookingTextField placeholder={"Kumasi - Accra"} label="Route" />
-
-        <BookingTextField placeholder={"8:00 am"} label="Time" />
-        <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
-        <BookingTextField numOfPassenger={true} label="Number of passengers" />
-        <ReadOnlyField
-          style={styles.input}
-          editable={false}
-          placeholderTextColor={"black"}
-          placeholder={"Ghc 150"}
-          label="Total Amount"
-        />
+         <BookingTextField placeholder={"Ejisu"} label="Bus Stop" />
         <TouchableOpacity
           style={styles.btn}
           onPress={() =>
-            navigation.navigate('Payment', {
+            navigation.navigate('Time', {
             booking: bookingId,amount: amountToPay
           })
         }
