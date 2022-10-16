@@ -7,6 +7,13 @@ import { Colors } from '../contents';
 const PaymentMessage = () => {
   return (
     <SafeAreaView style={styles.wrapper}>
+    <TouchableOpacity
+                style={styles.arrowContainer}
+                onPress={() => navigation.goBack()}>
+                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+                <Text style={{ justifyContent: "space-between", alignItems: "center", fontSize:10 , fontWeight: 'bold'}}> Message</Text>
+            </TouchableOpacity>
+
      <View style={styles.container}>
       <View style={styles.messageBox}>
         <Text style={styles.text}>We are waiting for you .Please follow the instructions below. Only leave this page to authorise the payment in another app or window.

@@ -50,6 +50,7 @@ const Bookings = ({ navigation }) => {
         onPress={() => navigation.goBack()}
       >
         <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+        <Text style={{ alignContent: 'space-between', fontSize:10 , fontWeight: 'bold'}}> Select Bus Stop Time</Text>
       </TouchableOpacity>
 
       <View style={styles.container}>

@@ -51,15 +51,19 @@ const Routes = ({ navigation }) => {
             style={styles.arrowContainer}
             onPress={() => navigation.goBack()}>
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+          
         </TouchableOpacity>
+        <Text style={styles.text}> Select Your Route</Text>
+        
         <View style={styles.container}>
-          <ReadOnlyField
+        <ReadOnlyField
               style={styles.input}
               editable={false}
               placeholderTextColor={"black"}
               placeholder={data.today}
               label="Date"
           />
+
           <BookingTextField label="Route" placeholder="Route" data={data.uniqueRoutes} sendDataToParent={sendDataToParent}/>
           <TouchableOpacity
               style={styles.btn}
@@ -151,6 +155,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
+  text:{
+       
+    justifyContent: "space-between", 
+    alignItems: "center",
+    fontSize:15 , 
+    fontWeight: "bold",
+    paddingHorizontal: 100,
+},
 });
 
 export default Routes;
