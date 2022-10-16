@@ -15,11 +15,11 @@ import {
     RouteScreen,
     BusStopTimeScreen,
     AccountScreen,
+    TicketScreen,
     Help,
     About,
     Legal,
     Trips,
-    Ticket,
     PaymentMessage,
     Wallet,
 } from "../screens";
@@ -28,7 +28,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {Colors} from "../contents";
 import PaymentScreen from "../screens/PaymentScreen";
 // import { PaymentMessage } from "../screens";
-//import { Ticket } from "../screens";
+//import Ticket from "../screens/Ticket";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -43,7 +43,7 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="Booking" component={BookingScreen}/>
             <HomeStack.Screen name="Route" component={RouteScreen}/>
             <HomeStack.Screen name="BusStopTime" component={BusStopTimeScreen}/>
-            <HomeStack.Screen name="Ticket" component={Ticket}/>
+            <HomeStack.Screen name="TicketScreen" component={TicketScreen}/>
             <HomeStack.Screen name="Payment" component={PaymentScreen}/>
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
         </HomeStack.Navigator>
@@ -62,7 +62,7 @@ const AccountStackNavigator = () => {
             <AccountStack.Screen name="Help" component={Help}/>
             <AccountStack.Screen name="About" component={About}/>
             <AccountStack.Screen name="Legal" component={Legal}/>
-            <AccountStack.Screen name="Wallet" component={Wallet} /> 
+            <AccountStack.Screen name="Wallet" component={Wallet} />
             <AccountStack.Screen name="Trips" component={Trips}/>
         </AccountStack.Navigator>
     );

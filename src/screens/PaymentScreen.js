@@ -16,6 +16,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {Colors} from "../contents";
 import {isValidObjField, updateError} from './utils/validations';
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
+import {CreatePayment} from "../apis/payment";
 
 
 
@@ -42,7 +43,7 @@ const PaymentScreen = ({navigation, route}) => {
                 if (result) {
                     const {ticketId} = result.id;
                     alert("Payment successfully made!");
-                    navigation.replace("Ticket", {ticketId});
+                    navigation.replace("TicketScreen", {ticketId});
                 } else {
                     alert("Failed to effect payment!", result?.error?.message);
                 }

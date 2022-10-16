@@ -13,6 +13,7 @@ import PaymentMessage from "./PaymentMessage";
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import AccountScreen from "./SettingsScreen";
+import TicketScreen from "./TicketScreen";
 import Help from "./Help";
 import About from "./About";
 import Legal from "./Legal"
@@ -31,6 +32,7 @@ export {
     BookingScreen,
     RouteScreen,
     BusStopTimeScreen,
+    TicketScreen,
     PaymentMessage,
     HomeScreen,
     SettingsScreen,
