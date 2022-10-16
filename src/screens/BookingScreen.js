@@ -15,7 +15,7 @@ import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import { Colors } from "../contents";
 import moment from 'moment';
-import { CreateBooking, RequestRoutes } from "../apis/booking";
+import { RequestRoutes } from "../apis/booking";
 const { height, width } = Dimensions.get("window");
 
 const Bookings = ({ navigation }) => {
