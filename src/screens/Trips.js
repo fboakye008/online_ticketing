@@ -5,7 +5,10 @@ import { Colors } from "../contents";
 
 const Trips = ({ navigation }) => {
   return (
-    <SafeAreaView>
+
+
+    
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
      <TouchableOpacity
         style={styles.arrowContainer}
         onPress={() => navigation.goBack()}
@@ -13,9 +16,10 @@ const Trips = ({ navigation }) => {
         <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
       </TouchableOpacity>
       <View>
-      <Text>Trips</Text>
+      <Text style={styles.title}>Trips</Text>
     </View>
     </SafeAreaView>
+     
     
   );
 };
@@ -40,6 +44,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.121,
     shadowRadius: 9.11,
     elevation: 5,
+  },
+  title: {
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+    paddingBottom: 5,
   },
 })
 export default Trips;

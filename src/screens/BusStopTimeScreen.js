@@ -135,7 +135,9 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 style={styles.arrowContainer}
                 onPress={() => navigation.goBack()}>
                 <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+                
             </TouchableOpacity>
+            <Text style={styles.text}> Select Bus Stop Time</Text>
             <View style={styles.container}>
                 <ReadOnlyField
                     style={styles.input}
@@ -242,6 +244,14 @@ const styles = StyleSheet.create({
         color: Colors.SECONDARY_WHITE,
         fontSize: 15,
         fontWeight: "bold",
+    },
+    text:{
+       
+        justifyContent: "space-between", 
+        alignItems: "center",
+        fontSize:15 , 
+        fontWeight: "bold",
+        paddingHorizontal: 100,
     },
 });
 

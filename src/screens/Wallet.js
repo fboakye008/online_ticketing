@@ -11,21 +11,29 @@ import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "../contents";
 import { useNavigation } from "@react-navigation/native";
+import SwitchButton from "../components/CustomSwitch/SwitchButton";
 
 const { width } = Dimensions.get("window");
 
 const Wallet = () => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
       <TouchableOpacity
         style={styles.arrowContainer}
         onPress={() => navigation.goBack()}
       >
         <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+        
       </TouchableOpacity>
       <Text style={styles.title}>Wallet</Text>
-      <TouchableOpacity>
+     
+        <View style={styles.walletContainer}>
+        <SwitchButton />
+        </View>
+     
+      
+      {/* <TouchableOpacity>
         <View style={styles.walletContainer}>
           <Text style={styles.walletText}>VIP Cash</Text>
           <View style={styles.amountArrowWrapper}>
@@ -56,7 +64,7 @@ const Wallet = () => {
         />
         <Text style={styles.mtn}>Cash</Text>
       </TouchableOpacity>
-      <View style={styles.divider} />
+      <View style={styles.divider} /> */}
     </SafeAreaView>
   );
 };
@@ -89,7 +97,7 @@ const styles = StyleSheet.create({
   walletContainer: {
     alignSelf: "center",
     height: 100,
-    width: width - 150,
+    width: width - 20,
     backgroundColor: Colors.SECONDARY_WHITE,
     marginVertical: 20,
     paddingHorizontal: 10,
