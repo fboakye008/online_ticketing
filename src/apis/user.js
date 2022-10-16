@@ -1,6 +1,5 @@
-import { API_URL } from "@env";
-import { generateToken } from "../helpers/tokenGenerator";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import utils from './utils'
 
 function CreateUser(userInfo) {
   const user = {
@@ -12,24 +11,16 @@ function CreateUser(userInfo) {
       Math.floor(1000 + Math.random() * 9000),
     password: userInfo?.password,
     account_status: 1,
-    api_key: generateToken(),
   };
   const fetchAPI = async () => {
-    try {
-      const response = await fetch(`${API_URL}/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      let data = await response.json();
-      return data;
-    } catch (error) {
-      console.log(error);
+    const options = {
+      url : "users",
+      method : "POST",
+      no_key : "no_key",
+      body: user
     }
+    return await utils.makeAPIRequest(options);
   };
-
   return fetchAPI();
 }
 
