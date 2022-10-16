@@ -14,7 +14,8 @@ import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import AccountScreen from "./SettingsScreen";
 import Help from "./Help";
-import Ticket from "./Ticket";
+import About from "./About";
+import Legal from "./Legal"
 import Wallet from "./Wallet";
 import Trips from "./Trips";
 
@@ -34,8 +35,9 @@ export {
     HomeScreen,
     SettingsScreen,
     AccountScreen,
-    Ticket,
     Help,
-    // Wallet,
+    About,
+    Legal,
+    Wallet,
     Trips,
 };

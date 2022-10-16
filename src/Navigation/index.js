@@ -16,6 +16,8 @@ import {
     BusStopTimeScreen,
     AccountScreen,
     Help,
+    About,
+    Legal,
     Trips,
     Ticket,
     PaymentMessage,
@@ -58,7 +60,9 @@ const AccountStackNavigator = () => {
         >
             <AccountStack.Screen name="Account" component={AccountScreen}/>
             <AccountStack.Screen name="Help" component={Help}/>
-            {/* <AccountStack.Screen name="Wallet" component={Wallet} /> */}
+            <AccountStack.Screen name="About" component={About}/>
+            <AccountStack.Screen name="Legal" component={Legal}/>
+            <AccountStack.Screen name="Wallet" component={Wallet} /> 
             <AccountStack.Screen name="Trips" component={Trips}/>
         </AccountStack.Navigator>
     );
