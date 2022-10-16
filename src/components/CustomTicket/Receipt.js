@@ -1,22 +1,16 @@
-import { View, Text , StyleSheet, ScrollView} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native'
 import React from 'react'
-import { Colors } from '../contents';
+import { Colors } from '../../contents';
 import QRCode from "react-native-qrcode-svg";
 
-const TicketContainer = () => {
-  return (
-    <SafeAreaView style={styles.container}>
 
-    <ScrollView>
-    <TouchableOpacity
-        style={styles.arrowContainer}
-        onPress={() => navigation.goBack()}
-      >
-        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-      </TouchableOpacity>
+
+const TicketContainer = ({ticketInfo}) => {
+  return (
         <View style = {styles.T_container}>
             <Text style={styles.title}>VIP Bus Ticket</Text>
             <Text style={styles.text}>Route : {ticketInfo.route}</Text>
+            <Text style={styles.text}>Bus Stop : {ticketInfo.bus_stop}</Text>
             <Text style={styles.text}>Departure Time : {ticketInfo.departure_time}</Text>
             <Text style={styles.text}>Fare : {ticketInfo.fare}</Text>
             <Text style={styles.text}>Bus no : {ticketInfo.bus_no}</Text>
@@ -28,20 +22,12 @@ const TicketContainer = () => {
                 bgColor='#000000'
                 fgColor='#FFFFFF'/>
     </View>
-    </ScrollView>
-    </SafeAreaView>
 
   )
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: Colors.ticketbg,
-    },
     T_container:{
         width: '90%',
         backgroundColor: Colors.DEFAULT_WHITE,

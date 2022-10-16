@@ -16,4 +16,4 @@ const isValidPhone = (value) => {
 };
 
 
-export default { isValidObjField, updateError,isValidPhone };
+export  { isValidObjField, updateError,isValidPhone };

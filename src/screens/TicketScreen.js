@@ -1,15 +1,16 @@
 import {View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native'
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Colors } from '../contents';
 import Receipt from '../components/CustomTicket/Receipt'
 import {MaterialIcons} from "@expo/vector-icons";
+import {useNavigation} from "@react-navigation/native";
 
-const Ticket = () => {
-
+const TicketScreen = ({navigation}) => {
+    //const navigation = useNavigation();
     const tickets = [
         {
             "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
-            "bus_bo": "AZ 1234",
+            "bus_no": "AZ 1234",
             "departure_time": "2022-10-12T12:28:13.000Z",
             "fare": 45.35,
             "serial_no": "SN-123456",
@@ -19,7 +20,7 @@ const Ticket = () => {
         },
         {
             "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
-            "bus_bo": "AZ 1234",
+            "bus_no": "AZ 1234",
             "departure_time": "2022-10-12T12:28:13.000Z",
             "fare": 45.35,
             "serial_no": "SN-123455",
@@ -30,7 +31,7 @@ const Ticket = () => {
         ,
         {
             "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
-            "bus_bo": "AZ 1234",
+            "bus_no": "AZ 1234",
             "departure_time": "2022-10-12T12:28:13.000Z",
             "fare": 45.35,
             "serial_no": "SN-123454",
@@ -64,7 +65,7 @@ const Ticket = () => {
          </TouchableOpacity>
       <View>
           {tickets.map(ticket => {
-              return <Receipt title={ticket} key={ticket.route_id}></Receipt>
+              return <Receipt ticketInfo={ticket} key={ticket.route_id}></Receipt>
           })}
 
       </View>
@@ -83,4 +84,4 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.ticketbg,
     },
 });
-export default Ticket;
+export default TicketScreen;

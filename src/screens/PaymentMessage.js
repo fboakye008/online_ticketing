@@ -32,7 +32,7 @@ If you do not receive the prompt within 10 seconds follow the instructions below
       </View>
          <TouchableOpacity
              style={styles.btn}
-             onPress={() => navigation.navigate("")}
+             onPress={() => navigation.navigate("TicketScreen")}
          >
              <Text style={styles.btnText}>Submit</Text>
          </TouchableOpacity>

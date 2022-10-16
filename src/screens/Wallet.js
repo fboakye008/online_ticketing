@@ -11,12 +11,17 @@ import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "../contents";
 import { useNavigation } from "@react-navigation/native";
-import SwitchButton from "../components/CustomSwitch/SwitchButton";
+import SwitchButton from "switch-button-react-native";
+
 
 const { width } = Dimensions.get("window");
 
 const Wallet = () => {
   const navigation = useNavigation();
+  const options = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" }
+  ];
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
       <TouchableOpacity
@@ -24,15 +29,30 @@ const Wallet = () => {
         onPress={() => navigation.goBack()}
       >
         <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-        
+
       </TouchableOpacity>
       <Text style={styles.title}>Wallet</Text>
-     
+
         <View style={styles.walletContainer}>
-        <SwitchButton />
+          <SwitchButton
+              options={options}
+              initial={0}
+              switchWidth = '50%'
+              switchHeight = {44}
+              switchdirection = 'rtl'
+              switchBorderRadius = {100}
+              switchSpeedChange = {700}
+              switchBorderColor = '#d4d4d4'
+              switchBackgroundColor = '#fff'
+              btnBorderColor = '#00a4b9'
+              btnBackgroundColor = '#00bcd4'
+              fontColor = '#b1b1b1'
+              activeFontColor = '#fff'
+              onPress={value => alert(value)}></SwitchButton>
+
         </View>
-     
-      
+
+
       {/* <TouchableOpacity>
         <View style={styles.walletContainer}>
           <Text style={styles.walletText}>VIP Cash</Text>
