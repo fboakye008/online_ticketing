@@ -3,8 +3,7 @@ import { View, Text,StyleSheet,SafeAreaView, TouchableOpacity } from 'react-nati
 import { Colors } from '../contents';
 
 
-
-const PaymentMessage = () => {
+const PaymentMessage = ({navigation}) => {
   return (
     <SafeAreaView style={styles.wrapper}>
      <View style={styles.container}>
