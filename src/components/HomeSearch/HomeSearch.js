@@ -1,61 +1,56 @@
-import React, { useCallback } from "react";
+import React, {useEffect} from "react";
 import {
   View,
   Text,
   StyleSheet,
-  inputText,
   TouchableOpacity,
-  Button,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
-import { Colors } from "../../contents";
 import { useNavigation } from "@react-navigation/native";
-
+import DisplayTrip from "../CustomInput/DisplayTrip";
 const HomeSearch = () => {
   const navigation = useNavigation();
+
+  const recentTrips = [{
+    title: "Accra-Kumasi",
+    key: "1"
+  },
+    {
+    title: "Accra-Takoradi",
+    key: "3"
+  }
+    ,
+    {
+      title: "Accra-Cape Coast",
+      key: "3"
+    }
+  ];
+
+  useEffect(() => {
+    //fetch all of my trips sort by most recent and grab the first three
+    // const fare = _.findWhere(allRoutes, {route_id: selectedRouteId});
+    // if (fare && fare.fare) {
+    //   setFare(fare.fare);
+    //   setAmount(fare.fare);
+    // }
+    // const busStops = extractBusStops(allRoutes, selectedRouteId);
+    // setBusStops(busStops);
+    // const times = extractTimes(allRoutes, selectedRouteId);
+    // setTimes(times);
+  }, []);
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.inputBox}
-        onPress={() => navigation.navigate("Route")}
-      >
+        onPress={() => navigation.navigate("Route")}>
         <EvilIcons name="search" size={24} color="black" />
         <Text style={styles.inputText}>Where To?</Text>
       </TouchableOpacity>
+
       <View style={styles.tripHistoryWrapper}>
-        { <View style={styles.row}>
-          <View style={styles.iconContainer}>
-            <AntDesign
-              name="clockcircle"
-              size={16}
-              color={"#ffffff"}
-            ></AntDesign>
-          </View>
-          <Text style={styles.destinationText}>Accra-Kumasi</Text>
-        </View> }
-
-        {<View style={styles.row}>
-          <View style={styles.iconContainer}>
-            <AntDesign
-              name="clockcircle"
-              size={16}
-              color={"#ffffff"}
-            ></AntDesign>
-          </View>
-          <Text style={styles.destinationText}>Kumasi-Takoradi</Text>
-        </View>}
-
-        {<View style={styles.row}>
-          <View style={styles.iconContainer}>
-            <AntDesign
-              name="clockcircle"
-              size={16}
-              color={"#ffffff"}
-            ></AntDesign>
-          </View>
-          <Text style={styles.destinationText}>Cape-Coast-Kumasi</Text>
-        </View>}
+        {recentTrips.map(recentTrip=>{
+          return <DisplayTrip title={recentTrip.title} key={recentTrip.title}></DisplayTrip>
+        })}
       </View>
     </View>
   );
