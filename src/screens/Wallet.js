@@ -2,6 +2,7 @@ import {
   View,
   Text,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
@@ -17,7 +18,7 @@ const { width } = Dimensions.get("window");
 const Wallet = () => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
+    <SafeAreaView style={styles.container}>
       <TouchableOpacity
         style={styles.arrowContainer}
         onPress={() => navigation.goBack()}
@@ -25,12 +26,16 @@ const Wallet = () => {
         <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
 
       </TouchableOpacity>
-      <Text style={styles.title}>Wallet</Text>
+      <Text style={styles.title}>Ticket Wallet</Text>
+      <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
+      <SwitchButton/>
+      <View style={styles.topicsWrapper}>
+      
+      </View>
+      
+          
 
-        <View style={styles.walletContainer}>
-          <SwitchButton/>
-
-        </View>
+     
 
 
       {/* <TouchableOpacity>
@@ -65,12 +70,16 @@ const Wallet = () => {
         <Text style={styles.mtn}>Cash</Text>
       </TouchableOpacity>
       <View style={styles.divider} /> */}
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    backgroundColor: Colors.SECONDARY_WHITE,
+  },
   arrowContainer: {
     height: 40,
     width: 40,
@@ -94,22 +103,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingTop: 10,
   },
-  walletContainer: {
-    alignSelf: "center",
-    height: 100,
-    width: width - 20,
-    backgroundColor: Colors.LIGHT_GREY,
+  // 
+  topicsWrapper: {
+    justifyContent: "center",
+    marginHorizontal: 10,
     marginVertical: 20,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    shadowColor: Colors.DEFAULT_BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.121,
-    shadowRadius: 9.11,
-    elevation: 5,
   },
   walletText: {
     fontSize: 16,
