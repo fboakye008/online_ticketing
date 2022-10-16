@@ -7,9 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  StatusBar,
   SafeAreaView,
-  TextInput,
 } from "react-native";
 import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
