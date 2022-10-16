@@ -24,7 +24,7 @@ const items = [
     id: 2,
     label: "Ticket-Wallet",
     icon: "ios-wallet",
-    path: "Tickets",
+    path: "Wallet",
   },
   {
     id: 3,
@@ -37,9 +37,9 @@ const items = [
 const options = [
   {
     id: 1,
-    label: "Messages",
+    label: "About",
     icon: "information-circle-sharp",
-    path: "Messages",
+    path: "About",
   },
   {
     id: 2,
@@ -142,9 +142,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flexDirection: "column",
     alignItems: "center",
-    padding: 20,
+    padding: 35,
     borderRadius: 5,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     shadowColor: "#e6e7e8",
     shadowOffset: {
       width: 0,

@@ -1,10 +1,11 @@
-import {StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, Text} from 'react-native'
-import React, {useEffect} from 'react'
-import {Colors} from '../contents';
+import {View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native'
+import React from 'react'
+import { Colors } from '../contents';
+import Receipt from '../components/CustomTicket/Receipt'
 import {MaterialIcons} from "@expo/vector-icons";
-import DisplayTicket from "../components/CustomInput/DisplayTicket";
 
-const Ticket = ({ navigation }) => {
+const Ticket = () => {
+
     const tickets = [
         {
             "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
@@ -51,32 +52,35 @@ const Ticket = ({ navigation }) => {
         // const times = extractTimes(allRoutes, selectedRouteId);
         // setTimes(times);
     }, []);
-    return (
-        <SafeAreaView style={styles.container}>
 
-            <ScrollView>
-                <TouchableOpacity
-                    style={styles.arrowContainer}
-                    onPress={() => navigation.goBack()}
-                >
-                    <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
-                </TouchableOpacity>
-                {tickets.map(ticket => {
-                    return <DisplayTicket title={ticket} key={ticket.route_id}></DisplayTicket>
-                })}
-            </ScrollView>
-        </SafeAreaView>
+  return (
+    <SafeAreaView style={styles.container}>
+     <ScrollView>
+         <TouchableOpacity
+             style={styles.arrowContainer}
+             onPress={() => navigation.goBack()}
+         >
+             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+         </TouchableOpacity>
+      <View>
+          {tickets.map(ticket => {
+              return <Receipt title={ticket} key={ticket.route_id}></Receipt>
+          })}
 
-    )
+      </View>
+     </ScrollView>
+    </SafeAreaView>
+
+  )
 }
 
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: Colors.ticketbg,
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Colors.ticketbg,
     },
 });
 export default Ticket;
