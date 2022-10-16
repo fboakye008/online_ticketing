@@ -14,10 +14,13 @@ import React, {useEffect, useState} from "react";
 import NetworkField from "../components/CustomBookingInput";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {Colors} from "../contents";
-import {isValidObjField, updateError} from './utils/validations';
+import {isValidObjField, isValidPhone, updateError} from './utils/validations';
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import {CreatePayment} from "../apis/payment";
-
+import TextField from "../components/CustomInput/TextInput";
+import {Dropdown} from "react-native-element-dropdown";
+import BookingTextField from "../components/CustomBookingInput";
+import moment from "moment";
 
 
 const {width} = Dimensions.get("window");
@@ -25,31 +28,57 @@ const {width} = Dimensions.get("window");
 const PaymentScreen = ({navigation, route}) => {
     const payload = route.params;
     const [loading, setLoading] = useState(false);
-    const [paymentMethod, setPaymentMethod] = useState("MTN");
-    const [amountPaid, setAmountPaid] = useState(null);
-    const [bookingId, setBookingId] = useState(null);
-    const [phone, setPhone] = useState("");
     const [error, setError] = useState("");
-    const isValidForm = () => {
-        if (!paymentMethod.trim())
-            return updateError("Select payment method!", setError);
+    const [paymentMethod, setPaymentMethod] = useState("");
+    const [bookingId, setBookingId] = useState(null);
+    const [amountPaid, setAmountPaid] = useState(null);
+    const [phone, setPhone] = useState(null);
+
+    const telcos = [
+        {"value": "MTN", "label": "MTN"},
+        {"value": "Voda", "label": "VODA Cash"},
+        {"value": "AirTel", "label": "AIR TEL"}
+    ];
+    const handleTelco = (index) => {
+        setPaymentMethod(index.value);
+    };
+    const isValidForm = (paymentInfo) => {
+        //TODO validate that telco is selected
+        console.log("Phone ",phone)
+        if(!paymentInfo.phone || (paymentInfo.phone && !isValidPhone(paymentInfo.phone.trim()))){
+            console.log("found error ",paymentInfo.phone)
+            return updateError("Phone number must be 10 digits!", setError);
+        }
         return true;
+    };
+    const handleOnChangeTextPhone = (value) => {
+        console.log("Set Phone ",value)
+        setPhone(value);
     };
     const submitForm = async () => {
         try {
-            if (isValidForm()) {
+            const paymentInfo = {
+                bookingId: bookingId,
+                payment_method: paymentMethod,
+                amount_paid: amountPaid,
+                phone: phone
+            }
+            if (isValidForm(paymentInfo)) {
                 setLoading(true);
+
                 let result = await CreatePayment(paymentInfo);
                 if (result) {
                     const {ticketId} = result.id;
-                    alert("Payment successfully made!");
+                    console.log("Payment successfully made!",result.id);
                     navigation.replace("TicketScreen", {ticketId});
                 } else {
-                    alert("Failed to effect payment!", result?.error?.message);
+                    console.log("Failed to effect payment!", result?.error?.message);
                 }
+            }else{
+
             }
         } catch (e) {
-            alert("Failed to effect payment!", e);
+            console.log("Failed to effect payment!", e);
         } finally {
             setLoading(false);
         }
@@ -57,8 +86,7 @@ const PaymentScreen = ({navigation, route}) => {
 
     useEffect(() => {
         setAmountPaid(payload.amount);
-        setBookingId(payload.bookingId);
-        //setPhone("Read from user input");
+        setBookingId( payload.bookingId);
     }, []);
     return (
         <SafeAreaView>
@@ -72,14 +100,16 @@ const PaymentScreen = ({navigation, route}) => {
                     <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
                 </TouchableOpacity>
                 <View style={styles.fieldContainer} onPress={() => Keyboard.dismiss}>
-                    <NetworkField label={"Payment"} placeholder="foo"/>
+                    <BookingTextField placeholder="Payment" data={telcos} sendDataToParent={handleTelco}
+                                      label="Payment"/>
                     <View style={{marginVertical: 20}}>
-                        <Text style={styles.label}>Phone number:</Text>
-                        <TextInput
-                            style={styles.inputField}
-                            placeholder="0123456789"
-                            keyboardType="numeric"
-                            onChange={(e) => setPhone(e.target.value)}
+                        <TextField
+                            label={`Phone Number`}
+                            placeholder={`Phone Number must be 10 digits`}
+                            icon={`phone`}
+                            selectionColor={Colors.DEFAULT_GREEN}
+                            keyboardType=""
+                            autoCapitalize="none"
                         />
                     </View>
                     <View style={{marginVertical: 20}}>
@@ -93,9 +123,7 @@ const PaymentScreen = ({navigation, route}) => {
                     </View>
                     <TouchableOpacity
                         style={styles.btn}
-                        onPress={() => navigation.navigate("PaymentMessage")}
-                        // onPress={submitForm}
-                        // onPress=navigation
+                        onPress={submitForm}
                     >
                         <Text style={styles.btnText}>Pay</Text>
                     </TouchableOpacity>

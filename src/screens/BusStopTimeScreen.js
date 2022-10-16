@@ -13,15 +13,11 @@ import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import {Colors} from "../contents";
 import moment from 'moment';
 import _ from "underscore";
-import SubmitButton from "../components/CustomInput/SubmitButton";
-import LoginUser from "../apis/login";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {CreateBooking} from "../apis/booking";
 import LoadingScreen from "./utils/LoadingScreen";
 
 const {height, width} = Dimensions.get("window");
 import {isValidObjField, updateError} from './utils/validations';
-//routes: data.routes, selectedRoute: selectedRoute
 const BusStopTimeScreen = ({navigation, route}) => {
     const selectedRouteId = route.params.selectedRoute;
     const allRoutes = route.params.routes
@@ -73,6 +69,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 setLoading(false);
                 // const payload = {phone: user.phone, full_name: user.full_name, api_key: user.api_key};
                 //await AsyncStorage.setItem("user", JSON.stringify(payload))
+                console.log("amount",amount);
                 console.log("successfully created booking. ID is ", booking.id);
                 navigation.replace("Payment", {
                     bookingId: booking.id,
@@ -140,7 +137,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 style={styles.arrowContainer}
                 onPress={() => navigation.goBack()}>
                 <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
-                
+
             </TouchableOpacity>
             <Text style={styles.text}> Select Bus Stop Time</Text>
             <View style={styles.container}>
@@ -251,10 +248,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     text:{
-       
-        justifyContent: "space-between", 
+
+        justifyContent: "space-between",
         alignItems: "center",
-        fontSize:15 , 
+        fontSize:15 ,
         fontWeight: "bold",
         paddingHorizontal: 100,
     },

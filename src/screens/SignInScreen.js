@@ -61,7 +61,6 @@ const SignInScreen = ({navigation}) => {
                 setLoading(false);
                 const payload = {phone: user.phone, full_name: user.full_name, api_key: user.api_key};
                 await AsyncStorage.setItem("user", JSON.stringify(payload))
-                console.log("successfully sign in");
                 navigation.replace("Home");
             } else {
                 setLoading(false);
