@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Colors } from '../../contents';
-import QRCode from "react-native-qrcode-svg";
+// import QRCode from "react-native-qrcode-svg";
 
 
 
@@ -18,7 +18,7 @@ const TicketContainer = ({ticketInfo}) => {
             <Text style={styles.text}>Barcode: {ticketInfo.barcode}</Text>
             <QRCode
                 value={ticketInfo.serial_no}
-                size={200}
+                size={20}
                 bgColor='#000000'
                 fgColor='#FFFFFF'/>
     </View>
@@ -29,7 +29,7 @@ const TicketContainer = ({ticketInfo}) => {
 
 const styles = StyleSheet.create({
     T_container:{
-        width: '90%',
+        width: '40%',
         backgroundColor: Colors.DEFAULT_WHITE,
         borderRadius: 20,
         padding: 20,

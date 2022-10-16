@@ -1,5 +1,8 @@
 import React, { Component } from 'react'; 
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import SwitchSelector from "react-native-switch-selector";
+import { Colors } from '../../contents';
+
 
 
 const options = [
@@ -10,25 +13,21 @@ const options = [
 const SwitchButton = () => {
   return (
     <View>
-      <SwitchButton
+      <SwitchSelector
   options={options}
   initial={0}
-  switchWidth = '50%'                 
-                switchHeight = {44}                 
-                switchdirection = 'rtl'             
-                switchBorderRadius = {100}          
-                switchSpeedChange = {700}          
-                switchBorderColor = '#d4d4d4'       
-                switchBackgroundColor = '#fff'     
-                btnBorderColor = '#00a4b9'          
-                btnBackgroundColor = '#00bcd4'      
-                fontColor = '#b1b1b1'               
-                activeFontColor = '#fff'
   onPress={value => alert(value)}
-  
+  textColor={Colors.DEFAULT_WHITE} 
+  buttonColor = {Colors.DEFAULT_GREEN}
+  borderColor = {Colors.DEFAULT_GREY}
+  backgroundColor={Colors.Blue_Gray}
+  haspadding
 />
     </View>
   )
 }
 
+
 export default SwitchButton;
+
+
