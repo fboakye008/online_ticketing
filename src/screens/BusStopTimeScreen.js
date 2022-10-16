@@ -77,7 +77,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 });
             } else {
                 setLoading(false);
-                return updateError("Some error", setError);
+                return updateError("PSome error", setError);
             }
         } else {
             setLoading(false);
@@ -96,12 +96,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
             const times = _.uniq(result, function (x) {
                 return x["label"];
             });
-            console.log(times);
-            const sorted = _.sortBy(times, function(item){
-                return  moment(item.order, 'dddd MMMM Do YYYY, h:mm:ss a').unix(); // parse date with moment >> format to UNIX timestamp
-            });
-            console.log(sorted);
-            return sorted;
+            return _.sortBy(times, 'order');
         }
         return [];
     }

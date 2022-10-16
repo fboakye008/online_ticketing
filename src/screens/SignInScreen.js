@@ -124,9 +124,9 @@ const SignInScreen = ({navigation}) => {
 
                     {/*<Text style={styles.signupText} onPress={() => navigation.navigate('TicketScreen')}>Sign Up</Text>*/}
                 </View>
-                <Text style={styles.orText}>OR</Text>
+                {/* <Text style={styles.orText}>OR</Text> */}
 
-                <TouchableOpacity style={styles.facebookButton} disabled={true}>
+                {/* <TouchableOpacity style={styles.facebookButton} disabled={true}>
                     <View style={styles.socialButtonContainer}>
                         <View style={styles.signinButtonLogo}>
                             <Image source={MyImage.facebook} style={styles.signinButtonLogo}/>
@@ -141,7 +141,7 @@ const SignInScreen = ({navigation}) => {
                         </View>
                         <Text style={styles.socialSigninButtonText}>Connect with Google</Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             {loading && <LoadingScreen/>}
         </SafeAreaView>
