@@ -99,6 +99,7 @@ const PaymentScreen = ({navigation, route}) => {
                 >
                     <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
                 </TouchableOpacity>
+                <Text style={styles.title}>Payment Page</Text>
                 <View style={styles.fieldContainer} onPress={() => Keyboard.dismiss}>
                     <BookingTextField placeholder="Payment" data={telcos} sendDataToParent={handleTelco}
                                       label="Payment"/>
@@ -113,8 +114,8 @@ const PaymentScreen = ({navigation, route}) => {
                         />
                     </View>
                     <View style={{marginVertical: 20}}>
-                        <ReadOnlyField
-                            style={styles.input}
+                        <TextInput
+                            style={styles.inputField}
                             editable={false}
                             placeholderTextColor={"black"}
                             placeholder={amountPaid}
@@ -201,6 +202,12 @@ const styles = StyleSheet.create({
         shadowRadius: 9.11,
         elevation: 5,
     },
+    title: {
+        fontSize: 20,
+        textAlign: "center",
+        fontWeight: "bold",
+        paddingBottom: 5,
+      },
     btn: {
         justifyContent: "center",
         alignItems: "center",
