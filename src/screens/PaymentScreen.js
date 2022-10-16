@@ -4,23 +4,19 @@ import {
     StyleSheet,
     SafeAreaView,
     TouchableOpacity,
-    TextInput,
     Dimensions,
     KeyboardAvoidingView,
     Platform,
     Keyboard,
 } from "react-native";
 import React, {useEffect, useState} from "react";
-import NetworkField from "../components/CustomBookingInput";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {Colors} from "../contents";
-import {isValidObjField, isValidPhone, updateError} from './utils/validations';
-import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
-import {CreatePayment} from "../apis/payment";
+import {isValidPhone, updateError} from './utils/validations';
+import {CreatePayment,CreateTickets} from "../apis/payment";
 import TextField from "../components/CustomInput/TextInput";
-import {Dropdown} from "react-native-element-dropdown";
 import BookingTextField from "../components/CustomBookingInput";
-import moment from "moment";
+import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 
 
 const {width} = Dimensions.get("window");
@@ -33,7 +29,6 @@ const PaymentScreen = ({navigation, route}) => {
     const [bookingId, setBookingId] = useState(null);
     const [amountPaid, setAmountPaid] = useState(null);
     const [phone, setPhone] = useState(null);
-
     const telcos = [
         {"value": "MTN", "label": "MTN"},
         {"value": "Voda", "label": "VODA Cash"},
@@ -43,16 +38,15 @@ const PaymentScreen = ({navigation, route}) => {
         setPaymentMethod(index.value);
     };
     const isValidForm = (paymentInfo) => {
-        //TODO validate that telco is selected
-        console.log("Phone ",phone)
         if(!paymentInfo.phone || (paymentInfo.phone && !isValidPhone(paymentInfo.phone.trim()))){
-            console.log("found error ",paymentInfo.phone)
             return updateError("Phone number must be 10 digits!", setError);
+        }
+        if(!paymentInfo.payment_method){
+            return updateError("Select a payment method", setError);
         }
         return true;
     };
     const handleOnChangeTextPhone = (value) => {
-        console.log("Set Phone ",value)
         setPhone(value);
     };
     const submitForm = async () => {
@@ -65,20 +59,28 @@ const PaymentScreen = ({navigation, route}) => {
             }
             if (isValidForm(paymentInfo)) {
                 setLoading(true);
-
-                let result = await CreatePayment(paymentInfo);
-                if (result) {
-                    const {ticketId} = result.id;
-                    console.log("Payment successfully made!",result.id);
-                    navigation.replace("TicketScreen", {ticketId});
+                const payments = await CreatePayment(paymentInfo,payload.numPassengers);
+                //create tickets
+                if (payments.length > 0) {
+                    console.log("Payment successfully made for " + payments.length + ". Generating tickets now! Please wait..");
+                    const tickets = await CreateTickets(payments);
+                    if (tickets.length > 0) {
+                        console.log("Tickets successfully generated. Created " + tickets.length + " tickets");
+                        navigation.replace("TicketScreen", {bookingId});
+                    }else{
+                        console.log("Failed to generate tickets!");
+                        return updateError("Failed to generate tickets!", setError);
+                    }
                 } else {
-                    console.log("Failed to effect payment!", result?.error?.message);
+                    console.log("Failed to effect payment!");
+                    return updateError("Failed to effect payment. Please try again!", setError);
                 }
             }else{
-
+                return updateError("Failed to effect payment. Please try again!", setError);
             }
         } catch (e) {
             console.log("Failed to effect payment!", e);
+            return updateError("Failed to effect payment. Please try again!" + e, setError);
         } finally {
             setLoading(false);
         }
@@ -90,6 +92,11 @@ const PaymentScreen = ({navigation, route}) => {
     }, []);
     return (
         <SafeAreaView>
+            {error ? (
+                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                    {error}
+                </Text>
+            ) : null}
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
@@ -109,15 +116,13 @@ const PaymentScreen = ({navigation, route}) => {
                             placeholder={`Phone Number must be 10 digits`}
                             icon={`phone`}
                             selectionColor={Colors.DEFAULT_GREEN}
-                            keyboardType=""
+                            keyboardType="numeric"
                             autoCapitalize="none"
+                            onChangeText={(value) => handleOnChangeTextPhone(value)}
                         />
                     </View>
                     <View style={{marginVertical: 20}}>
-                        <TextInput
-                            style={styles.inputField}
-                            editable={false}
-                            placeholderTextColor={"black"}
+                        <ReadOnlyField
                             placeholder={amountPaid}
                             label="Amount Paid"
                         />

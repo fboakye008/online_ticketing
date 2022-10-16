@@ -49,39 +49,39 @@ const BusStopTimeScreen = ({navigation, route}) => {
     };
 
     const isValidForm = () => {
-        // //We will accept only if all of the fields have value
-        // if (!isValidObjField(userInfo))
-        //   return updateError("Required all fields!", setError);
-        // // Phone number must have 9 digits
-        // if (!isValidPhone(phone))
-        //   return updateError("Phone number is required and must be 10 digits!", setError);
-        // // password must have 8 or more characters
-        // if (!password.trim())
-        //   return updateError("Password is required!", setError);
+        if(!time){
+            return updateError("Please select a departure time!", setError);
+        }
+        if(!busStop){
+            return updateError("Please select where you would board the bus!", setError);
+        }
         return true;
     };
     const submitForm = async () => {
         if (isValidForm()) {
-            setLoading(true);
-            const py = {bus_stopId: busStop, bus_scheduleId: selectedRouteId, number_of_seats: numPassengers};
-            let booking = await CreateBooking(py);
-            if (booking && booking.id) {
+            try {
+                setLoading(true);
+                const py = {bus_stopId: busStop, bus_scheduleId: selectedRouteId, number_of_seats: numPassengers};
+                let booking = await CreateBooking(py);
+                if (booking && booking.id) {
+                    setLoading(false);
+                    console.log("successfully created booking. ID is ", booking.id);
+                    navigation.replace("PaymentMessage", {
+                        bookingId: booking.id,
+                        amount: amount,
+                        numPassengers: numPassengers
+                    });
+                } else {
+                    return updateError("Booking unsuccessful. Please Try again", setError);
+                }
+            }catch(err){
+                return updateError("Could not validate form", setError);
+            }finally{
                 setLoading(false);
-                // const payload = {phone: user.phone, full_name: user.full_name, api_key: user.api_key};
-                //await AsyncStorage.setItem("user", JSON.stringify(payload))
-                console.log("amount",amount);
-                console.log("successfully created booking. ID is ", booking.id);
-                navigation.replace("Payment", {
-                    bookingId: booking.id,
-                    amount: amount
-                });
-            } else {
-                setLoading(false);
-                return updateError("PSome error", setError);
             }
         } else {
             setLoading(false);
-            return updateError("YYYY", setError);
+            return updateError("Form validation failed. Please select all inputs", setError);
         }
     };
     const extractTimes = function (objArray, route_id) {
@@ -128,6 +128,11 @@ const BusStopTimeScreen = ({navigation, route}) => {
     }, []);
     return (
         <SafeAreaView style={styles.wrapper}>
+            {error ? (
+                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                    {error}
+                </Text>
+            ) : null}
             <TouchableOpacity
                 style={styles.arrowContainer}
                 onPress={() => navigation.goBack()}>

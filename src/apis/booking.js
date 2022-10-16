@@ -15,7 +15,6 @@ function RequestRoutes() {
     };
     return fetchRoutes();
 }
-
 function CreateBooking(bookingInfo) {
     const booking = {
         bus_stopId: bookingInfo?.bus_stopId,
@@ -35,4 +34,4 @@ function CreateBooking(bookingInfo) {
     return fetchAPI();
 }
 
-export {CreateBooking};
+export {CreateBooking,RequestRoutes};

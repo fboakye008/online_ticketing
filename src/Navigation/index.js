@@ -20,15 +20,14 @@ import {
     About,
     Legal,
     Trips,
+    PaymentScreen,
     PaymentMessage,
     Wallet,
 } from "../screens";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {Colors} from "../contents";
-import PaymentScreen from "../screens/PaymentScreen";
-// import { PaymentMessage } from "../screens";
-//import Ticket from "../screens/Ticket";
+
 
 const HomeStack = createNativeStackNavigator();
 
@@ -44,7 +43,7 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="Route" component={RouteScreen}/>
             <HomeStack.Screen name="BusStopTime" component={BusStopTimeScreen}/>
             <HomeStack.Screen name="TicketScreen" component={TicketScreen}/>
-            <HomeStack.Screen name="Payment" component={PaymentScreen}/>
+            <HomeStack.Screen name="PaymentScreen" component={PaymentScreen}/>
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
         </HomeStack.Navigator>
     );

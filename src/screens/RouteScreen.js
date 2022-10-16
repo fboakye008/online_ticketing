@@ -13,30 +13,33 @@ import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import { Colors } from "../contents";
 import moment from 'moment';
 import { RequestRoutes } from "../apis/routes";
-import _ from "underscore";
 const { height, width } = Dimensions.get("window");
-
+import utils  from "../apis/utils";
+import {updateError} from "./utils/validations";
 const Routes = ({ navigation }) => {
+  const [error, setError] = useState("");
   const [data, setData] = useState({
     today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
     routes: [],
   });
 
   const [selectedRoute, setSelectedRoute] = useState();
+  const handleRouting = function(){
+    if(selectedRoute) {
+      navigation.navigate('BusStopTime', {
+        routes: data.routes, selectedRoute: selectedRoute
+      });
+    }else{
+      return updateError("Select a route", setError);
+    }
+  }
   const sendDataToParent = (index) => {
-    console.log("Selected Item",index);
     setSelectedRoute(index.value);
   };
-  const uniquify =  function (objArray) {
-    let result = objArray.map(a => ({"value":a.route_id, "label": a.route}));
-    return _.uniq(result, function (x) {
-      return x["value"];
-    });
-  }
   useEffect(() => {
     async function populateData() {
       const routes = await RequestRoutes();
-      const uniqueRoutes = uniquify(routes);
+      const uniqueRoutes = utils.uniquify(routes);
       setData({
         today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
         routes: routes,
@@ -47,14 +50,19 @@ const Routes = ({ navigation }) => {
   }, []);
   return (
       <SafeAreaView style={styles.wrapper}>
+        {error ? (
+            <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+              {error}
+            </Text>
+        ) : null}
         <TouchableOpacity
             style={styles.arrowContainer}
             onPress={() => navigation.goBack()}>
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-          
+
         </TouchableOpacity>
         <Text style={styles.text}> Select Your Route</Text>
-        
+
         <View style={styles.container}>
         <ReadOnlyField
               style={styles.input}
@@ -67,11 +75,7 @@ const Routes = ({ navigation }) => {
           <BookingTextField label="Route" placeholder="Route" data={data.uniqueRoutes} sendDataToParent={sendDataToParent}/>
           <TouchableOpacity
               style={styles.btn}
-              onPress={() =>
-                  navigation.navigate('BusStopTime', {
-                    routes: data.routes, selectedRoute: selectedRoute
-                  })
-              }
+              onPress={handleRouting}
           >
             <Text style={styles.btnText}>Next</Text>
           </TouchableOpacity>
@@ -156,10 +160,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   text:{
-       
-    justifyContent: "space-between", 
+
+    justifyContent: "space-between",
     alignItems: "center",
-    fontSize:15 , 
+    fontSize:15 ,
     fontWeight: "bold",
     paddingHorizontal: 100,
 },
