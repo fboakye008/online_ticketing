@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity} from "react-native";
+import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 import {MaterialIcons} from "@expo/vector-icons";
 import {Colors} from "../contents";
 import _ from "underscore";
@@ -11,7 +11,7 @@ import DisplayTrip from "../components/CustomInput/DisplayTrip";
 const Trips = ({navigation}) => {
     const [error, setError] = useState("");
     const [trips, setTrips] = useState([]);
-
+    const [numTrips,setNumTrips]= useState("0");
     const prepareTrips = (trips) => {
         const result = trips.map(trip => ({
             booking_id: trip.booking_id,
@@ -34,6 +34,7 @@ const Trips = ({navigation}) => {
             const trips = prepareTrips(userTickets);
             if (trips && trips.length > 0) {
                 setTrips(trips);
+                setNumTrips(trips.length)
             }
         }
 
@@ -57,14 +58,14 @@ const Trips = ({navigation}) => {
             >
                 <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
             </TouchableOpacity>
-            <View>
-                <Text style={styles.title}>Trips</Text>
+            <ScrollView>
+                <Text style={styles.title}>Trips ({numTrips})</Text>
                 <View style={styles.tripHistoryWrapper}>
                     {trips.map(trip => {
                         return <DisplayTrip title={trip.title} key={trip.key}></DisplayTrip>
                     })}
                 </View>
-            </View>
+            </ScrollView>
         </SafeAreaView>
 
 
