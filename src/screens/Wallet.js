@@ -66,11 +66,9 @@ const Wallet = () => {
     const toggleSwitch = (value) => {
         //onValueChange of the switch this function will be called
       if(value === 'Ticket'){
-        console.log("setting to true")
         setSwitchValue(true);
       }
       else{
-        console.log("setting to false")
         setSwitchValue(false);
       }
 
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingTop: 10,
   },
-  // 
+  //
   topicsWrapper: {
     justifyContent: "center",
     marginHorizontal: 10,

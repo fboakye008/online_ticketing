@@ -28,6 +28,7 @@ const PaymentScreen = ({navigation, route}) => {
     const [paymentMethod, setPaymentMethod] = useState("");
     const [bookingId, setBookingId] = useState(null);
     const [amountPaid, setAmountPaid] = useState(null);
+    const [numPassengers,setNumPassengers]  = useState(1);
     const [phone, setPhone] = useState(null);
     const telcos = [
         {"value": "MTN", "label": "MTN"},
@@ -62,8 +63,8 @@ const PaymentScreen = ({navigation, route}) => {
                 const payment = await CreatePayment(paymentInfo);
                 //create tickets
                 if (payment) {
-                    console.log("Payment successfully made for " + payment.length + ". Generating tickets now! Please wait..");
-                    const tickets = await CreateTickets(payment);
+                    console.log("Payment successfully made. Generating tickets now! Please wait..");
+                    const tickets = await CreateTickets(payment,numPassengers);
                     if (tickets.length > 0) {
                         console.log("Tickets successfully generated. Created " + tickets.length + " tickets");
                         navigation.replace("TicketScreen", {bookingId});
@@ -89,6 +90,7 @@ const PaymentScreen = ({navigation, route}) => {
     useEffect(() => {
         setAmountPaid(payload.amount);
         setBookingId( payload.bookingId);
+        setNumPassengers(payload.numPassengers);
     }, []);
     return (
         <SafeAreaView>
@@ -122,13 +124,9 @@ const PaymentScreen = ({navigation, route}) => {
                         />
                     </View>
                     <View style={{marginVertical: 20}}>
-
-                    <Text style={styles.label}>Amount Paid:</Text>
-                        <TextInput
-                            style={styles.inputField}
-                            editable={false}
-                            placeholderTextColor={"black"}
+                        <ReadOnlyField
                             placeholder={amountPaid}
+                            label="Amount Paid"
                         />
                     </View>
                     <TouchableOpacity

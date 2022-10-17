@@ -17,9 +17,8 @@ async function CreatePayment(paymentInfo) {
     return await fetchAPI(payment);
 }
 
-async function CreateTickets(payments) {
+async function CreateTickets(payment,numPassengers) {
     const promises = [];
-
 
     const fetchAPI = async (ticket) => {
         const options = {
@@ -29,8 +28,7 @@ async function CreateTickets(payments) {
         }
         return await utils.makeAPIRequest(options)
     };
-
-    for (let payment of payments) {
+    for(let index=0; index < numPassengers; index++){
         const ticket = {
             bookingId: payment.bookingId
         };
