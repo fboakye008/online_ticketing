@@ -102,7 +102,10 @@ const Wallet = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    backgroundColor: Colors.SECONDARY_WHITE,
+  },
   arrowContainer: {
     height: 40,
     width: 40,
@@ -126,22 +129,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingTop: 10,
   },
-  walletContainer: {
-    alignSelf: "center",
-    height: 100,
-    width: width - 20,
-    backgroundColor: Colors.LIGHT_GREY,
+  // 
+  topicsWrapper: {
+    justifyContent: "center",
+    marginHorizontal: 10,
     marginVertical: 20,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    shadowColor: Colors.DEFAULT_BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.121,
-    shadowRadius: 9.11,
-    elevation: 5,
   },
   walletText: {
     fontSize: 16,

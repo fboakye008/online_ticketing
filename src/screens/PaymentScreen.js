@@ -122,9 +122,13 @@ const PaymentScreen = ({navigation, route}) => {
                         />
                     </View>
                     <View style={{marginVertical: 20}}>
-                        <ReadOnlyField
+
+                    <Text style={styles.label}>Amount Paid:</Text>
+                        <TextInput
+                            style={styles.inputField}
+                            editable={false}
+                            placeholderTextColor={"black"}
                             placeholder={amountPaid}
-                            label="Amount Paid"
                         />
                     </View>
                     <TouchableOpacity
