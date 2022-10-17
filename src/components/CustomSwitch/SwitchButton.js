@@ -21,6 +21,7 @@ const SwitchButton = (toggleSwitch) => {
   buttonColor = {Colors.DEFAULT_GREEN}
   borderColor = {Colors.DEFAULT_GREY}
   backgroundColor={Colors.Blue_Gray}
+  borderRadius = {10}
   haspadding
 />
 
