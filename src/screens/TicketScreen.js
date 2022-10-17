@@ -1,61 +1,65 @@
 import {View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Colors } from '../contents';
 import Receipt from '../components/CustomTicket/Receipt'
 import {MaterialIcons} from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
+import {fetchTickets} from "../apis/tickets";
+import moment from "moment";
 
-const TicketScreen = ({navigation}) => {
-    //const navigation = useNavigation();
-    const tickets = [
-        {
-            "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
-            "bus_no": "AZ 1234",
-            "departure_time": "2022-10-12T12:28:13.000Z",
-            "fare": 45.35,
-            "serial_no": "SN-123456",
-            "route": "KUMASI-ACCRA",
-            "route_id": 1,
-            "barcode" : "some_barcode_1"
-        },
-        {
-            "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
-            "bus_no": "AZ 1234",
-            "departure_time": "2022-10-12T12:28:13.000Z",
-            "fare": 45.35,
-            "serial_no": "SN-123455",
-            "route": "KUMASI-ACCRA",
-            "route_id": 2,
-            "barcode" : "some_barcode_2"
-        }
-        ,
-        {
-            "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
-            "bus_no": "AZ 1234",
-            "departure_time": "2022-10-12T12:28:13.000Z",
-            "fare": 45.35,
-            "serial_no": "SN-123454",
-            "route": "KUMASI-ACCRA",
-            "route_id": 3,
-            "barcode" : "some_barcode_3"
-        }
-    ];
+const TicketScreen = ({navigation,route}) => {
+    const [error, setError] = useState("");
+    const [tickets, setTickets] = useState([]);
+    const bookingId = route.params.bookingId;
+    // const tickets = [
+    //     {
+    //         "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
+    //         "bus_no": "AZ 1234",
+    //         "departure_time": "2022-10-12T12:28:13.000Z",
+    //         "fare": 45.35,
+    //         "serial_no": "SN-123456",
+    //         "route": "KUMASI-ACCRA",
+    //         "route_id": 1,
+    //         "barcode" : "some_barcode_1"
+    //     },
+    //     {
+    //         "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
+    //         "bus_no": "AZ 1234",
+    //         "departure_time": "2022-10-12T12:28:13.000Z",
+    //         "fare": 45.35,
+    //         "serial_no": "SN-123455",
+    //         "route": "KUMASI-ACCRA",
+    //         "route_id": 2,
+    //         "barcode" : "some_barcode_2"
+    //     }
+    //     ,
+    //     {
+    //         "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
+    //         "bus_no": "AZ 1234",
+    //         "departure_time": "2022-10-12T12:28:13.000Z",
+    //         "fare": 45.35,
+    //         "serial_no": "SN-123454",
+    //         "route": "KUMASI-ACCRA",
+    //         "route_id": 3,
+    //         "barcode" : "some_barcode_3"
+    //     }
+    // ];
 
     useEffect(() => {
-        //fetch all of my trips sort by most recent and grab the first three
-        // const fare = _.findWhere(allRoutes, {route_id: selectedRouteId});
-        // if (fare && fare.fare) {
-        //   setFare(fare.fare);
-        //   setAmount(fare.fare);
-        // }
-        // const busStops = extractBusStops(allRoutes, selectedRouteId);
-        // setBusStops(busStops);
-        // const times = extractTimes(allRoutes, selectedRouteId);
-        // setTimes(times);
+        async function populateData() {
+            const userTickets = await fetchTickets(bookingId);
+            setTickets(userTickets);
+        }
+        populateData().catch();
     }, []);
 
   return (
     <SafeAreaView style={styles.container}>
+        {error ? (
+            <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                {error}
+            </Text>
+        ) : null}
      <ScrollView>
          <TouchableOpacity
              style={styles.arrowContainer}

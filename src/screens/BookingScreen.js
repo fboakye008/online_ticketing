@@ -29,13 +29,16 @@ const Bookings = ({ navigation }) => {
         today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
         routes: routes,
       });
-
-      //Do other things here
     }
     populateData().catch();
   }, []);
   return (
     <SafeAreaView style={styles.wrapper}>
+      {error ? (
+          <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+            {error}
+          </Text>
+      ) : null}
       <TouchableOpacity
         style={styles.arrowContainer}
         onPress={() => navigation.goBack()}

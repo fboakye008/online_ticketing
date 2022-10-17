@@ -1,28 +1,20 @@
-import {API_URL} from "@env";
-import React, {useEffect, useState} from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import utils from './utils'
+
+/**
+ *
+ * @returns {Promise<any|undefined>}
+ * @constructor
+ */
 function RequestRoutes() {
     const fetchRoutes = async () => {
-        try {
-            //retrieve api key from storage
-            const y= await AsyncStorage.getItem("user")
-            const user = JSON.parse(y)
-            const response = await fetch(`${API_URL}/v_bus_routes`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "api_key" : user.api_key
-                }
-            });
-            let data = await response.json();
-            return data;
-        } catch (error) {
-            console.log(error);
+        const options = {
+            url : "bookings",
+            method : "GET"
         }
+        return await utils.makeAPIRequest(options)
     };
     return fetchRoutes();
 }
-
 function CreateBooking(bookingInfo) {
     const booking = {
         bus_stopId: bookingInfo?.bus_stopId,
@@ -31,24 +23,15 @@ function CreateBooking(bookingInfo) {
         status: 1,
     };
     const fetchAPI = async () => {
-        try {
-            const api_key = "xxxxxxxxx1";
-            const response = await fetch(`${API_URL}/bookings`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "api_key" : api_key
-                },
-                body: JSON.stringify(booking),
-            });
-            let data = await response.json();
-            return data;
-        } catch (error) {
-            console.log(error);
+        const options = {
+            url : "bookings",
+            method : "POST",
+            body: booking
         }
+        return await utils.makeAPIRequest(options)
     };
 
     return fetchAPI();
 }
 
-export {CreateBooking, RequestRoutes};
+export {CreateBooking,RequestRoutes};

@@ -79,13 +79,15 @@ const BookingTextField = ({placeholder, data, numOfPassenger, sendDataToParent,l
                             setValue(item.value);
                             if(placeholder === "Bus Stop"){
                                 sendDataToParent({numOfPassengers: numOfPassengers,busStop: item.value});
+                                setIsFocus(false);
+                                return;
                             }
                             if(placeholder === "Time"){
                                 sendDataToParent({numOfPassengers: numOfPassengers,time: item.value});
+                                setIsFocus(false);
+                                return;
                             }
-                            if(placeholder === "Route"){
-                                sendDataToParent(item);
-                            }
+                            sendDataToParent(item);
                             setIsFocus(false);
                         }}
                     />

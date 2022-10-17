@@ -4,7 +4,10 @@ import { Colors } from '../contents';
 import {MaterialIcons} from "@expo/vector-icons";
 
 
-const PaymentMessage = ({navigation}) => {
+const PaymentMessage = ({navigation, route}) => {
+    const bookingId = route.params.bookingId;
+    const amount = route.params.amount;
+    const numPassengers = route.params.numPassengers
   return (
     <SafeAreaView style={styles.wrapper}>
     <TouchableOpacity
@@ -32,7 +35,12 @@ If you do not receive the prompt within 10 seconds follow the instructions below
       </View>
          <TouchableOpacity
              style={styles.btn}
-             onPress={() => navigation.navigate("TicketScreen")}
+             onPress={() =>
+                 navigation.navigate("PaymentScreen", {
+                     bookingId: bookingId,
+                     amount: amount,
+                     numPassengers: numPassengers
+                 })}
          >
              <Text style={styles.btnText}>Submit</Text>
          </TouchableOpacity>

@@ -1,24 +1,85 @@
 import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  Image,
+    View,
+    Text,
+    SafeAreaView,
+    StyleSheet,
+    TouchableOpacity,
+    Dimensions,
+    Image, ScrollView,
 } from "react-native";
-import React from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import React, {useState} from "react";
+import {AntDesign, MaterialIcons} from "@expo/vector-icons";
 import { Colors } from "../contents";
 import { useNavigation } from "@react-navigation/native";
 import SwitchButton from "../components/CustomSwitch/SwitchButton";
+import Receipt from "../components/CustomTicket/Receipt";
+import {Dropdown} from "react-native-element-dropdown";
 const { width } = Dimensions.get("window");
 
 const Wallet = () => {
   const navigation = useNavigation();
-  return (
-    <SafeAreaView style={styles.container}>
+  const tickets = [
+    {
+      "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
+      "bus_no": "AZ 1234",
+      "departure_time": "2022-10-12T12:28:13.000Z",
+      "fare": 45.35,
+      "serial_no": "SN-123456",
+      "route": "KUMASI-ACCRA",
+      "route_id": 1,
+      "barcode" : "some_barcode_1"
+    },
+    {
+      "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
+      "bus_no": "AZ 1234",
+      "departure_time": "2022-10-12T12:28:13.000Z",
+      "fare": 45.35,
+      "serial_no": "SN-123455",
+      "route": "KUMASI-ACCRA",
+      "route_id": 2,
+      "barcode" : "some_barcode_2"
+    }
+    ,
+    {
+      "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
+      "bus_no": "AZ 1234",
+      "departure_time": "2022-10-12T12:28:13.000Z",
+      "fare": 45.35,
+      "serial_no": "SN-123454",
+      "route": "KUMASI-ACCRA",
+      "route_id": 3,
+      "barcode" : "some_barcode_3"
+    }
+  ];
+  const ticket =  {
+    "bus_stop": "Asafo Market, Nhyiaeso, Accra, Ghana",
+    "bus_no": "AZ 1234",
+    "departure_time": "2022-10-12T12:28:13.000Z",
+    "fare": 45.35,
+    "serial_no": "SN-123454",
+    "route": "KUMASI-ACCRA",
+    "route_id": 3,
+    "barcode" : "some_barcode_3"
+  };
+  const [switchValue, setSwitchValue] = useState(true);
+
+    const toggleSwitch = (value) => {
+        //onValueChange of the switch this function will be called
+      if(value === 'Ticket'){
+        console.log("setting to true")
+        setSwitchValue(true);
+      }
+      else{
+        console.log("setting to false")
+        setSwitchValue(false);
+      }
+
+        //state changes according to switch
+        //which will result in re-render the text
+    };
+
+    return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
       <TouchableOpacity
         style={styles.arrowContainer}
         onPress={() => navigation.goBack()}
@@ -27,50 +88,15 @@ const Wallet = () => {
 
       </TouchableOpacity>
       <Text style={styles.title}>Ticket Wallet</Text>
-      <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
-      <SwitchButton/>
-      <View style={styles.topicsWrapper}>
-      
-      </View>
-      
-          
 
-     
-
-
-      {/* <TouchableOpacity>
         <View style={styles.walletContainer}>
-          <Text style={styles.walletText}>VIP Cash</Text>
-          <View style={styles.amountArrowWrapper}>
-            <Text style={styles.walletAmount}>GHS 3,123.00</Text>
-            <MaterialIcons name="arrow-forward-ios" size={20} color="black" />
-          </View>
+          <SwitchButton toggleSwitch={toggleSwitch}/>
+          {switchValue ? (
+              <Receipt ticketInfo={ticket} key={ticket.route_id}></Receipt>
+          ) : (
+              <Text>Switch is OFF</Text>
+          )}
         </View>
-      </TouchableOpacity>
-      <View style={styles.divider} />
-      <Text style={styles.paymentMethods}>Payment Methods</Text>
-      <TouchableOpacity style={styles.cashLogoWrapper}>
-        <Image source={require("../images/mtn.png")} style={styles.cashLogo} />
-        <Text style={styles.mtn}>MTN</Text>
-      </TouchableOpacity>
-      <View style={styles.divider} />
-      <TouchableOpacity style={styles.cashLogoWrapper}>
-        <Image
-          source={require("../images/vodafone.png")}
-          style={styles.cashLogo}
-        />
-        <Text style={styles.mtn}>Vodafone Cash</Text>
-      </TouchableOpacity>
-      <View style={styles.divider} />
-      <TouchableOpacity style={styles.cashLogoWrapper}>
-        <Image
-          source={require("../images/cash1.png")}
-          style={styles.cashLogo}
-        />
-        <Text style={styles.mtn}>Cash</Text>
-      </TouchableOpacity>
-      <View style={styles.divider} /> */}
-      </ScrollView>
     </SafeAreaView>
   );
 };

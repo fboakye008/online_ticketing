@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Colors } from '../../contents';
-// import QRCode from "react-native-qrcode-svg";
+import QRCode from "react-native-qrcode-svg";
 
 
 
@@ -15,7 +15,6 @@ const TicketContainer = ({ticketInfo}) => {
             <Text style={styles.text}>Fare : {ticketInfo.fare}</Text>
             <Text style={styles.text}>Bus no : {ticketInfo.bus_no}</Text>
             <Text style={styles.text}>Serial no: {ticketInfo.serial_no}</Text>
-            <Text style={styles.text}>Barcode: {ticketInfo.barcode}</Text>
             <QRCode
                 value={ticketInfo.serial_no}
                 size={20}

@@ -1,5 +1,6 @@
-import { API_URL } from "@env";
-import React, { useEffect, useState } from "react";
+
+import React from "react";
+import utils from "./utils";
 
 function LoginUser(userInfo) {
   const user = {
@@ -7,19 +8,13 @@ function LoginUser(userInfo) {
     password: userInfo?.password,
   };
   const fetchAPI = async () => {
-    try {
-      const response = await fetch(`${API_URL}/users/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      let data = await response.json();
-      return data;
-    } catch (error) {
-      console.log(error);
+    const options = {
+      url : "users/login",
+      method : "POST",
+      no_key : "no_key",
+      "body" : user
     }
+    return await utils.makeAPIRequest(options);
   };
 
   return fetchAPI();
