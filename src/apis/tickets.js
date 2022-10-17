@@ -4,13 +4,11 @@ async function fetchTickets(bookingId) {
     const fetchAPI = async () => {
 
         const options = {
-            url: "v_bus_tickets/" ,
+            url: "v_bus_tickets" ,
             method: "GET"
         }
         if(bookingId){
-            options.url = options.url + "findByBookingId/" + bookingId
-        }else{
-            options.url = options.url + "find"
+            options.url = options.url + "/findByBookingId/" + bookingId
         }
         return await utils.makeAPIRequest(options)
     };

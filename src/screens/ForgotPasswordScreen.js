@@ -30,7 +30,7 @@ const isValidEmail = (value) => {
 const ForgotPasswordScreen = ({navigation}) => {
 
   const [loading, setLoading] = useState(false);
- 
+
   const [userInfo, setUserInfo] = useState({
     email: ""
   });
@@ -50,20 +50,19 @@ const ForgotPasswordScreen = ({navigation}) => {
 
       if (!isValidEmail(email))
       return updateError("Enter a valid email!", setError);
-   
+
   };
-  
+
   const submitForm = async () => {
     const { email } = userInfo;
     const otp = Math.floor(1000 + Math.random() * 9000);
     if (isValidForm()) {
       setLoading(true);
-      let result = await ResetUser(userInfo);
-      console.log(result);
+      let result = ResetUser(userInfo);
       if (result?.account_status === 1) {
         setLoading(false);
         // alert("Received otp code in your email!");
-        console.log("email sent")
+        //console.log("email sent")
         navigation.replace("Verification", { email, otp });
       } else {
         alert("Otp code has been sent to your mail!", result?.error?.message);
@@ -73,7 +72,7 @@ const ForgotPasswordScreen = ({navigation}) => {
 
 
   return (
-    
+
     <SafeAreaView style={styles.container}>
     {error ? (
         <Text style={{ color: Colors.Red, fontSize: 12, textAlign: "center" }}>
@@ -86,14 +85,14 @@ const ForgotPasswordScreen = ({navigation}) => {
       <Text style={styles.content}>
       Enter your email to help you recover your password
       </Text>
-      <TextField 
+      <TextField
       value={email}
       onChangeText={(value) => handleOnChangeText(value, "email")}
-      label={`Email`} 
-      placeholder={`Example@gmail.com`} 
-      icon={`mail`} 
+      label={`Email`}
+      placeholder={`Example@gmail.com`}
+      icon={`mail`}
       autoCapitalize='none'
- 
+
       />
       <Separator height={10} />
       <SubmitButton
@@ -101,7 +100,7 @@ const ForgotPasswordScreen = ({navigation}) => {
           onPress={submitForm}
           title="Reset Password"
         />
-    
+
    </View>
    {loading && <LoadingScreen />}
   </SafeAreaView>
@@ -136,7 +135,7 @@ backgroundColor: Colors.DEFAULT_WHITE,
   },
   contentContainer:{
     paddingTop: 50,
-    paddingHorizontal: 20, 
+    paddingHorizontal: 20,
   },
   inputSubContainer: {
     flexDirection: 'row',
@@ -218,7 +217,7 @@ googleButton: {
 signinButtonLogo:{
   height: 15,
   width:25,
-  
+
 },
 signinButtonContainer: {
  backgroundColor: Colors.DEFAULT_WHITE,
