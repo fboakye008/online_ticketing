@@ -59,11 +59,11 @@ const PaymentScreen = ({navigation, route}) => {
             }
             if (isValidForm(paymentInfo)) {
                 setLoading(true);
-                const payments = await CreatePayment(paymentInfo,payload.numPassengers);
+                const payment = await CreatePayment(paymentInfo);
                 //create tickets
-                if (payments.length > 0) {
-                    console.log("Payment successfully made for " + payments.length + ". Generating tickets now! Please wait..");
-                    const tickets = await CreateTickets(payments);
+                if (payment) {
+                    console.log("Payment successfully made for " + payment.length + ". Generating tickets now! Please wait..");
+                    const tickets = await CreateTickets(payment);
                     if (tickets.length > 0) {
                         console.log("Tickets successfully generated. Created " + tickets.length + " tickets");
                         navigation.replace("TicketScreen", {bookingId});
