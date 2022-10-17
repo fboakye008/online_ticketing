@@ -12,7 +12,6 @@ const TicketScreen = ({navigation,route}) => {
     useEffect(() => {
         async function populateData() {
             const userTickets = await fetchTickets(bookingId);
-            console.log(userTickets);
             setTickets(userTickets);
         }
         populateData().catch();
@@ -35,7 +34,7 @@ const TicketScreen = ({navigation,route}) => {
               <Text style={styles.title}>Ticket</Text>
       <View>
           {tickets.map(ticket => {
-              return <Receipt ticketInfo={ticket} key={ticket.route_id}></Receipt>
+              return <Receipt ticketInfo={ticket} key={ticket.ticket_id}></Receipt>
           })}
 
       </View>

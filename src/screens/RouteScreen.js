@@ -26,7 +26,7 @@ const Routes = ({ navigation }) => {
   const [selectedRoute, setSelectedRoute] = useState();
   const handleRouting = function(){
     if(selectedRoute) {
-      navigation.navigate('BusStopTime', {
+      navigation.navigate('BusStopTimeScreen', {
         routes: data.routes, selectedRoute: selectedRoute
       });
     }else{

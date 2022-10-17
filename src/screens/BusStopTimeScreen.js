@@ -6,7 +6,6 @@ import {
     StyleSheet,
     Dimensions,
     TouchableOpacity,
-    TextInput,
     SafeAreaView,
 } from "react-native";
 import BookingTextField from "../components/CustomBookingInput";
@@ -155,21 +154,13 @@ const BusStopTimeScreen = ({navigation, route}) => {
                                   label="Time"/>
                 <BookingTextField numOfPassenger={true} label="Number of passengers"
                                   sendDataToParent={sendDataToBusStopTime}/>
-
-                        <TextInput
-                            style={styles.inputField}
-                            editable={false}
-                    placeholderTextColor={"black"}
-                    placeholder={amount}
-                    label="Total Amount"
-                        />
-                {/* <ReadOnlyField
+                <ReadOnlyField
                     style={styles.input}
                     editable={false}
                     placeholderTextColor={"black"}
                     placeholder={amount}
                     label="Total Amount"
-                /> */}
+                />
                 <TouchableOpacity
                     style={styles.btn}
                     onPress={submitForm}

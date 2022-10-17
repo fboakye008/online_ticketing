@@ -30,7 +30,6 @@ const self = module.exports = {
         try {
             console.log("API_URL",`${API_URL}`);
             const url = `${API_URL}/${params.url}`;
-            console.log("url",url);
             const options = {};
             options.method = params.method;
 
