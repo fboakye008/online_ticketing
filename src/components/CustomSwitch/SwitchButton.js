@@ -5,12 +5,9 @@ import { Colors } from '../../contents';
 
 
 
-const options = [
-    { label: "Ticket", value: "Ticket" },
-    { label: "History", value: "History" }
-  ];
 
-const SwitchButton = (toggleSwitch) => {
+
+const SwitchButton = ({toggleSwitch,options}) => {
   return (
     <View>
       <SwitchSelector

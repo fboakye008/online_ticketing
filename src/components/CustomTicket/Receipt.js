@@ -28,7 +28,7 @@ const TicketContainer = ({ticketInfo}) => {
 
 const styles = StyleSheet.create({
     T_container:{
-        width: '40%',
+        width: '100%',
         backgroundColor: Colors.DEFAULT_WHITE,
         borderRadius: 20,
         padding: 20,
