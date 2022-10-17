@@ -9,6 +9,8 @@ const TicketScreen = ({navigation,route}) => {
     const [error, setError] = useState("");
     const [tickets, setTickets] = useState([]);
     const bookingId = route.params.bookingId;
+
+
     useEffect(() => {
         async function populateData() {
             const userTickets = await fetchTickets(bookingId);

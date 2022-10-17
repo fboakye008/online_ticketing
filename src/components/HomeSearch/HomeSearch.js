@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   Text,
@@ -8,36 +8,48 @@ import {
 import { EvilIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import DisplayTrip from "../CustomInput/DisplayTrip";
+import {fetchTickets} from "../../apis/tickets";
+import _ from "underscore";
+import moment from "moment";
+import {updateError} from "../../screens/utils/validations";
 const HomeSearch = () => {
   const navigation = useNavigation();
+  const [error, setError] = useState("");
+  const [recentTrips, setRecentTrips] = useState([]);
 
-  const recentTrips = [{
-    title: "Accra-Kumasi",
-    key: "1"
-  },
-    {
-    title: "Accra-Takoradi",
-    key: "3"
-  }
-    ,
-    {
-      title: "Accra-Cape Coast",
-      key: "3"
+  const prepareRecentTrips = (trips) => {
+
+    let result = trips.map(trip => ({booking_id: trip.booking_id ,route:trip.route, departure_time: trip.departure_time}));
+    const uniqueBookings = _.uniq(result, function (x) {
+      return x["booking_id"];
+    });
+    const sorted = _.sortBy(uniqueBookings, function(item){
+      const d = new Date(item.departure_time);
+      const mt = moment(d).format('DD/MM/YYYY mm:hh:ss A')
+      return - moment(mt, 'DD/MM/YYYY mm:hh:ss A').unix(); // parse date with moment >> format to UNIX timestamp
+    });
+    result = sorted.map(trip => ({key: trip.booking_id ,title:trip.route}));
+    if(result.length > 3){
+      return result.slice(0, 3)
+    }else{
+      return result;
     }
-  ];
-
+  };
   useEffect(() => {
-    //fetch all of my trips sort by most recent and grab the first three
-    // const fare = _.findWhere(allRoutes, {route_id: selectedRouteId});
-    // if (fare && fare.fare) {
-    //   setFare(fare.fare);
-    //   setAmount(fare.fare);
-    // }
-    // const busStops = extractBusStops(allRoutes, selectedRouteId);
-    // setBusStops(busStops);
-    // const times = extractTimes(allRoutes, selectedRouteId);
-    // setTimes(times);
+    async function populateData() {
+      const userTickets = await fetchTickets();
+      const trips = prepareRecentTrips(userTickets);
+      if(trips && trips.length > 0) {
+        setRecentTrips(trips);
+      }
+    }
+    try {
+      const x = populateData();
+    }catch(e){
+      return updateError(e, setError);
+    }
   }, []);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -49,7 +61,7 @@ const HomeSearch = () => {
 
       <View style={styles.tripHistoryWrapper}>
         {recentTrips.map(recentTrip=>{
-          return <DisplayTrip title={recentTrip.title} key={recentTrip.title}></DisplayTrip>
+          return <DisplayTrip title={recentTrip.title} key={recentTrip.key}></DisplayTrip>
         })}
       </View>
     </View>
