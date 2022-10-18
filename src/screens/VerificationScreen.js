@@ -16,7 +16,7 @@ import {Colors, Image} from "../contents";
 import {Display} from "./utils";
 import {useState} from "react";
 import CustomNotification from "./utils/PushNotification";
-import {VerifyOTP} from "../apis/reset";
+import {RequestNewPassword, VerifyOTP} from "../apis/reset";
 import {updateError} from "../utils";
 import {MaterialIcons} from "@expo/vector-icons";
 
@@ -50,7 +50,26 @@ const VerificationScreen = ({navigation, route}) => {
             }
         }
     };
+    const handleResendOTP= async() => {
+        try {
+            setLoading(true);
+            const result = await RequestNewPassword(email);
+            if (result.success === "success") {
+                alert("new OTP sent to " + email);
 
+            } else {
+                alert("Error sending OTP to " + email);
+            }
+            return;
+        }catch(e){
+            console.log(e);
+            alert("Error sending OTP to " + email);
+            return;
+        }finally{
+            setLoading(false);
+        }
+
+    };
     const handleOTP = () => {
         setLoading(true);
         let otpString = Object.values(otp).toString().split(",").join("");
@@ -129,7 +148,7 @@ const VerificationScreen = ({navigation, route}) => {
                     >
                         Didn't receive any code?
                     </Text>
-                    <TouchableOpacity style={styles.resendBtn} onPress={handleOTP}>
+                    <TouchableOpacity style={styles.resendBtn} onPress={handleResendOTP}>
                         <Text style={styles.resendText}> Resend Code.</Text>
                     </TouchableOpacity>
                 </View>
