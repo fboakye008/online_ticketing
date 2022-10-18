@@ -4,8 +4,6 @@ import Display from "../../screens/utils/Display";
 import { Colors, image as MyImage } from "../../contents";
 
 const WelcomeCard = ({ title, content, images }) => {
-  // console.log(MyImage);
-  // console.log(images);
   return (
     <View style={styles.container}>
       <Image

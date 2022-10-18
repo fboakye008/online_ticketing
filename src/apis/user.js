@@ -16,7 +16,7 @@ function CreateUser(userInfo) {
     const options = {
       url : "users",
       method : "POST",
-      no_key : "no_key",
+      no_key : true,
       body: user
     }
     return await utils.makeAPIRequest(options);

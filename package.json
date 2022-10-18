@@ -5,7 +5,9 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
+    "androidc": "expo start -c --android",
     "ios": "expo start --ios",
+    "iosc": "expo start -c --ios",
     "web": "expo start --web"
   },
   "dependencies": {
