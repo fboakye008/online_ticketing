@@ -13,6 +13,7 @@ const TicketScreen = ({navigation,route}) => {
 
     useEffect(() => {
         async function populateData() {
+
             const userTickets = await fetchTickets(bookingId);
             setTickets(userTickets);
         }

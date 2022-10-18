@@ -31,6 +31,7 @@ const VerificationScreen = ({navigation, route}) => {
 
     const data = route.params;
     const email = data.email;
+    const apiKey = data.api_key;
     const fromScreen = data.fromScreen;
 
     const [otp, setOtp] = useState({0: "", 1: "", 2: "", 3: ""});
