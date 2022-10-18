@@ -10,7 +10,7 @@ const BottomSheetComponent = ({ children }) => {
   const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
 
   const handleSheetChange = useCallback((index) => {
-    console.log("handleSheetChange", index);
+
   }, []);
   const handleSnapPress = useCallback((index) => {
     sheetRef.current?.snapToIndex(index);

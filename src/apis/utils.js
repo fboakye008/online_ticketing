@@ -28,7 +28,6 @@ const self = module.exports = {
      */
     makeAPIRequest: async function (params) {
         try {
-            //console.log("API_URL",`${API_URL}`);
             const url = `${API_URL}/${params.url}`;
             const options = {};
             options.method = params.method;
