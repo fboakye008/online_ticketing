@@ -58,12 +58,15 @@ const HomeSearch = () => {
         <EvilIcons name="search" size={24} color="black" />
         <Text style={styles.inputText}>Where To?</Text>
       </TouchableOpacity>
-
-      <View style={styles.tripHistoryWrapper}>
-        {recentTrips.map(recentTrip=>{
-          return <DisplayTrip title={recentTrip.title} key={recentTrip.key}></DisplayTrip>
-        })}
+      <View style={styles.signupContainer}>
+        <Text style={styles.accountText}>Today's Schedule</Text>
+        <Text style={styles.signupText} onPress={() => navigation.navigate('Schedule')}>View</Text>
       </View>
+      {/*<View style={styles.tripHistoryWrapper}>*/}
+      {/*  {recentTrips.map(recentTrip=>{*/}
+      {/*    return <DisplayTrip title={recentTrip.title} key={recentTrip.key}></DisplayTrip>*/}
+      {/*  })}*/}
+      {/*</View>*/}
     </View>
   );
 };
