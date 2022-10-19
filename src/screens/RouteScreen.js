@@ -163,8 +163,9 @@ const styles = StyleSheet.create({
 
     justifyContent: "space-between",
     alignItems: "center",
-    fontSize:15 ,
+    fontSize:30 ,
     fontWeight: "bold",
+    paddingTop: 25,
     paddingHorizontal: 100,
 },
 });

@@ -2,20 +2,20 @@ const WELCOME_CONTENTS =[
     {
         key:'1',
         images: 'travel',
-        title: 'Discover places near you',
-        content: 'We make it simple for you'
+        title: 'A step ahead to progress!'
+       
     },
     {
         key:"2",
         images: 'busStop1',
-        title: 'Discover places near you',
-        content: 'We make it simple for you'
+        title: 'Travel in style and comfort!'
+        
     },
     {
         key:"3",
         images: 'boardBus',
-        title: 'Discover places near you',
-        content: 'We make it simple for you'
+        title: 'Safety is our priority!',
+       
     },
    
 ];

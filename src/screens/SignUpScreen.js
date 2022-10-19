@@ -145,7 +145,7 @@ const SignUpScreen = ({ navigation }) => {
           secureTextEntry={isPasswordShow ? false : true}
           label={`Password`}
           name="password"
-          placeholder={`Password must be at least characters`}
+          placeholder={`Password must be at least 8 characters`}
           icon={`lock`}
           isPasswordShow={isPasswordShow}
           isPassword={true}
@@ -156,8 +156,8 @@ const SignUpScreen = ({ navigation }) => {
           onChangeText={(value) => handleOnChangeText(value, "confirmPassword")}
           autoCapitalize="none"
           name="password"
-          label={`Password`}
-          placeholder={`Password must be at least characters`}
+          label={`Confirm Password`}
+          placeholder={`Password must be at least 8 characters`}
           icon={`lock`}
           secureTextEntry={isConfirmPasswordShow ? false : true}
           isPasswordShow={isConfirmPasswordShow}

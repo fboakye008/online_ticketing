@@ -67,7 +67,7 @@ const PaymentScreen = ({navigation, route}) => {
                     const tickets = await CreateTickets(payment,numPassengers);
                     if (tickets.length > 0) {
                         console.log("Tickets successfully generated. Created " + tickets.length + " tickets");
-                        navigation.replace("TicketScreen", {bookingId});
+                        navigation.replace("PaymentMessage", {bookingId});
                     }else{
                         console.log("Failed to generate tickets!");
                         return updateError("Failed to generate tickets!", setError);
@@ -112,21 +112,23 @@ const PaymentScreen = ({navigation, route}) => {
                 <View style={styles.fieldContainer} onPress={() => Keyboard.dismiss}>
                     <BookingTextField placeholder="Payment" data={telcos} sendDataToParent={handleTelco}
                                       label="Payment"/>
-                    <View style={{marginVertical: 20}}>
                         <TextField
                             label={`Phone Number`}
                             placeholder={`Phone Number must be 10 digits`}
-                            icon={`phone`}
                             selectionColor={Colors.DEFAULT_GREEN}
                             keyboardType="numeric"
                             autoCapitalize="none"
                             onChangeText={(value) => handleOnChangeTextPhone(value)}
                         />
-                    </View>
+                   
                     <View style={{marginVertical: 20}}>
                         <ReadOnlyField
                             placeholder={amountPaid}
-                            label="Amount Paid"
+                            label="Amount"
+                            style={styles.input}
+                           editable={false}
+                           placeholderTextColor={"black"}
+                    
                         />
                     </View>
                     <TouchableOpacity
