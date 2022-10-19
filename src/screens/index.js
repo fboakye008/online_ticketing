@@ -5,7 +5,6 @@ import SignUpScreen from "./SignUpScreen";
 import ForgotPasswordScreen from "./ForgotPasswordScreen";
 import ResetPassword from "./ResetPassword";
 import VerificationScreen from "./VerificationScreen";
-import BookingScreen from "./BookingScreen";
 import RouteScreen from "./RouteScreen";
 import BusStopTimeScreen from "./BusStopTimeScreen";
 import PaymentMessage from "./PaymentMessage";
@@ -28,7 +27,6 @@ export {
     ForgotPasswordScreen,
     ResetPassword,
     VerificationScreen,
-    BookingScreen,
     RouteScreen,
     BusStopTimeScreen,
     TicketScreen,

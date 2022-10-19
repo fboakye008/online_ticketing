@@ -55,16 +55,21 @@ const SignInScreen = ({navigation}) => {
 
     const submitForm = async () => {
         if (isValidForm()) {
-            setLoading(true);
-            let user = await LoginUser(userInfo);
-            if (user && user.phone) {
+            try {
+                setLoading(true);
+                let user = await LoginUser(userInfo);
+                if (user && user.phone) {
+                    setLoading(false);
+                    const payload = {phone: user.phone, full_name: user.full_name, api_key: user.api_key};
+                    await AsyncStorage.setItem("user", JSON.stringify(payload))
+                    navigation.replace("Home");
+                } else {
+                    return updateError("Password/phone number does not exist!", setError);
+                }
+            }catch(e){
+                return updateError(e, setError);
+            }finally{
                 setLoading(false);
-                const payload = {phone: user.phone, full_name: user.full_name, api_key: user.api_key};
-                await AsyncStorage.setItem("user", JSON.stringify(payload))
-                navigation.replace("Home");
-            } else {
-                setLoading(false);
-                return updateError("Password/phone number does not exist!", setError);
             }
         }
     };
