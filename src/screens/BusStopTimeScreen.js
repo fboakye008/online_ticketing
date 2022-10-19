@@ -20,7 +20,7 @@ const {height, width} = Dimensions.get("window");
 import {isValidObjField, updateError} from './utils/validations';
 const BusStopTimeScreen = ({navigation, route}) => {
     const selectedRouteId = route.params.selectedRoute;
-    const allRoutes = route.params.routes
+    const allRoutes = route.params.routes;
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [data, setData] = useState({
@@ -36,10 +36,10 @@ const BusStopTimeScreen = ({navigation, route}) => {
     const [times, setTimes] = useState([]);
     const [numPassengers, setNumPassengers] = useState(1);
 
-    const extractBusStops = function (objArray, route_id) {
-        const bus_stops = _.where(objArray, {route_id: route_id});
+    const extractBusStops = function (routeBusStops, route_id) {
+        const bus_stops = _.where(routeBusStops, {route_id: route_id});
         if (bus_stops && bus_stops.length > 0) {
-            let result = objArray.map(a => ({"value": a.bus_stop_id, "label": a.bus_stop, "order": a.bus_stop_order}));
+            let result = bus_stops.map(a => ({"value": a.bus_stop_id, "label": a.bus_stop, "order": a.bus_stop_order}));
             const bustops = _.uniq(result, function (x) {
                 return x["value"];
             });
@@ -61,7 +61,9 @@ const BusStopTimeScreen = ({navigation, route}) => {
         if (isValidForm()) {
             try {
                 setLoading(true);
-                const py = {bus_stopId: busStop, bus_scheduleId: selectedRouteId, number_of_seats: numPassengers};
+                const departureTimeObj = _.findWhere(allRoutes,{route_id: selectedRouteId, departure_time: time})
+                const py = {bus_stopId: busStop, bus_scheduleId: departureTimeObj.bus_schedule_id, number_of_seats: numPassengers};
+
                 let booking = await CreateBooking(py);
                 if (booking && booking.id) {
                     setLoading(false);
@@ -88,7 +90,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
         const bus_stops = _.where(objArray, {route_id: route_id});
         if (bus_stops && bus_stops.length > 0) {
             const moment = require("moment");
-            let result = objArray.map(a => ({
+            let result = bus_stops.map(a => ({
                 "value": a.departure_time,
                 "label": moment(a.departure_time).format("hh:mm A"),
                 "order": a.departure_time
