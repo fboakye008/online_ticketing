@@ -59,11 +59,11 @@ const HomeSearch = () => {
         <Text style={styles.inputText}>Where To?</Text>
       </TouchableOpacity>
 
-      <View style={styles.tripHistoryWrapper}>
+      {/* <View style={styles.tripHistoryWrapper}>
         {recentTrips.map(recentTrip=>{
           return <DisplayTrip title={recentTrip.title} key={recentTrip.key}></DisplayTrip>
         })}
-      </View>
+      </View> */}
     </View>
   );
 };

@@ -66,7 +66,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 if (booking && booking.id) {
                     setLoading(false);
                     console.log("successfully created booking. ID is ", booking.id);
-                    navigation.replace("PaymentMessage", {
+                    navigation.replace("PaymentScreen", {
                         bookingId: booking.id,
                         amount: amount,
                         numPassengers: numPassengers
@@ -139,7 +139,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
 
             </TouchableOpacity>
-            <Text style={styles.text}> Select Bus Stop Time</Text>
+            <Text style={styles.text}> Departure</Text>
             <View style={styles.container}>
                 <ReadOnlyField
                     style={styles.input}
@@ -251,9 +251,11 @@ const styles = StyleSheet.create({
 
         justifyContent: "space-between",
         alignItems: "center",
-        fontSize:15 ,
+        fontSize:30 ,
         fontWeight: "bold",
         paddingHorizontal: 100,
+        paddingTop: 25,
+        paddingLeft: 145
     },
 });
 
