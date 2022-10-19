@@ -80,16 +80,27 @@ const SignUpScreen = ({ navigation }) => {
 
   const submitForm = async () => {
     const { phone } = userInfo;
+    const { email } = userInfo;
     const otp = Math.floor(1000 + Math.random() * 9000);
     if (isValidForm()) {
       setLoading(true);
-      let result = await CreateUser(userInfo);
-      if (result?.account_status === 1) {
+      try {
+        //TODO: make account active after verification
+        const user = await CreateUser(userInfo);//create user and send email
+        //Send to verification with api_key
+        if (user.email) {
+          const api_key = user.api_key;
+          const fromScreen = "SignUp";
+          navigation.replace("Verification", { email,api_key,fromScreen});
+          //navigation.replace("Signin") && alert("Successfully registered!")
+        } else {
+          alert("Failed to register! " +  result?.error?.message);
+        }
+      }catch(e){
+        console.log(e);
+        alert("Failed to register! " + e);
+      }finally{
         setLoading(false);
-        alert("Successfully registered!");
-        navigation.replace("Verification", { phone, otp });
-      } else {
-        alert("Failed to register!", result?.error?.message);
       }
     }
   };

@@ -11,7 +11,6 @@ import {
     // RegisterPhoneNumberScreen,
     VerificationScreen,
     HomeScreen,
-    BookingScreen,
     RouteScreen,
     BusStopTimeScreen,
     AccountScreen,
@@ -22,6 +21,7 @@ import {
     Trips,
     PaymentScreen,
     PaymentMessage,
+    ScheduleScreen,
     Wallet,
 } from "../screens";
 
@@ -39,12 +39,12 @@ const HomeStackNavigator = () => {
             }}
         >
             <HomeStack.Screen name="Home" component={HomeScreen}/>
-            <HomeStack.Screen name="Booking" component={BookingScreen}/>
             <HomeStack.Screen name="Route" component={RouteScreen}/>
             <HomeStack.Screen name="BusStopTimeScreen" component={BusStopTimeScreen}/>
             <HomeStack.Screen name="TicketScreen" component={TicketScreen}/>
             <HomeStack.Screen name="PaymentScreen" component={PaymentScreen}/>
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
+            <HomeStack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
         </HomeStack.Navigator>
     );
 };
@@ -128,6 +128,7 @@ const MainStackNavigator = () => {
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
             <Stack.Screen name="ResetPassword" component={ResetPassword}/>
             <Stack.Screen name="Verification" component={VerificationScreen}/>
+            <Stack.Screen name="Schedule" component={ScheduleScreen}/>
             <Stack.Screen name="Home" component={BottomTabNavigator}/>
         </Stack.Navigator>
     );

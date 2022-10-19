@@ -29,12 +29,14 @@ const Wallet = () => {
 
     const handleTickets = function(tickets){
         //TODO: Use departure_time after you repopulate  the database
-        const futureTickets = _.filter(tickets, function(ticket){
+        let futureTickets = _.filter(tickets, function(ticket){
             return !moment(ticket.purchase_date).isBefore(moment(), "day");
         });
-        const pastTickets = _.filter(tickets, function(ticket){
+        let pastTickets = _.filter(tickets, function(ticket){
             return !moment(ticket.purchase_date).isSameOrAfter(moment(), "day");
         });
+        futureTickets = _.sortBy(futureTickets,"purchase_date").reverse();
+        pastTickets = _.sortBy(pastTickets,"purchase_date").reverse();
         setFutureTickets(futureTickets);
         setPastTickets(pastTickets);
         return;
