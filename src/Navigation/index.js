@@ -21,6 +21,7 @@ import {
     Trips,
     PaymentScreen,
     PaymentMessage,
+    ScheduleScreen,
     Wallet,
 } from "../screens";
 
@@ -43,6 +44,7 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="TicketScreen" component={TicketScreen}/>
             <HomeStack.Screen name="PaymentScreen" component={PaymentScreen}/>
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
+            <HomeStack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
         </HomeStack.Navigator>
     );
 };
@@ -126,6 +128,7 @@ const MainStackNavigator = () => {
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
             <Stack.Screen name="ResetPassword" component={ResetPassword}/>
             <Stack.Screen name="Verification" component={VerificationScreen}/>
+            <Stack.Screen name="Schedule" component={ScheduleScreen}/>
             <Stack.Screen name="Home" component={BottomTabNavigator}/>
         </Stack.Navigator>
     );
