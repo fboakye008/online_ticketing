@@ -21,11 +21,7 @@ const Trips = ({navigation}) => {
         const uniqueBookings = _.uniq(result, function (x) {
             return x["booking_id"];
         });
-        const sorted = _.sortBy(uniqueBookings, function (item) {
-            const d = new Date(item.departure_time);
-            const mt = moment(d).format('DD/MM/YYYY mm:hh:ss A')
-            return -moment(mt, 'DD/MM/YYYY mm:hh:ss A').unix(); // parse date with moment >> format to UNIX timestamp
-        });
+        const sorted = _.sortBy(uniqueBookings,"departure_time").reverse();
         return sorted.map(trip => ({key: trip.booking_id, title: trip.route + " (" + moment(trip.departure_time).format('DD/MM/YYYY mm:hh A') + ")"}));
     };
     useEffect(() => {

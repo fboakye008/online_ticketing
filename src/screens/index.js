@@ -5,13 +5,13 @@ import SignUpScreen from "./SignUpScreen";
 import ForgotPasswordScreen from "./ForgotPasswordScreen";
 import ResetPassword from "./ResetPassword";
 import VerificationScreen from "./VerificationScreen";
-import BookingScreen from "./BookingScreen";
 import RouteScreen from "./RouteScreen";
 import BusStopTimeScreen from "./BusStopTimeScreen";
 import PaymentMessage from "./PaymentMessage";
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import AccountScreen from "./SettingsScreen";
+import ScheduleScreen from "./ScheduleScreen";
 import TicketScreen from "./TicketScreen";
 import Help from "./Help";
 import About from "./About";
@@ -28,7 +28,6 @@ export {
     ForgotPasswordScreen,
     ResetPassword,
     VerificationScreen,
-    BookingScreen,
     RouteScreen,
     BusStopTimeScreen,
     TicketScreen,
@@ -36,6 +35,7 @@ export {
     PaymentMessage,
     HomeScreen,
     SettingsScreen,
+    ScheduleScreen,
     AccountScreen,
     Help,
     About,

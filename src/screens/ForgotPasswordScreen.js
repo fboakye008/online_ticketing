@@ -39,7 +39,6 @@ const ForgotPasswordScreen = ({navigation}) => {
                 setLoading(true);
                 const result = await RequestNewPassword(email);
                 if (result.success === "success") {
-                    setLoading(false);
                     navigation.replace("Verification", {email,fromScreen});
                 } else {
                     throw new Error("Email not found");

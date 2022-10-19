@@ -58,9 +58,7 @@ const ResetPassword = ({navigation, route}) => {
                 setLoading(true);
                 userInfo.email = email;
                 userInfo.otp = otp;
-                console.log(userInfo)
                 let result = await ResetNewPassword(userInfo);
-                console.log(result);
                 if (result.email) {
                     setLoading(false);
                     alert("New password Successfully Created!");
