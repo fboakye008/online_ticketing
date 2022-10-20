@@ -4,6 +4,9 @@ import Separator from '../components/WelcomeCard/Separator';
 import {Colors, image as MyImage} from '../contents';
 import TextField from '../components/CustomInput/TextInput';
 import {Display} from './utils';
+import {
+    MaterialIcons,
+  } from "@expo/vector-icons";
 import LoginUser from "../apis/login";
 import LoadingScreen from "./utils/LoadingScreen";
 import SubmitButton from '../components/CustomInput/SubmitButton';
@@ -11,7 +14,11 @@ import {isValidObjField,updateError,isValidPhone} from './utils/validations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const SignInScreen = ({navigation}) => {
+
+
+const SignInScreen = ({navigation, route}) => {
+    const navPage = route.params.navPage;
+    console.log("f",navPage);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         async function removeUser() {
@@ -40,6 +47,8 @@ const SignInScreen = ({navigation}) => {
         setUserInfo({...userInfo, [fieldName]: value});
     };
 
+    const keyPressRef = React.useRef(null);
+    
     const isValidForm = () => {
         //We will accept only if all of the fielsa have value
         if (!isValidObjField(userInfo))
@@ -62,7 +71,7 @@ const SignInScreen = ({navigation}) => {
                     setLoading(false);
                     const payload = {phone: user.phone, full_name: user.full_name, api_key: user.api_key};
                     await AsyncStorage.setItem("user", JSON.stringify(payload))
-                    navigation.replace("Home");
+                    navigation.replace({navPage});
                 } else {
                     return updateError("Password/phone number does not exist!", setError);
                 }
@@ -118,7 +127,6 @@ const SignInScreen = ({navigation}) => {
                 </View>
 
                 <SubmitButton
-                    // onPress={() => navigation.navigate('RegisterPhone')}
                     onPress={submitForm}
                     title="Sign In"
                 />
@@ -126,28 +134,7 @@ const SignInScreen = ({navigation}) => {
                     <Text style={styles.accountText}>Don't have an account?</Text>
                     <Text style={styles.signupText} onPress={() => navigation.navigate('Signup')}>Sign Up</Text>
                 </View>
-                <View style={styles.signupContainer}>
-                    <Text style={styles.accountText}>Today's Schedule</Text>
-                    <Text style={styles.signupText} onPress={() => navigation.navigate('Schedule')}>View</Text>
-                </View>
-                {/* <Text style={styles.orText}>OR</Text> */}
-
-                {/* <TouchableOpacity style={styles.facebookButton} disabled={true}>
-                    <View style={styles.socialButtonContainer}>
-                        <View style={styles.signinButtonLogo}>
-                            <Image source={MyImage.facebook} style={styles.signinButtonLogo}/>
-                        </View>
-                        <Text style={styles.socialSigninButtonText}>Connect with Facebook</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.googleButton} disabled={true}>
-                    <View style={styles.socialButtonContainer}>
-                        <View style={styles.signinButtonLogo}>
-                            <Image source={MyImage.google} style={styles.signinButtonLogo}/>
-                        </View>
-                        <Text style={styles.socialSigninButtonText}>Connect with Google</Text>
-                    </View>
-                </TouchableOpacity> */}
+                
             </View>
             {loading && <LoadingScreen/>}
         </SafeAreaView>
@@ -188,6 +175,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
+    topic: {
+        fontSize: 16,
+        paddingLeft: 10,
+        fontWeight: "500",
+      },
     inputText: {
         fontSize: 18,
         textAlignVertical: 'center',
@@ -205,20 +197,7 @@ const styles = StyleSheet.create({
         lineHeight: 20 * 1.4,
         color: Colors.DEFAULT_GREEN,
     },
-//  signinButton:{
-//    backgroundColor: Colors.DEFAULT_GREEN,
-//    borderRadius: 5,
-//    paddingHorizontal: 30,
-//    height: Display.setHeight(6),
-//    justifyContent: 'center',
-//    alignItems: 'center',
-//    marginTop: 20,
-//  },
-//  signinButtonText:{
-//   color: Colors.DEFAULT_WHITE,
-//   fontSize: 18,
-//   lineHeight: 18*1.4,
-// },
+
     signupContainer: {
         marginHorizontal: 20,
         justifyContent: 'center',
@@ -284,6 +263,34 @@ const styles = StyleSheet.create({
         fontSize: 15,
         lineHeight: 13 * 1.4,
     },
+    topicsContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginVertical: 15,
+        borderBottomWidth: 1,
+         borderBottomColor: Colors.DEFAULT_GREY,
+         borderTopWidth: 1,
+         borderTopColor: Colors.DEFAULT_GREY,
+
+
+         backgroundColor: Colors.DEFAULT_GREEN,
+         borderRadius: 50,
+         paddingHorizontal: 30,
+         height: Display.setHeight(6),
+         justifyContent: 'center',
+         alignItems: 'center',
+         marginTop: 5,
+     
+         shadowColor: Colors.DEFAULT_BLACK,
+        shadowOffset: {
+        width: 0,
+        height: 5,
+        },
+        shadowOpacity: 0.121,
+       shadowRadius: 9.11,
+       elevation: 5,
+      },
 });
 
 export default SignInScreen;
