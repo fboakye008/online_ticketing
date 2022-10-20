@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, SafeAreaView,} from 'react-native';
 import {MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import _ from "lodash"
+import uds from "underscore"
 import {RequestSchedule} from "../apis/schedules";
 import {Colors} from "../contents";
 
 
-const ScheduleScreen = ({navigation}) => {
+const ScheduleScreen = ({navigation,route}) => {
   const [error, setError] = useState("");
   const [ columns, setColumns ] = useState([
     "Route",
@@ -16,13 +17,20 @@ const ScheduleScreen = ({navigation}) => {
     "# Av. Seats",
     // "Fare"
   ]);
+  let selectedR = route?.params?.selectedRoute;
+
   const [ direction, setDirection ] = useState(null)
   const [ selectedColumn, setSelectedColumn ] = useState(null);
 
   const [ data, setData ] = useState([])
   useEffect(() => {
     async function populateData() {
-      const schedules = await RequestSchedule();
+      let schedules = await RequestSchedule();
+      //selectedR="ACCRA-KUMASI";
+      if(selectedR){
+        schedules = uds.where(schedules,{route: selectedR})
+      }
+      schedules =uds.sortBy(schedules,'departure')
       setData(schedules);
     }
     populateData().catch();
