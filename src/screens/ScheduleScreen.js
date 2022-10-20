@@ -1,62 +1,88 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import {StatusBar} from 'expo-status-bar';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, SafeAreaView,} from 'react-native';
 import {MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import _ from "lodash"
+import uds from "underscore"
 import {RequestSchedule} from "../apis/schedules";
 import {Colors} from "../contents";
 
 
-const ScheduleScreen = ({navigation}) => {
-  const [error, setError] = useState("");
-  const [ columns, setColumns ] = useState([
-    "Route",
-    "Departure",
-    "Bus #",
-    "# Av. Seats",
-    // "Fare"
-  ]);
-  const [ direction, setDirection ] = useState(null)
-  const [ selectedColumn, setSelectedColumn ] = useState(null);
+const ScheduleScreen = ({navigation, route}) => {
+    const [error, setError] = useState("");
+    const [columns, setColumns] = useState([
+        "Route",
+        "Departure",
+        "Bus #",
+        "# Av. Seats",
+        // "Fare"
+    ]);
+    let selectedR = route?.params?.selectedRoute;
 
-  const [ data, setData ] = useState([])
-  useEffect(() => {
-    async function populateData() {
-      const schedules = await RequestSchedule();
-      setData(schedules);
-    }
-    populateData().catch();
-  }, []);
-  const sortTable = (column) => {
-    const newDirection = direction === "desc" ? "asc" : "desc"
-    const sortedData = _.orderBy(data, [column],[newDirection])
-    setSelectedColumn(column)
-    setDirection(newDirection)
-    setData(sortedData)
-  }
-  const tableHeader = () => (
-      <View style={styles.tableHeader}>
-        {
-          columns.map((column, index) => {
-            {
-              return (
-                  <TouchableOpacity
-                      key={index}
-                      style={styles.columnHeader}
-                      onPress={()=> sortTable(column)}>
-                    <Text style={styles.columnHeaderTxt}>{column + " "}
-                      { selectedColumn === column && <MaterialCommunityIcons
-                          name={direction === "desc" ? "arrow-down-drop-circle" : "arrow-up-drop-circle"}
-                      />
-                      }
-                    </Text>
-                  </TouchableOpacity>
-              )
+    const [direction, setDirection] = useState(null)
+    const [selectedColumn, setSelectedColumn] = useState(null);
+
+    const [data, setData] = useState([])
+    useEffect(() => {
+        async function populateData() {
+            let schedules = await RequestSchedule();
+            //selectedR="ACCRA-KUMASI";
+            if (selectedR) {
+                schedules = uds.where(schedules, {route: selectedR})
             }
-          })
+            schedules = uds.sortBy(schedules, 'departure')
+            setData(schedules);
         }
-      </View>
-  )
+
+        populateData().catch();
+    }, []);
+    const sortTable = (column) => {
+        let mappedCol = column;
+        switch (column) {
+            case "# Av. Seats" :
+                mappedCol = "available_seats"
+                break;
+            case "Route" :
+                mappedCol = "route"
+                break;
+            case "Departure" :
+                mappedCol = "short_depart"
+                break;
+            case "Bus #" :
+                mappedCol = "plate_no"
+                break;
+            default:
+                break;
+        }
+        const newDirection = direction === "desc" ? "asc" : "desc"
+        const sortedData = _.orderBy(data, [mappedCol], [newDirection])
+        setSelectedColumn(column)
+        setDirection(newDirection)
+        setData(sortedData)
+    }
+    const tableHeader = () => (
+        <View style={styles.tableHeader}>
+            {
+                columns.map((column, index) => {
+                    {
+                        return (
+                            <TouchableOpacity
+                                key={index}
+                                style={styles.columnHeader}
+                                onPress={() => sortTable(column)}>
+                                <Text style={styles.columnHeaderTxt}>{column + " "}
+                                    {selectedColumn === column && <MaterialCommunityIcons
+                                        name={direction === "desc" ? "arrow-down-drop-circle" : "arrow-up-drop-circle"}
+                                    />
+                                    }
+                                </Text>
+                            </TouchableOpacity>
+                        )
+                    }
+                })
+            }
+        </View>
+    )
 
   return (
       <View style={styles.container}>
@@ -96,7 +122,8 @@ const ScheduleScreen = ({navigation}) => {
         {/* <StatusBar style="auto" /> */}
       </View>
 
-  );
+
+    );
 }
 
 const styles = StyleSheet.create({
@@ -181,7 +208,53 @@ const styles = StyleSheet.create({
   columnRowTxt: {
     width:"25%",
     textAlign:"center",
-  }
+  },
+
+    arrowContainer: {
+        height: 40,
+        width: 40,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.SECONDARY_WHITE,
+        borderRadius: 10,
+        marginLeft: 10,
+        shadowColor: Colors.DEFAULT_BLACK,
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.121,
+        shadowRadius: 9.11,
+        elevation: 5,
+    },
+    tableHeader: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        backgroundColor: "#37C2D0",
+        borderTopEndRadius: 10,
+        borderTopStartRadius: 10,
+        height: 50
+    },
+    tableRow: {
+        flexDirection: "row",
+        height: 40,
+        alignItems: "center",
+    },
+    columnHeader: {
+        width: "20%",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    columnHeaderTxt: {
+        color: "white",
+        fontWeight: "bold",
+    },
+    columnRowTxt: {
+        width: "20%",
+        textAlign: "center",
+    }
+
 });
 
 
