@@ -74,7 +74,7 @@ const WelcomeScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.gettingStartedButton}
           activeOpacity={0.8}
-          onPress={() => navigation.replace("Signin")}
+          onPress={() => navigation.replace("Home")}
         >
           <Text style={styles.gettingStartedButtonText}>Get Started</Text>
         </TouchableOpacity>
@@ -83,7 +83,7 @@ const WelcomeScreen = ({ navigation }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={{ marginLeft: 10 }}
-            onPress={() => navigation.replace("Signin")}
+            onPress={() => navigation.replace("Home")}
           >
             <Text style={styles.buttonText}>SKIP</Text>
           </TouchableOpacity>

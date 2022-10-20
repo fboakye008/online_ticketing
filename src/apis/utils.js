@@ -5,6 +5,13 @@ import _ from "underscore";
 
 const self = module.exports = {
 
+    isLoggedIn : async function () {
+        const savedUser = await AsyncStorage.getItem("user");
+        if (savedUser){
+            return true;
+        }
+       return false;
+      },
     /**
      * Look in storage to find cached user. if null, forward to login page
      * @returns {Promise<null|any>}

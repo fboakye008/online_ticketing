@@ -20,7 +20,7 @@ import {
           const [isFocused, setIsFocused] = React.useState(false);
   return(
     <>
-      <Text style={styles.label}>{label}:</Text>
+      <Text style={styles.label}></Text>
       
       <View style={[
             styles.inputContainer, 
@@ -67,70 +67,6 @@ import {
   );
   };
   
-//   const TextField = (props) => {
-//     const {placeholder,
-//       label,
-//       isPassword,
-//       icon,
-//       setPasswordShow,
-//       isPasswordShow,  
-//       onFocus = ()=>{},
-//        } = props
-//     const [isFocused, setIsFocused] = React.useState(false);
-//     return <View style={{marginVertical: 5}}>
-//         <Text style={styles.label}>{label}:</Text>
-//         <View style={[
-//             styles.inputContainer, 
-//             {
-//                 borderColor: isFocused 
-//                  ?Colors.LIGHT_GREEN
-//                  : Colors.Light
-//                  },
-//                  ]}>
-//             <Feather
-//           name={icon}
-//           size={22}
-//           color={Colors.DEFAULT_GREY}
-//           style={{ marginRight: 10 }}
-//         />
-//         <TextInput 
-//           value onChangeText  placeholder={placeholder} style={styles.inputText}
-//         />
-//         <TextInput
-         
-//           // 
-          
-//           placeholderTextColor={Colors.DEFAULT_GREY}
-//           SelectionColor={Colors.DEFAULT_GREEN}
-//           autoCorrect={false}
-//           onFocus={()=>{
-//             onFocus();
-//             setIsFocused(true);
-//             }}
-
-//             onBlur={()=>{
-//                 setIsFocused(false);
-//             }}
-//             style={styles.inputText} 
-//         />
-           
-//         </View>
-        
-        
-//         <TouchableOpacity onPress={() => setPasswordShow(!isPasswordShow)}>
-//           {isPassword ? (
-//             <Feather
-//               name={isPasswordShow ? 'eye' : 'eye-off'}
-//               size={22}
-//               color={Colors.Blue_Gray}
-//               style={{ marginRight: 10 }}
-//             />
-//           ) : null}
-//         </TouchableOpacity>
-//     </View>;
-// }
-
-
 const styles=StyleSheet.create({ 
   label:{
    marginVertical: 5,
@@ -143,7 +79,7 @@ inputContainer: {
   alignItems: "center",
   paddingHorizontal: 15,
   backgroundColor: Colors.SECONDARY_WHITE,
-  width: "50%",
+  width: "100%",
   height: 45,
   borderRadius: 50,
   shadowColor: Colors.DEFAULT_BLACK,

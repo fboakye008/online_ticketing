@@ -110,7 +110,7 @@ const ScheduleScreen = ({navigation, route}) => {
             renderItem={({item, index})=> {
               return (
                   <View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
-                    <Text style={{...styles.columnRowTxt, fontWeight:"bold"}}>{item.route}</Text>
+                    <Text style={styles.columnRowTxt}>{item.route}</Text>
                     <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
                     <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
                     <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
@@ -127,6 +127,39 @@ const ScheduleScreen = ({navigation, route}) => {
 }
 
 const styles = StyleSheet.create({
+  arrowContainer: {
+    height: 40,
+    width: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.SECONDARY_WHITE,
+    borderRadius: 10,
+    marginLeft: 10,
+    shadowColor: Colors.DEFAULT_BLACK,
+    shadowOffset: {
+        width: 0,
+        height: 5,
+    },
+    shadowOpacity: 0.121,
+    shadowRadius: 9.11,
+    elevation: 5,
+},
+  columnHeader: {
+    width: "30%",
+    justifyContent: "center",
+    alignItems:"center"
+  },
+  
+  columnHeaderTxt: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  columnRowTxt: {
+    width:"25%",
+    textAlign:"center",
+  },
+  
+
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -144,43 +177,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     
   },
-  titleContainer:{
-    flex: 1,
-  //   shadowColor: Colors.DEFAULT_BLACK,
-  //  shadowOffset: {
-  //  width: 0,
-  //  height: 5,
-  //  },
-  //  shadowOpacity: 0.121,
-  // shadowRadius: 9.11,
-  // elevation: 5,
-  },
-  title:{
-    fontSize: 18,
-    marginLeft: -38,
-    fontWeight:'bold',
-    textAlign: 'center',
-  },
-  // arrowContainer: {
-  //   flexDirection: 'row',
-  //   marginBottom: 20,
-  //   marginTop: 5,
-  //   height: 40,
-  //   width: 40,
-  //   // justifyContent: "center",
-  //   // alignItems: "center",
-  //   backgroundColor: Colors.SECONDARY_WHITE,
-  //   borderRadius: 10,
-  //   marginLeft: 10,
-  //   shadowColor: Colors.DEFAULT_BLACK,
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 5,
-  //   },
-  //   shadowOpacity: 0.121,
-  //   shadowRadius: 9.11,
-  //   elevation: 5,
-  // },
   tableHeader: {
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -191,70 +187,23 @@ const styles = StyleSheet.create({
     height: 50,
     
   },
+  
   tableRow: {
     flexDirection: "row",
     height: 60,
     alignItems:"center",
   },
-  columnHeader: {
-    width: "30%",
-    justifyContent: "center",
-    alignItems:"center"
+  
+  titleContainer:{
+    flex: 1,
   },
-  columnHeaderTxt: {
-    color: "white",
-    fontWeight: "bold",
+  title:{
+    fontSize: 18,
+    marginLeft: -38,
+    fontWeight:'bold',
+    textAlign: 'center',
   },
-  columnRowTxt: {
-    width:"25%",
-    textAlign:"center",
-  },
-
-    arrowContainer: {
-        height: 40,
-        width: 40,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.SECONDARY_WHITE,
-        borderRadius: 10,
-        marginLeft: 10,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.11,
-        elevation: 5,
-    },
-    tableHeader: {
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        backgroundColor: "#37C2D0",
-        borderTopEndRadius: 10,
-        borderTopStartRadius: 10,
-        height: 50
-    },
-    tableRow: {
-        flexDirection: "row",
-        height: 40,
-        alignItems: "center",
-    },
-    columnHeader: {
-        width: "20%",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    columnHeaderTxt: {
-        color: "white",
-        fontWeight: "bold",
-    },
-    columnRowTxt: {
-        width: "20%",
-        textAlign: "center",
-    }
-
+ 
 });
 
 
