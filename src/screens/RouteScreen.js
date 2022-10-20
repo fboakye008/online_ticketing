@@ -18,6 +18,7 @@ import utils  from "../apis/utils";
 import {updateError} from "./utils/validations";
 const Routes = ({ navigation }) => {
   const [error, setError] = useState("");
+  const [routeMessage, setRouteMessage] = useState("Route");
   const [data, setData] = useState({
     today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
     routes: [],
@@ -40,6 +41,9 @@ const Routes = ({ navigation }) => {
     async function populateData() {
       const routes = await RequestRoutes();
       const uniqueRoutes = utils.uniquify(routes);
+      if(uniqueRoutes.length === 0){
+        setRouteMessage("No available buses at this time")
+      }
       setData({
         today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
         routes: routes,
@@ -72,7 +76,7 @@ const Routes = ({ navigation }) => {
               label="Date"
           />
 
-          <BookingTextField label="Route" placeholder="Route" data={data.uniqueRoutes} sendDataToParent={sendDataToParent}/>
+          <BookingTextField label="Route" placeholder={routeMessage} data={data.uniqueRoutes} sendDataToParent={sendDataToParent}/>
           <TouchableOpacity
               style={styles.btn}
               onPress={handleRouting}
