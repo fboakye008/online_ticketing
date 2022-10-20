@@ -33,7 +33,7 @@ const PaymentScreen = ({navigation, route}) => {
     const telcos = [
         {"value": "MTN", "label": "MTN"},
         {"value": "Voda", "label": "VODA Cash"},
-        {"value": "AirTel", "label": "AIR TEL"}
+        {"value": "AirTel", "label": "TIGO Cash"}
     ];
     const handleTelco = (index) => {
         setPaymentMethod(index.value);
@@ -121,7 +121,7 @@ const PaymentScreen = ({navigation, route}) => {
                             onChangeText={(value) => handleOnChangeTextPhone(value)}
                         />
                    
-                    <View style={{marginVertical: 20}}>
+                    <View style={styles.ReadOnlyField}>
                         <ReadOnlyField
                             placeholder={amountPaid}
                             label="Amount"
@@ -148,26 +148,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
     },
-    input: {
-        alignItems: "center",
-        fontSize: 15,
-        paddingHorizontal: 50,
-        backgroundColor: Colors.LIGHT_GREY2,
-        width: "90%",
-        height: 50,
-        borderRadius: 50,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.11,
-        elevation: 5,
-    },
+    
     fieldContainer: {
         alignSelf: "center",
-        marginVertical: 50,
+        marginVertical: 40,
     },
     arrowContainer: {
         height: 40,
@@ -186,31 +170,11 @@ const styles = StyleSheet.create({
         shadowRadius: 9.11,
         elevation: 5,
     },
-    label: {
-        color: Colors.DEFAULT_BLACK,
-        fontSize: 15,
-        fontWeight: "bold",
-        marginBottom: 5,
-        paddingLeft: 10,
+    ReadOnlyField:{
+        marginVertical: 20,
+        marginLeft: 175,
     },
-    inputField: {
-        justifyContent: "space-between",
-        flexDirection: "row",
-        alignItems: "center",
-        paddingHorizontal: 15,
-        backgroundColor: Colors.SECONDARY_WHITE,
-        width: width - 40,
-        height: 50,
-        borderRadius: 50,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.11,
-        elevation: 5,
-    },
+   
     title: {
         fontSize: 20,
         textAlign: "center",
@@ -220,7 +184,8 @@ const styles = StyleSheet.create({
     btn: {
         justifyContent: "center",
         alignItems: "center",
-        marginVertical: 15,
+        marginVertical: 5,
+        marginLeft: 20,
         paddingHorizontal: 15,
         backgroundColor: Colors.DEFAULT_GREEN,
         width: width - 40,

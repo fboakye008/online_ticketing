@@ -65,11 +65,15 @@ const ScheduleScreen = ({navigation}) => {
               {error}
             </Text>
         ) : null}
+
+      
         <TouchableOpacity
-            style={styles.arrowContainer}
+            style={styles.header}
             onPress={() => navigation.goBack()}>
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-
+          <View style={styles.titleContainer}>
+        <Text style={styles.title}>Bus Schedules</Text>
+        </View>
         </TouchableOpacity>
         <FlatList
             data={data}
@@ -84,12 +88,12 @@ const ScheduleScreen = ({navigation}) => {
                     <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
                     <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
                     <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
-                    {/*<Text style={styles.columnRowTxt}>{item.fare}</Text>*/}
+                    {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
                   </View>
               )
             }}
         />
-        <StatusBar style="auto" />
+        {/* <StatusBar style="auto" /> */}
       </View>
 
   );
@@ -101,41 +105,72 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop:80
+    paddingTop:10
   },
-  arrowContainer: {
-    height: 40,
-    width: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: Colors.SECONDARY_WHITE,
-    borderRadius: 10,
-    marginLeft: 10,
-    shadowColor: Colors.DEFAULT_BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.121,
-    shadowRadius: 9.11,
-    elevation: 5,
+
+  header:{
+    borderBottomColor: '#eee',
+    borderBottomWidth: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 12,
+    paddingHorizontal: 12,
+    
   },
+  titleContainer:{
+    flex: 1,
+  //   shadowColor: Colors.DEFAULT_BLACK,
+  //  shadowOffset: {
+  //  width: 0,
+  //  height: 5,
+  //  },
+  //  shadowOpacity: 0.121,
+  // shadowRadius: 9.11,
+  // elevation: 5,
+  },
+  title:{
+    fontSize: 18,
+    marginLeft: -38,
+    fontWeight:'bold',
+    textAlign: 'center',
+  },
+  // arrowContainer: {
+  //   flexDirection: 'row',
+  //   marginBottom: 20,
+  //   marginTop: 5,
+  //   height: 40,
+  //   width: 40,
+  //   // justifyContent: "center",
+  //   // alignItems: "center",
+  //   backgroundColor: Colors.SECONDARY_WHITE,
+  //   borderRadius: 10,
+  //   marginLeft: 10,
+  //   shadowColor: Colors.DEFAULT_BLACK,
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 5,
+  //   },
+  //   shadowOpacity: 0.121,
+  //   shadowRadius: 9.11,
+  //   elevation: 5,
+  // },
   tableHeader: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
     backgroundColor: "#37C2D0",
-    borderTopEndRadius: 10,
-    borderTopStartRadius: 10,
-    height: 50
+    borderTopEndRadius: 5,
+    borderTopStartRadius: 5,
+    height: 50,
+    
   },
   tableRow: {
     flexDirection: "row",
-    height: 40,
+    height: 60,
     alignItems:"center",
   },
   columnHeader: {
-    width: "20%",
+    width: "30%",
     justifyContent: "center",
     alignItems:"center"
   },
@@ -144,7 +179,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   columnRowTxt: {
-    width:"20%",
+    width:"25%",
     textAlign:"center",
   }
 });

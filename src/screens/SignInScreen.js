@@ -77,14 +77,13 @@ const SignInScreen = ({navigation}) => {
 
     return (
 
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
             {error ? (
                 <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
                     {error}
                 </Text>
             ) : null}
             <View style={styles.contentContainer}>
-                <Separator height={10}/>
                 <Text style={styles.headerTitle}>Welcome!</Text>
                 <Text style={styles.content}>
                     Enter your Username and password, and enjoy your trip!

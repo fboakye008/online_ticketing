@@ -22,19 +22,16 @@ const TicketScreen = ({navigation,route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-        {error ? (
-            <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
-                {error}
-            </Text>
-        ) : null}
-     <ScrollView>
+        
+    
          <TouchableOpacity
              style={styles.arrowContainer}
              onPress={() => navigation.goBack()}
          >
-             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+             <MaterialIcons name="close" size={30} color="#000"/>
          </TouchableOpacity>
               <Text style={styles.title}>Ticket</Text>
+              <ScrollView>
       <View>
           {tickets.map(ticket => {
               return <Receipt ticketInfo={ticket} key={ticket.ticket_id}></Receipt>
@@ -54,6 +51,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: Colors.ticketbg,
     },
+    
     title: {
         fontSize: 20,
         textAlign: "center",

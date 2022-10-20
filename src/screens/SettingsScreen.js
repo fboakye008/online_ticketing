@@ -84,7 +84,7 @@ const AccountScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.userContainer}>
         <Text style={styles.username}>{userInfo.fullName}</Text>
-        <Ionicons name="person-circle" size={40} color={Colors.DEFAULT_GREY} />
+        <Ionicons name="person-circle" size={60} color={Colors.DEFAULT_GREY} />
       </View>
       <View style={styles.itemsWrapper}>
         {items?.map((item) => (
@@ -130,13 +130,15 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   username: {
-    fontSize: 50,
+    fontSize: 30,
     fontWeight: "bold",
   },
   itemsWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginVertical: 15,
+    borderBottomColor: '#eee',
+    borderBottomWidth: 2,
   },
   itemContainer: {
     backgroundColor: "#fff",

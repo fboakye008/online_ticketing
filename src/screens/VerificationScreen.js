@@ -98,16 +98,15 @@ const VerificationScreen = ({navigation, route}) => {
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity
-                style={styles.arrowContainer}
-                onPress={() => navigation.goBack()}>
-                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
-
-            </TouchableOpacity>
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+          <View style={styles.titleContainer}>
+        <Text style={styles.title}>OTP Verification</Text>
+        </View>
+        </TouchableOpacity>
             <View style={styles.contentContainer}>
                 <Separator height={10}/>
-
-                <Text style={styles.headerTitle}>OTP Verification</Text>
-                <Separator height={40}/>
 
                 <Text style={styles.content}>
                     Enter the OTP number sent to
@@ -241,6 +240,28 @@ const styles = StyleSheet.create({
         fontSize: 16,
         alignItems: "center",
     },
+
+
+
+    header:{
+        // borderBottomColor: '#eee',
+        // borderBottomWidth: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 12,
+        paddingHorizontal: 12,
+        
+      },
+      titleContainer:{
+        flex: 1,
+      },
+      title:{
+        Colors: Colors.DEFAULT_BLACK,
+         fontSize: 20,
+        marginLeft: -38,
+        fontWeight:'bold',
+        textAlign: 'center',
+      },
 });
 
 export default VerificationScreen;

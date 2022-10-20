@@ -106,7 +106,7 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView >
       {error ? (
         <Text style={{ color: Colors.Red, fontSize: 12, textAlign: "center" }}>
           {error}
@@ -190,7 +190,7 @@ const SignUpScreen = ({ navigation }) => {
             Sign In
           </Text>
         </View>
-        <View style={{ marginHorizontal: 5 }}>
+        <View style={{ marginHorizontal: 25 }}>
           <Text style={styles.accountText}>
             By signing up, you confirm that you accept our {""}
             <Text
@@ -218,9 +218,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.DEFAULT_WHITE,
+    
   },
   contentContainer: {
-    paddingTop: 50,
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
 
@@ -228,43 +229,26 @@ const styles = StyleSheet.create({
     Colors: Colors.DEFAULT_BLACK,
     fontSize: 30,
     fontWeight: "bold",
+  
   },
-  title: {
-    fontSize: 20,
-    lineHeight: 20 * 1.4,
-    marginTop: 50,
-    marginBottom: 10,
-    marginHorizontal: 20,
-  },
+  
   content: {
     colors: Colors.grey,
     fontSize: 18,
     marginVertical: 10,
   },
-  inputContainer: {
-    backgroundColor: Colors.LIGHT_GREY2,
-    paddingHorizontal: 30,
-    marginHorizontal: 30,
-    borderRadius: 8,
-    borderWidth: 0.5,
-    borderColor: Colors.DEFAULT_GREY,
-    justifyContent: "center",
-  },
-  inputSubContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
+  
   signupContainer: {
     marginHorizontal: 20,
     justifyContent: "center",
-    paddingVertical: 20,
+    paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",
   },
   accountText: {
     fontSize: 16,
     lineHeight: 13 * 1.4,
+   
   },
   signupText: {
     color: Colors.DEFAULT_GREEN,
