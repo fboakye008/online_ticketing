@@ -17,7 +17,7 @@ const SwitchButton = ({toggleSwitch,options}) => {
   textColor={Colors.DEFAULT_WHITE}
   buttonColor = {Colors.DEFAULT_GREEN}
   borderColor = {Colors.DEFAULT_GREY}
-  backgroundColor={Colors.Blue_Gray}
+  backgroundColor={Colors.DEFAULT_GREY}
   borderRadius = {10}
   haspadding
 />

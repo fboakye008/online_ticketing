@@ -200,32 +200,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         height: height,
     },
-    input: {
-        alignItems: "center",
-        fontSize: 15,
-        paddingHorizontal: 50,
-        backgroundColor: Colors.LIGHT_GREY2,
-        width: "90%",
-        height: 50,
-        borderRadius: 50,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.11,
-        elevation: 5,
-    },
-    inputContainer: {
-        backgroundColor: Colors.Silver,
-        paddingHorizontal: 20,
-        marginHorizontal: 20,
-        borderRadius: 8,
-        borderWidth: 0.5,
-        borderColor: Colors.DEFAULT_GREY,
-        justifyContent: "center",
-    },
+   
+    // 
     btn: {
         justifyContent: "center",
         alignItems: "center",
@@ -256,7 +232,7 @@ const styles = StyleSheet.create({
         fontSize:30 ,
         fontWeight: "bold",
         paddingHorizontal: 100,
-        paddingTop: 25,
+        paddingTop: 5,
         paddingLeft: 145
     },
 });

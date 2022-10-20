@@ -20,12 +20,21 @@ const SubmitButton = ({title, onPress}) => {
 const styles=StyleSheet.create({ 
 signinButton: {
     backgroundColor: Colors.DEFAULT_GREEN,
-    borderRadius: 5,
+    borderRadius: 50,
     paddingHorizontal: 30,
     height: Display.setHeight(6),
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 5,
+
+    shadowColor: Colors.DEFAULT_BLACK,
+   shadowOffset: {
+   width: 0,
+   height: 5,
+   },
+   shadowOpacity: 0.121,
+  shadowRadius: 9.11,
+  elevation: 5,
   },
   signinButtonText: {
     color: Colors.DEFAULT_WHITE,

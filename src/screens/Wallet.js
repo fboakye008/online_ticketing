@@ -108,7 +108,7 @@ const Wallet = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.SECONDARY_WHITE,
+        backgroundColor: Colors.DEFAULT_WHITE,
     },
     arrowContainer: {
         height: 40,
@@ -139,50 +139,14 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginVertical: 20,
     },
-    walletText: {
-        fontSize: 16,
-        fontWeight: "bold",
-        paddingTop: 10,
-        paddingVertical: 10,
-    },
-    walletAmount: {
-        fontSize: 25,
-        color: Colors.DEFAULT_GREEN,
-    },
+    
     amountArrowWrapper: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         marginVertical: 10,
     },
-    divider: {
-        height: 0.4,
-        width: width - 20,
-        backgroundColor: Colors.DEFAULT_GREY,
-        alignSelf: "center",
-    },
-    paymentMethods: {
-        fontSize: 16,
-        fontWeight: "bold",
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        color: Colors.DEFAULT_GREY,
-    },
-    cashLogoWrapper: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginVertical: 10,
-    },
-    cashLogo: {
-        height: 70,
-        width: 70,
-        marginHorizontal: 10,
-    },
-    mtn: {
-        fontSize: 16,
-        fontWeight: "bold",
-        marginLeft: 10,
-    },
+   
 });
 
 export default Wallet;
