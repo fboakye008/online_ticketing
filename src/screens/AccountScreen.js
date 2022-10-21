@@ -43,7 +43,7 @@ const options = [
         id: 2,
         label: "Settings",
         icon: "settings",
-        path: "Settings",
+        path: "Setting",
     },
     {
         id: 3,
