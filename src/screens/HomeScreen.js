@@ -13,32 +13,25 @@ import logo from "../../src/images/logo1.png";
 import utils from "../apis/utils";
 
 
-
-
 const HomeScreen = ({navigation}) => {
-    
+
     const keyPressRef = React.useRef(null);
     const handleSchedule = () => {
         navigation.navigate('Schedule');
-       
       };
-
-    
       const handleBuyTicket = async () => {
         const y = await utils.isLoggedIn();
         let  navPage =  'Route';
-        
         if(y){
             navigation.navigate(navPage);
         }else{
           navigation.navigate('Signin',{navPage});
         }
-       
+
       };
       const handleTicketWallet =  async() => {
         const y = await utils.isLoggedIn()
         let  navPage =  'Wallet';
-        
         if(y){
             navigation.navigate(navPage);
         }else{
@@ -53,8 +46,8 @@ const HomeScreen = ({navigation}) => {
       <View>
         <Image source={logo} style={[styles.Image]} resizeMode="cover" />
 
-        
-       
+
+
         <TouchableOpacity
                 style={styles.topicsContainer}
                 onPress={() => handleBuyTicket()}
@@ -65,13 +58,13 @@ const HomeScreen = ({navigation}) => {
                   <Text style={styles.topic}>Buy Ticket</Text>
                 </View>
                 <View>
-                 
+
                     <MaterialIcons
                       name="keyboard-arrow-right"
                       size={26}
                       color="black"
                     />
-                  
+
                 </View>
               </TouchableOpacity>
 
@@ -85,14 +78,14 @@ const HomeScreen = ({navigation}) => {
                   <Text style={styles.topic}>Ticket Wallet</Text>
                 </View>
                 <View>
-                 
+
                     <MaterialIcons
                       name="keyboard-arrow-right"
                       size={30}
                       color="black"
-                
+
                     />
-                  
+
                 </View>
               </TouchableOpacity>
 
@@ -106,19 +99,19 @@ const HomeScreen = ({navigation}) => {
                   <Text style={styles.topic}>Today's Schedule</Text>
                 </View>
                 <View>
-                 
+
                     <MaterialIcons
                       name="keyboard-arrow-right"
                       size={26}
                       color="black"
                     />
-                  
+
                 </View>
               </TouchableOpacity>
       </View>
     </View>
 
-           
+
         </SafeAreaView>
     );
 };
@@ -128,14 +121,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
-   
+
     topic: {
         flex: 1,
         fontSize: 16,
         paddingLeft: 10,
         fontWeight: "500",
       },
-   
+
     topicsContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -147,10 +140,8 @@ const styles = StyleSheet.create({
          borderRadius: 5,
          paddingHorizontal: 10,
          height: Display.setHeight(13),
-         justifyContent: 'center',
-         alignItems: 'center',
          marginTop: 5,
-     
+
          shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
         width: 0,

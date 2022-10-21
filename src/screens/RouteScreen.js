@@ -23,7 +23,6 @@ const Routes = ({ navigation }) => {
     today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
     routes: [],
   });
-
   const [selectedRoute, setSelectedRoute] = useState();
   const handleRouting = function(){
     if(selectedRoute) {
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     height: height,
   },
 
-  // 
+  //
   btn: {
     justifyContent: "center",
     alignItems: "center",

@@ -4,31 +4,19 @@ import Separator from '../components/WelcomeCard/Separator';
 import {Colors, image as MyImage} from '../contents';
 import TextField from '../components/CustomInput/TextInput';
 import {Display} from './utils';
-import {
-    MaterialIcons,
-  } from "@expo/vector-icons";
+import utils from "../apis/utils";
 import LoginUser from "../apis/login";
 import LoadingScreen from "./utils/LoadingScreen";
 import SubmitButton from '../components/CustomInput/SubmitButton';
-import {isValidObjField,updateError,isValidPhone} from './utils/validations';
+import {isValidObjField, updateError, isValidPhone} from './utils/validations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
-
 const SignInScreen = ({navigation, route}) => {
-    const navPage = route.params.navPage;
-    console.log("f",navPage);
+    const nextPage = route.params.navPage;
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        async function removeUser() {
-            try {
-                await AsyncStorage.removeItem("user")
-            } catch (e) {
 
-            }
-        }
-        removeUser().catch(console.error);
     }, []);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [isPasswordShow, setPasswordShow] = useState(false);
@@ -48,7 +36,7 @@ const SignInScreen = ({navigation, route}) => {
     };
 
     const keyPressRef = React.useRef(null);
-    
+
     const isValidForm = () => {
         //We will accept only if all of the fielsa have value
         if (!isValidObjField(userInfo))
@@ -71,13 +59,13 @@ const SignInScreen = ({navigation, route}) => {
                     setLoading(false);
                     const payload = {phone: user.phone, full_name: user.full_name, api_key: user.api_key};
                     await AsyncStorage.setItem("user", JSON.stringify(payload))
-                    navigation.replace({navPage});
+                    navigation.navigate(`${nextPage}`);
                 } else {
                     return updateError("Password/phone number does not exist!", setError);
                 }
-            }catch(e){
+            } catch (e) {
                 return updateError(e, setError);
-            }finally{
+            } finally {
                 setLoading(false);
             }
         }
@@ -134,7 +122,7 @@ const SignInScreen = ({navigation, route}) => {
                     <Text style={styles.accountText}>Don't have an account?</Text>
                     <Text style={styles.signupText} onPress={() => navigation.navigate('Signup')}>Sign Up</Text>
                 </View>
-                
+
             </View>
             {loading && <LoadingScreen/>}
         </SafeAreaView>
@@ -179,7 +167,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingLeft: 10,
         fontWeight: "500",
-      },
+    },
     inputText: {
         fontSize: 18,
         textAlignVertical: 'center',
@@ -197,7 +185,6 @@ const styles = StyleSheet.create({
         lineHeight: 20 * 1.4,
         color: Colors.DEFAULT_GREEN,
     },
-
     signupContainer: {
         marginHorizontal: 20,
         justifyContent: 'center',
@@ -243,7 +230,6 @@ const styles = StyleSheet.create({
     signinButtonLogo: {
         height: 15,
         width: 25,
-
     },
     signinButtonContainer: {
         backgroundColor: Colors.DEFAULT_WHITE,
@@ -265,32 +251,27 @@ const styles = StyleSheet.create({
     },
     topicsContainer: {
         flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
         marginVertical: 15,
         borderBottomWidth: 1,
-         borderBottomColor: Colors.DEFAULT_GREY,
-         borderTopWidth: 1,
-         borderTopColor: Colors.DEFAULT_GREY,
-
-
-         backgroundColor: Colors.DEFAULT_GREEN,
-         borderRadius: 50,
-         paddingHorizontal: 30,
-         height: Display.setHeight(6),
-         justifyContent: 'center',
-         alignItems: 'center',
-         marginTop: 5,
-     
-         shadowColor: Colors.DEFAULT_BLACK,
+        borderBottomColor: Colors.DEFAULT_GREY,
+        borderTopWidth: 1,
+        borderTopColor: Colors.DEFAULT_GREY,
+        backgroundColor: Colors.DEFAULT_GREEN,
+        borderRadius: 50,
+        paddingHorizontal: 30,
+        height: Display.setHeight(6),
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 5,
+        shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
-        width: 0,
-        height: 5,
+            width: 0,
+            height: 5,
         },
         shadowOpacity: 0.121,
-       shadowRadius: 9.11,
-       elevation: 5,
-      },
+        shadowRadius: 9.11,
+        elevation: 5,
+    },
 });
 
 export default SignInScreen;

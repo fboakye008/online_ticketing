@@ -26,7 +26,6 @@ const ScheduleScreen = ({navigation, route}) => {
     useEffect(() => {
         async function populateData() {
             let schedules = await RequestSchedule();
-            //selectedR="ACCRA-KUMASI";
             if (selectedR) {
                 schedules = uds.where(schedules, {route: selectedR})
             }
@@ -92,7 +91,7 @@ const ScheduleScreen = ({navigation, route}) => {
             </Text>
         ) : null}
 
-      
+
         <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems:"center"
   },
-  
+
   columnHeaderTxt: {
     color: "white",
     fontWeight: "bold",
@@ -158,7 +157,7 @@ const styles = StyleSheet.create({
     width:"25%",
     textAlign:"center",
   },
-  
+
 
   container: {
     flex: 1,
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 12,
     paddingHorizontal: 12,
-    
+
   },
   tableHeader: {
     flexDirection: "row",
@@ -185,15 +184,15 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 5,
     borderTopStartRadius: 5,
     height: 50,
-    
+
   },
-  
+
   tableRow: {
     flexDirection: "row",
     height: 60,
     alignItems:"center",
   },
-  
+
   titleContainer:{
     flex: 1,
   },
@@ -203,7 +202,7 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     textAlign: 'center',
   },
- 
+
 });
 
 
