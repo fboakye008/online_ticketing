@@ -15,10 +15,12 @@ import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import { Colors } from "../contents";
 import moment from 'moment';
-import { CreateBooking, RequestRoutes } from "../apis/booking";
+import { RequestRoutes } from "../apis/booking";
+import {updateError} from "../utils";
 const { height, width } = Dimensions.get("window");
 
 const Bookings = ({ navigation }) => {
+  const [error, setError] = useState("");
   const [data, setData] = useState({
     today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
     routes: null,
@@ -26,18 +28,25 @@ const Bookings = ({ navigation }) => {
 
   useEffect(() => {
     async function populateData() {
-      const routes = await RequestRoutes();
-      setData({
-        today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
-        routes: routes,
-      });
-
-      //Do other things here
+      try {
+        const routes = await RequestRoutes();
+        setData({
+          today: moment().format('dddd MMMM Do YYYY, h:mm:ss a'),
+          routes: routes,
+        });
+      } catch (ee) {
+        return updateError(ee, setError);
+      }
     }
     populateData().catch();
   }, []);
   return (
     <SafeAreaView style={styles.wrapper}>
+      {error ? (
+          <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+            {error}
+          </Text>
+      ) : null}
       <TouchableOpacity
         style={styles.arrowContainer}
         onPress={() => navigation.goBack()}

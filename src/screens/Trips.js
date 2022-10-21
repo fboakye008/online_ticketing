@@ -5,13 +5,13 @@ import {Colors} from "../contents";
 import _ from "underscore";
 import moment from "moment";
 import {fetchTickets} from "../apis/tickets";
-import {updateError} from "./utils/validations";
+import {updateError} from '../utils';
 import DisplayTrip from "../components/CustomInput/DisplayTrip";
 
 const Trips = ({navigation}) => {
     const [error, setError] = useState("");
     const [trips, setTrips] = useState([]);
-    const [numTrips,setNumTrips]= useState("0");
+    const [numTrips, setNumTrips] = useState("0");
     const prepareTrips = (trips) => {
         const result = trips.map(trip => ({
             booking_id: trip.booking_id,
@@ -21,24 +21,27 @@ const Trips = ({navigation}) => {
         const uniqueBookings = _.uniq(result, function (x) {
             return x["booking_id"];
         });
-        const sorted = _.sortBy(uniqueBookings,"departure_time").reverse();
-        return sorted.map(trip => ({key: trip.booking_id, title: trip.route + " (" + moment(trip.departure_time).format('DD/MM/YYYY mm:hh A') + ")"}));
+        const sorted = _.sortBy(uniqueBookings, "departure_time").reverse();
+        return sorted.map(trip => ({
+            key: trip.booking_id,
+            title: trip.route + " (" + moment(trip.departure_time).format('DD/MM/YYYY mm:hh A') + ")"
+        }));
     };
     useEffect(() => {
         async function populateData() {
-            const userTickets = await fetchTickets();
-            const trips = prepareTrips(userTickets);
-            if (trips && trips.length > 0) {
-                setTrips(trips);
-                setNumTrips(trips.length)
+            try {
+                const userTickets = await fetchTickets();
+                const trips = prepareTrips(userTickets);
+                if (trips && trips.length > 0) {
+                    setTrips(trips);
+                    setNumTrips(trips.length)
+                }
+            } catch (e) {
+                return updateError(e, setError);
             }
         }
 
-        try {
-            const x = populateData();
-        } catch (e) {
-            return updateError(e, setError);
-        }
+        populateData().catch();
     }, []);
 
     return (
@@ -63,8 +66,6 @@ const Trips = ({navigation}) => {
                 </View>
             </ScrollView>
         </SafeAreaView>
-
-
     );
 };
 

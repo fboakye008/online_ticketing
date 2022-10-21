@@ -12,7 +12,7 @@ import {
 import React, {useEffect, useState} from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {Colors} from "../contents";
-import {isValidPhone, updateError} from './utils/validations';
+import {isValidPhone, updateError} from '../utils';
 import {CreatePayment,CreateTickets} from "../apis/payment";
 import TextField from "../components/CustomInput/TextInput";
 import BookingTextField from "../components/CustomBookingInput";
@@ -81,7 +81,7 @@ const PaymentScreen = ({navigation, route}) => {
             }
         } catch (e) {
             console.log("Failed to effect payment!", e);
-            return updateError("Failed to effect payment. Please try again!" + e, setError);
+            return updateError("Failed to effect payment. Please try again!" + e.toString(), setError);
         } finally {
             setLoading(false);
         }
@@ -120,7 +120,7 @@ const PaymentScreen = ({navigation, route}) => {
                             autoCapitalize="none"
                             onChangeText={(value) => handleOnChangeTextPhone(value)}
                         />
-                   
+
                     <View style={styles.ReadOnlyField}>
                         <ReadOnlyField
                             placeholder={amountPaid}
@@ -128,7 +128,7 @@ const PaymentScreen = ({navigation, route}) => {
                             style={styles.input}
                            editable={false}
                            placeholderTextColor={"black"}
-                    
+
                         />
                     </View>
                     <TouchableOpacity
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
     },
-    
+
     fieldContainer: {
         alignSelf: "center",
         marginVertical: 40,
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         marginLeft: 175,
     },
-   
+
     title: {
         fontSize: 20,
         textAlign: "center",

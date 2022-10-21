@@ -128,7 +128,7 @@ const MainStackNavigator = () => {
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
             <Stack.Screen name="ResetPassword" component={ResetPassword}/>
             <Stack.Screen name="Verification" component={VerificationScreen}/>
-            <Stack.Screen name="Schedule" component={ScheduleScreen}/>
+            <Stack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
             <Stack.Screen name="Wallet" component={Wallet} />
             <Stack.Screen name="Home" component={BottomTabNavigator}/>
         </Stack.Navigator>

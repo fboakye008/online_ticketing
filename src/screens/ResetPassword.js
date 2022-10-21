@@ -69,7 +69,7 @@ const ResetPassword = ({navigation, route}) => {
                     return updateError("Password could not be updated!", setError);
                 }
             } catch (ee) {
-
+                return updateError(ee.toString(), setError);
             } finally {
                 setLoading(false);
             }

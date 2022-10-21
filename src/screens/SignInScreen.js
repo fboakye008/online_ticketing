@@ -8,7 +8,7 @@ import utils from "../apis/utils";
 import LoginUser from "../apis/login";
 import LoadingScreen from "./utils/LoadingScreen";
 import SubmitButton from '../components/CustomInput/SubmitButton';
-import {isValidObjField, updateError, isValidPhone} from './utils/validations';
+import {isValidObjField, updateError, isValidPhone} from '../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -64,7 +64,7 @@ const SignInScreen = ({navigation, route}) => {
                     return updateError("Password/phone number does not exist!", setError);
                 }
             } catch (e) {
-                return updateError(e, setError);
+                return updateError(e.toString(), setError);
             } finally {
                 setLoading(false);
             }

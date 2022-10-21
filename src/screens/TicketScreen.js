@@ -4,6 +4,7 @@ import { Colors } from '../contents';
 import Receipt from '../components/CustomTicket/Receipt'
 import {MaterialIcons} from "@expo/vector-icons";
 import {fetchTickets} from "../apis/tickets";
+import { updateError } from '../utils';
 
 const TicketScreen = ({navigation,route}) => {
     const [error, setError] = useState("");
@@ -13,17 +14,23 @@ const TicketScreen = ({navigation,route}) => {
 
     useEffect(() => {
         async function populateData() {
-
-            const userTickets = await fetchTickets(bookingId);
-            setTickets(userTickets);
+            try {
+                const userTickets = await fetchTickets(bookingId);
+                setTickets(userTickets);
+            }catch(err){
+                return updateError(err.toString(), setError);
+            }
         }
         populateData().catch();
     }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-        
-    
+        {error ? (
+            <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                {error}
+            </Text>
+        ) : null}
          <TouchableOpacity
              style={styles.arrowContainer}
              onPress={() => navigation.goBack()}
@@ -51,7 +58,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: Colors.ticketbg,
     },
-    
+
     title: {
         fontSize: 20,
         textAlign: "center",

@@ -14,10 +14,10 @@ import {Colors} from "../contents";
 import moment from 'moment';
 import _ from "underscore";
 import {CreateBooking} from "../apis/booking";
-import LoadingScreen from "./utils/LoadingScreen";
 
 const {height, width} = Dimensions.get("window");
-import {isValidObjField, updateError} from './utils/validations';
+import {updateError} from '../utils';
+
 const BusStopTimeScreen = ({navigation, route}) => {
     const selectedRouteId = route.params.selectedRoute;
     const allRoutes = route.params.routes;
@@ -49,21 +49,24 @@ const BusStopTimeScreen = ({navigation, route}) => {
     };
 
     const isValidForm = () => {
-        if(!time){
+        if (!time) {
             return updateError("Please select a departure time!", setError);
         }
-        if(!busStop){
+        if (!busStop) {
             return updateError("Please select where you would board the bus!", setError);
         }
         return true;
     };
     const submitForm = async () => {
-        if (isValidForm()) {
-            try {
+        try {
+            if (isValidForm()) {
                 setLoading(true);
-                const departureTimeObj = _.findWhere(allRoutes,{route_id: selectedRouteId, departure_time: time})
-                const py = {bus_stopId: busStop, bus_scheduleId: departureTimeObj.bus_schedule_id, number_of_seats: numPassengers};
-
+                const departureTimeObj = _.findWhere(allRoutes, {route_id: selectedRouteId, departure_time: time})
+                const py = {
+                    bus_stopId: busStop,
+                    bus_scheduleId: departureTimeObj.bus_schedule_id,
+                    number_of_seats: numPassengers
+                };
                 let booking = await CreateBooking(py);
                 if (booking && booking.id) {
                     setLoading(false);
@@ -76,17 +79,20 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 } else {
                     return updateError("Booking unsuccessful. Please Try again", setError);
                 }
-            }catch(err){
-                return updateError("Could not validate form", setError);
-            }finally{
+            } else {
                 setLoading(false);
+                return updateError("Form validation failed. Please select all inputs", setError);
             }
-        } else {
+        } catch (err) {
+            return updateError(err, setError);
+        } finally {
             setLoading(false);
-            return updateError("Form validation failed. Please select all inputs", setError);
         }
     };
     const extractTimes = function (objArray, route_id) {
+        if (!objArray) {
+            return [];
+        }
         const bus_stops = _.where(objArray, {route_id: route_id});
         if (bus_stops && bus_stops.length > 0) {
             const moment = require("moment");
@@ -200,8 +206,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         height: height,
     },
-   
-    // 
+
+    //
     btn: {
         justifyContent: "center",
         alignItems: "center",
@@ -225,11 +231,11 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "bold",
     },
-    text:{
+    text: {
 
         justifyContent: "space-between",
         alignItems: "center",
-        fontSize:30 ,
+        fontSize: 30,
         fontWeight: "bold",
         paddingHorizontal: 100,
         paddingTop: 5,

@@ -6,6 +6,7 @@ import _ from "lodash"
 import uds from "underscore"
 import {RequestSchedule} from "../apis/schedules";
 import {Colors} from "../contents";
+import {updateError} from '../utils';
 
 
 const ScheduleScreen = ({navigation, route}) => {
@@ -25,14 +26,17 @@ const ScheduleScreen = ({navigation, route}) => {
     const [data, setData] = useState([])
     useEffect(() => {
         async function populateData() {
-            let schedules = await RequestSchedule();
-            if (selectedR) {
-                schedules = uds.where(schedules, {route: selectedR})
+            try {
+                let schedules = await RequestSchedule();
+                if (selectedR) {
+                    schedules = uds.where(schedules, {route: selectedR})
+                }
+                schedules = uds.sortBy(schedules, 'departure')
+                setData(schedules);
+            }catch(err){
+                return updateError(err.toString(), setError);
             }
-            schedules = uds.sortBy(schedules, 'departure')
-            setData(schedules);
         }
-
         populateData().catch();
     }, []);
     const sortTable = (column) => {
@@ -90,8 +94,6 @@ const ScheduleScreen = ({navigation, route}) => {
               {error}
             </Text>
         ) : null}
-
-
         <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>

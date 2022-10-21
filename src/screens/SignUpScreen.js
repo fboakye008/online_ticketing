@@ -13,28 +13,8 @@ import TextField from "../components/CustomInput/TextInput";
 import SubmitButton from "../components/CustomInput/SubmitButton";
 import CreateUser from "../apis/user";
 import LoadingScreen from "./utils/LoadingScreen";
+import { isValidObjField, updateError,isValidPhone,isValidEmail } from '../utils';
 
-const isValidObjField = (obj) => {
-  return Object.values(obj).every((value) => value.trim());
-};
-
-const updateError = (error, stateUpdater) => {
-  stateUpdater(error);
-  setTimeout(() => {
-    stateUpdater("");
-  }, 2500);
-};
-
-const isValidEmail = (value) => {
-  const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-  return regx.test(value);
-};
-
-const isValidPhone = (value) => {
-  const regx =
-    /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
-  return regx.test(value);
-};
 const SignUpScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -94,11 +74,13 @@ const SignUpScreen = ({ navigation }) => {
           navigation.replace("Verification", { email,api_key,fromScreen});
           //navigation.replace("Signin") && alert("Successfully registered!")
         } else {
-          alert("Failed to register! " +  result?.error?.message);
+          alert("Failed to register! " +  user?.error?.message);
+          return updateError("Failed to register! " +  user?.error?.message, setError);
         }
       }catch(e){
         console.log(e);
         alert("Failed to register! " + e);
+        return updateError("Failed to register! " +  e.toString(), setError);
       }finally{
         setLoading(false);
       }
@@ -218,7 +200,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.DEFAULT_WHITE,
-    
+
   },
   contentContainer: {
     paddingTop: 20,
@@ -229,15 +211,15 @@ const styles = StyleSheet.create({
     Colors: Colors.DEFAULT_BLACK,
     fontSize: 30,
     fontWeight: "bold",
-  
+
   },
-  
+
   content: {
     colors: Colors.grey,
     fontSize: 18,
     marginVertical: 10,
   },
-  
+
   signupContainer: {
     marginHorizontal: 20,
     justifyContent: "center",
@@ -248,7 +230,7 @@ const styles = StyleSheet.create({
   accountText: {
     fontSize: 16,
     lineHeight: 13 * 1.4,
-   
+
   },
   signupText: {
     color: Colors.DEFAULT_GREEN,

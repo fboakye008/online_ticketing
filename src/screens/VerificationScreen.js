@@ -58,7 +58,7 @@ const VerificationScreen = ({navigation, route}) => {
         } catch (e) {
             console.log(e);
             alert("Error sending OTP to " + email);
-            return;
+            return updateError("Error sending OTP to " + email, setError);
         } finally {
             setLoading(false);
         }
@@ -71,23 +71,20 @@ const VerificationScreen = ({navigation, route}) => {
                 const otp = otpString;
                 const p = VerifyOTP(email, otp);
                 p.then(function (r) {
-                    setLoading(false);
                     if (fromScreen && fromScreen === "ForgotPassword") {
                         navigation.replace("ResetPassword", {email, otp}) && alert("OTP Verified")
                     } else {
                         navigation.replace("Signin") && alert("OTP Verified")
                     }
                 }).catch(function (e) {
-                    setLoading(false);
                     console.log("error", e);
                     return updateError("Invalid OTP!", setError);
                 });
             } else {
-                setLoading(false);
                 return updateError("Please enter the OTP sent to you via email!", setError);
             }
         } catch (e) {
-
+            return updateError(e.toString(), setError);
         } finally {
             setLoading(false);
         }
@@ -95,6 +92,11 @@ const VerificationScreen = ({navigation, route}) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            {error ? (
+                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                    {error}
+                </Text>
+            ) : null}
             <TouchableOpacity
                 style={styles.header}
                 onPress={() => navigation.goBack()}>
