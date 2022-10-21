@@ -4,7 +4,13 @@ import _ from "underscore";
 
 
 const self = module.exports = {
+    removeUser: async function() {
+        try {
+            await AsyncStorage.removeItem("user")
+        } catch (e) {
 
+        }
+    },
     isLoggedIn : async function () {
         const savedUser = await AsyncStorage.getItem("user");
         if (savedUser){

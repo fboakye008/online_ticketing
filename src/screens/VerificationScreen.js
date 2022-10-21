@@ -3,19 +3,15 @@ import {
     View,
     Text,
     StyleSheet,
-    StatusBar,
     TouchableOpacity,
     TextInput,
     SafeAreaView,
     Dimensions,
 } from "react-native";
 import Separator from "../components/WelcomeCard/Separator";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import Feather from "react-native-vector-icons/Feather";
-import {Colors, Image} from "../contents";
+import {Colors} from "../contents";
 import {Display} from "./utils";
 import {useState} from "react";
-import CustomNotification from "./utils/PushNotification";
 import {RequestNewPassword, VerifyOTP} from "../apis/reset";
 import {updateError} from "../utils";
 import {MaterialIcons} from "@expo/vector-icons";
@@ -28,12 +24,10 @@ const VerificationScreen = ({navigation, route}) => {
     const [loading, setLoading] = useState(false);
     const otpInput = useRef([]);
     const [error, setError] = useState("");
-
     const data = route.params;
     const email = data.email;
     const apiKey = data.api_key;
     const fromScreen = data.fromScreen;
-
     const [otp, setOtp] = useState({0: "", 1: "", 2: "", 3: ""});
 
     const handleChangeText = (text, index) => {
@@ -51,63 +45,66 @@ const VerificationScreen = ({navigation, route}) => {
             }
         }
     };
-    const handleResendOTP= async() => {
+    const handleResendOTP = async () => {
         try {
             setLoading(true);
             const result = await RequestNewPassword(email);
             if (result.success === "success") {
                 alert("new OTP sent to " + email);
-
             } else {
                 alert("Error sending OTP to " + email);
             }
             return;
-        }catch(e){
+        } catch (e) {
             console.log(e);
             alert("Error sending OTP to " + email);
             return;
-        }finally{
+        } finally {
             setLoading(false);
         }
-
     };
     const handleOTP = () => {
-        setLoading(true);
-        let otpString = Object.values(otp).toString().split(",").join("");
-        if (otpString.length === 4) {
-            const otp = otpString;
-            const p = VerifyOTP(email, otp);
-            p.then(function (r) {
+        try {
+            setLoading(true);
+            let otpString = Object.values(otp).toString().split(",").join("");
+            if (otpString.length === 4) {
+                const otp = otpString;
+                const p = VerifyOTP(email, otp);
+                p.then(function (r) {
+                    setLoading(false);
+                    if (fromScreen && fromScreen === "ForgotPassword") {
+                        navigation.replace("ResetPassword", {email, otp}) && alert("OTP Verified")
+                    } else {
+                        navigation.replace("Signin") && alert("OTP Verified")
+                    }
+                }).catch(function (e) {
+                    setLoading(false);
+                    console.log("error", e);
+                    return updateError("Invalid OTP!", setError);
+                });
+            } else {
                 setLoading(false);
-                if(fromScreen && fromScreen === "ForgotPassword"){
-                    navigation.replace("ResetPassword",{email,otp}) && alert("OTP Verified")
-                }else{
-                    navigation.replace("Signin") && alert("OTP Verified")
-                }
-            }).catch(function (e) {
-                setLoading(false);
-                console.log("error",e);
-                return updateError("Invalid OTP!", setError);
-            });
-        } else {
+                return updateError("Please enter the OTP sent to you via email!", setError);
+            }
+        } catch (e) {
+
+        } finally {
             setLoading(false);
-            return updateError("Please enter the OTP sent to you via email!", setError);
         }
     };
 
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
-          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-          <View style={styles.titleContainer}>
-        <Text style={styles.title}>OTP Verification</Text>
-        </View>
-        </TouchableOpacity>
+                style={styles.header}
+                onPress={() => navigation.goBack()}>
+                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>OTP Verification</Text>
+                </View>
+            </TouchableOpacity>
             <View style={styles.contentContainer}>
                 <Separator height={10}/>
-
                 <Text style={styles.content}>
                     Enter the OTP number sent to
                     <Text style={styles.phoneNumberText}> {data?.email}</Text>
@@ -129,12 +126,6 @@ const VerificationScreen = ({navigation, route}) => {
                 <TouchableOpacity style={styles.verifyButton} onPress={handleOTP}>
                     <Text style={styles.verifyButtonText}>Verify</Text>
                 </TouchableOpacity>
-                {/*<CustomNotification*/}
-                {/*    textStyle={styles.verifyButtonText}*/}
-                {/*    touchStyle={styles.verifyButton}*/}
-                {/*    otpString={Object.values(otp).toString().split(",").join("")}*/}
-                {/*    otp={data?.otp}*/}
-                {/*/>*/}
                 <View>
                     <Text
                         style={{
@@ -162,7 +153,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
-
     headerTitle: {
         Colors: Colors.DEFAULT_BLACK,
         fontSize: 30,
@@ -240,28 +230,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         alignItems: "center",
     },
-
-
-
-    header:{
-        // borderBottomColor: '#eee',
-        // borderBottomWidth: 5,
+    header: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 12,
         paddingHorizontal: 12,
-        
-      },
-      titleContainer:{
+    },
+    titleContainer: {
         flex: 1,
-      },
-      title:{
-        Colors: Colors.DEFAULT_BLACK,
-         fontSize: 20,
-        marginLeft: -38,
-        fontWeight:'bold',
-        textAlign: 'center',
-      },
+    },
 });
-
 export default VerificationScreen;
