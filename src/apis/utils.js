@@ -30,10 +30,14 @@ const self = module.exports = {
         throw new Error("You have been logged out of the system. Please log back in!");
     },
    uniquify : function (objArray) {
-        let result = objArray.map(a => ({"value":a.route_id, "label": a.route}));
-        return _.uniq(result, function (x) {
-            return x["value"];
-        });
+        if(objArray) {
+            let result = objArray?.map(a => ({"value": a.route_id, "label": a.route}));
+            return _.uniq(result, function (x) {
+                return x["value"];
+            });
+        }else{
+            return [];
+        }
     },
     /**
      * MAke a request to the API
@@ -60,7 +64,12 @@ const self = module.exports = {
             }
             const response = await fetch(url, options);
             let data = await response.json();
-            return data;
+            if(response.ok){
+                return data;
+            }else{
+                throw data.error.message;
+            }
+
         } catch (error) {
             console.log(error);
             throw error

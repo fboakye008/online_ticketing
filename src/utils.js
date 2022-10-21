@@ -1,4 +1,3 @@
-
 const isValidObjField = (obj) => {
     return Object.values(obj).every((value) => value.trim());
 };
@@ -9,8 +8,15 @@ const updateError = (error, stateUpdater) => {
         stateUpdater("");
     }, 2500);
 };
+
+const isValidPhone = (value) => {
+    const regx =
+        /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+    return regx.test(value);
+};
 const isValidEmail = (value) => {
     const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     return regx.test(value);
 };
-export {isValidObjField, updateError, isValidEmail}
+
+export  { isValidObjField, updateError,isValidPhone,isValidEmail};

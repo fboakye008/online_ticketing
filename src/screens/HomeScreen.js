@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 
-import {Colors, image as MyImage} from '../contents';
+import {Colors} from '../contents';
 
 import {Display} from './utils';
 import {
@@ -11,107 +11,105 @@ import {
 
 import logo from "../../src/images/logo1.png";
 import utils from "../apis/utils";
+import {updateError} from "../utils";
 
 
 const HomeScreen = ({navigation}) => {
-
+    const [error, setError] = useState("");
     const keyPressRef = React.useRef(null);
     const handleSchedule = () => {
-        navigation.navigate('Schedule');
+        navigation.navigate('ScheduleScreen');
       };
       const handleBuyTicket = async () => {
-        const y = await utils.isLoggedIn();
-        let  navPage =  'Route';
-        if(y){
-            navigation.navigate(navPage);
-        }else{
-          navigation.navigate('Signin',{navPage});
-        }
+          try {
+              const y = await utils.isLoggedIn();
+              let navPage = 'Route';
+              if (y) {
+                  navigation.navigate(navPage);
+              } else {
+                  navigation.navigate('Signin', {navPage});
+              }
+          }catch(ee){
+              console.log("Error",ee);
+              return updateError(ee.toString(), setError);
 
+          }
       };
       const handleTicketWallet =  async() => {
-        const y = await utils.isLoggedIn()
-        let  navPage =  'Wallet';
-        if(y){
-            navigation.navigate(navPage);
-        }else{
-          navigation.navigate('Signin',{navPage});
-        }
+          try {
+                const y = await utils.isLoggedIn()
+                let navPage =  'Wallet';
+                if(y){
+                    navigation.navigate(navPage);
+                }else{
+                  navigation.navigate('Signin',{navPage});
+                }
+          }catch(ee){
+              console.log("Error",ee)
+              return updateError(ee.toString(), setError);
+          }
       };
-
     return (
-
         <SafeAreaView>
+            {error ? (
+                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                    {error}
+                </Text>
+            ) : null}
            <View style={styles.container}>
-      <View>
-        <Image source={logo} style={[styles.Image]} resizeMode="cover" />
+               <View>
+                    <Image source={logo} style={[styles.Image]} resizeMode="cover" />
+                    <TouchableOpacity
+                        style={styles.topicsContainer}
+                        onPress={() => handleBuyTicket()}
+                        ref={keyPressRef}>
+                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
+                          <AntDesign name="bars" size={24} color="black" />
+                          <Text style={styles.topic}>Buy Ticket</Text>
+                        </View>
+                        <View>
+                            <MaterialIcons
+                              name="keyboard-arrow-right"
+                              size={26}
+                              color="black"
+                            />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.topicsContainer}
+                        onPress={() => handleTicketWallet()}
+                        ref={keyPressRef}>
+                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15 }}>
+                          <AntDesign name="wallet" size={24} color="black" />
+                          <Text style={styles.topic}>Ticket Wallet</Text>
+                        </View>
+                        <View>
+                            <MaterialIcons
+                              name="keyboard-arrow-right"
+                              size={30}
+                              color="black"
+                            />
+                        </View>
+                    </TouchableOpacity>
 
-
-
-        <TouchableOpacity
-                style={styles.topicsContainer}
-                onPress={() => handleBuyTicket()}
-                ref={keyPressRef}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
-                  <AntDesign name="bars" size={24} color="black" />
-                  <Text style={styles.topic}>Buy Ticket</Text>
-                </View>
-                <View>
-
-                    <MaterialIcons
-                      name="keyboard-arrow-right"
-                      size={26}
-                      color="black"
-                    />
-
-                </View>
-              </TouchableOpacity>
-
-        <TouchableOpacity
-                style={styles.topicsContainer}
-                onPress={() => handleTicketWallet()}
-                ref={keyPressRef}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15 }}>
-                  <AntDesign name="wallet" size={24} color="black" />
-                  <Text style={styles.topic}>Ticket Wallet</Text>
-                </View>
-                <View>
-
-                    <MaterialIcons
-                      name="keyboard-arrow-right"
-                      size={30}
-                      color="black"
-
-                    />
-
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.topicsContainer}
-                onPress={() => handleSchedule()}
-                ref={keyPressRef}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
-                  <AntDesign name="clockcircleo" size={24} color="black" />
-                  <Text style={styles.topic}>Today's Schedule</Text>
-                </View>
-                <View>
-
-                    <MaterialIcons
-                      name="keyboard-arrow-right"
-                      size={26}
-                      color="black"
-                    />
-
-                </View>
-              </TouchableOpacity>
-      </View>
-    </View>
-
-
+                   <TouchableOpacity
+                        style={styles.topicsContainer}
+                        onPress={() => handleSchedule()}
+                        ref={keyPressRef}>
+                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
+                          <AntDesign name="clockcircleo" size={24} color="black" />
+                          <Text style={styles.topic}>Today's Schedule</Text>
+                        </View>
+                        <View>
+                            <MaterialIcons
+                              name="keyboard-arrow-right"
+                              size={26}
+                              color="black"
+                            />
+                        </View>
+                   </TouchableOpacity>
+               </View>
+           </View>
         </SafeAreaView>
     );
 };
