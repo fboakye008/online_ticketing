@@ -9,8 +9,7 @@ import RouteScreen from "./RouteScreen";
 import BusStopTimeScreen from "./BusStopTimeScreen";
 import PaymentMessage from "./PaymentMessage";
 import HomeScreen from "./HomeScreen";
-import SettingsScreen from "./SettingsScreen";
-import AccountScreen from "./SettingsScreen";
+import AccountScreen from "./AccountScreen";
 import ScheduleScreen from "./ScheduleScreen";
 import TicketScreen from "./TicketScreen";
 import Help from "./Help";
@@ -34,9 +33,8 @@ export {
     PaymentScreen,
     PaymentMessage,
     HomeScreen,
-    SettingsScreen,
-    ScheduleScreen,
     AccountScreen,
+    ScheduleScreen,
     Help,
     About,
     Legal,
