@@ -51,14 +51,22 @@ const HomeScreen = ({navigation}) => {
       };
     return (
         <SafeAreaView>
-            {error ? (
-                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
-                    {error}
-                </Text>
-            ) : null}
+            
            <View style={styles.container}>
                <View>
                     <Image source={logo} style={[styles.Image]} resizeMode="cover" />
+                      
+                        <View style={styles.messageBox}>
+                        <Text style={styles.title}> Travel only if necessary</Text>
+                          <Text style={styles.text}>
+                          We wish you safe travels, unforgettable experiences, and memories to last a lifetime.
+                          </Text>
+                          <Text style={styles}>Learn more!</Text>
+         
+                          
+                        </View>
+                        
+                   
                     <TouchableOpacity
                         style={styles.topicsContainer}
                         onPress={() => handleBuyTicket()}
@@ -66,15 +74,18 @@ const HomeScreen = ({navigation}) => {
                         <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
                           <AntDesign name="bars" size={24} color="black" />
                           <Text style={styles.topic}>Buy Ticket</Text>
-                        </View>
-                        <View>
+                          <View>
                             <MaterialIcons
                               name="keyboard-arrow-right"
                               size={26}
                               color="black"
                             />
                         </View>
+                        </View>
+                        
                     </TouchableOpacity>
+
+                   
                     <TouchableOpacity
                         style={styles.topicsContainer}
                         onPress={() => handleTicketWallet()}
@@ -82,14 +93,15 @@ const HomeScreen = ({navigation}) => {
                         <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15 }}>
                           <AntDesign name="wallet" size={24} color="black" />
                           <Text style={styles.topic}>Ticket Wallet</Text>
-                        </View>
-                        <View>
+                          <View>
                             <MaterialIcons
                               name="keyboard-arrow-right"
                               size={30}
                               color="black"
                             />
                         </View>
+                        </View>
+                        
                     </TouchableOpacity>
 
                    <TouchableOpacity
@@ -99,14 +111,15 @@ const HomeScreen = ({navigation}) => {
                         <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
                           <AntDesign name="clockcircleo" size={24} color="black" />
                           <Text style={styles.topic}>Today's Schedule</Text>
-                        </View>
-                        <View>
+                          <View>
                             <MaterialIcons
                               name="keyboard-arrow-right"
                               size={26}
                               color="black"
                             />
                         </View>
+                        </View>
+                        
                    </TouchableOpacity>
                </View>
            </View>
@@ -119,27 +132,65 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
+    container1: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: Colors.SECONDARY_BLACK,
+      marginBottom: 10,
+    },
+    text: {
+
+      fontSize: 15,
+      color: Colors.SECONDARY_BLACK,
+      marginBottom: 10,
+    },
 
     topic: {
         flex: 1,
         fontSize: 16,
-        paddingLeft: 10,
+        paddingLeft: 5,
         fontWeight: "500",
+      },
+      messageBox: {
+
+        width: '100%',
+        backgroundColor: Colors.Light,
+       borderTopLeftRadius: 20,
+       borderTopRightRadius: 20,
+        padding: 10,
+        marginBottom: 5,
+        paddingTop: 5,
+       marginLeft: 1,
+         height: Display.setHeight(19),
+         shadowColor: Colors.DEFAULT_BLACK,
+        shadowOffset: {
+        width: 0,
+        height: 5,
+        },
+        shadowOpacity: 0.121,
+       shadowRadius: 9.11,
+       elevation: 5,
       },
 
     topicsContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginVertical: 15,
-       marginLeft: 20,
-       width: "90%",
+        marginVertical: 10,
+       marginLeft: 1,
+       width: "100%",
+       borderTopLeftRadius: 20,
+       borderTopRightRadius: 20,
          backgroundColor: Colors.LIGHT_GREEN,
-         borderRadius: 5,
          paddingHorizontal: 10,
-         height: Display.setHeight(13),
+         height: Display.setHeight(10),
          marginTop: 5,
-
          shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
         width: 0,
@@ -150,6 +201,7 @@ const styles = StyleSheet.create({
        elevation: 5,
       },
       Image: {
+        
         height: Display.setHeight(30),
         width: Display.setWidth(100),
       },
