@@ -8,9 +8,11 @@ import {RequestSchedule} from "../apis/schedules";
 import {Colors} from "../contents";
 import {updateError} from '../utils';
 import SearchBar from "../components/ListSearch/SearchBar";
+import moment from "moment";
 
 
 const ScheduleScreen = ({navigation, route}) => {
+    const [dateToday] = moment().startOf('day').toISOString().split("T");
     const [error, setError] = useState("");
     const [searchPhrase, setSearchPhrase] = useState("");
     const [clicked, setClicked] = useState(false);
@@ -152,48 +154,6 @@ const ScheduleScreen = ({navigation, route}) => {
                 {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
             </View>);
         }
-        // when no input, show all
-        // if (searchPhrase === "") {
-        //     //return <Item name={item.name} details={item.details} />;
-        //     return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
-        //         <Text style={styles.columnRowTxt}>{item.route}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
-        //         {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
-        //     </View>);
-        //
-        // }
-        // // filter of the name
-        // if (item.route.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-        //     return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
-        //         <Text style={styles.columnRowTxt}>{item.route}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
-        //         {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
-        //     </View>);
-        // }
-        // // filter of the description
-        // if (item.short_depart.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-        //     return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
-        //         <Text style={styles.columnRowTxt}>{item.route}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
-        //         {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
-        //     </View>);
-        // }
-        // if (item.available_seats >= searchPhrase.trim()) {
-        //     return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
-        //         <Text style={styles.columnRowTxt}>{item.route}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
-        //         <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
-        //         {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
-        //     </View>);
-        // }
-
     };
   return (
       <View style={styles.container}>
@@ -207,7 +167,7 @@ const ScheduleScreen = ({navigation, route}) => {
             onPress={() => navigation.goBack()}>
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
           <View style={styles.titleContainer}>
-              {!clicked && <Text style={styles.title}>Bus Schedules</Text>}
+              {!clicked && <Text style={styles.title}>Schedule ({dateToday})</Text>}
         {/*<Text style={styles.title}>Bus Schedules</Text>*/}
         </View>
         </TouchableOpacity>

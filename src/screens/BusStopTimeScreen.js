@@ -62,6 +62,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
             if (isValidForm()) {
                 setLoading(true);
                 const departureTimeObj = _.findWhere(allRoutes, {route_id: selectedRouteId, departure_time: time})
+
                 const py = {
                     bus_stopId: busStop,
                     bus_scheduleId: departureTimeObj.bus_schedule_id,
@@ -74,7 +75,8 @@ const BusStopTimeScreen = ({navigation, route}) => {
                     navigation.replace("PaymentScreen", {
                         bookingId: booking.id,
                         amount: amount,
-                        numPassengers: numPassengers
+                        numPassengers: numPassengers,
+                        departureTimeObj: departureTimeObj
                     });
                 } else {
                     return updateError("Booking unsuccessful. Please Try again", setError);
