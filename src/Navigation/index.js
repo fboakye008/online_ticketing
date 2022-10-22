@@ -17,7 +17,6 @@ import {
     TicketScreen,
     Help,
     About,
-    Legal,
     Trips,
     PaymentScreen,
     PaymentMessage,
@@ -87,7 +86,6 @@ const AccountStackNavigator = () => {
             <AccountStack.Screen name="Account" component={AccountScreen}/>
             <AccountStack.Screen name="Help" component={Help}/>
             <AccountStack.Screen name="About" component={About}/>
-            <AccountStack.Screen name="Legal" component={Legal}/>
             <AccountStack.Screen name="Wallet" component={Wallet} />
             <AccountStack.Screen name="Trips" component={Trips}/>
         </AccountStack.Navigator>
@@ -186,7 +184,7 @@ const MainStackNavigator = () => {
             <Stack.Screen name="ResetPassword" component={ResetPassword}/>
             <Stack.Screen name="Verification" component={VerificationScreen}/>
             <Stack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
-       
+            <Stack.Screen name="Wallet" component={Wallet} />
             <Stack.Screen name="Home" component={BottomTabNavigator}/>
         </Stack.Navigator>
     );

@@ -14,7 +14,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import {Colors} from "../contents";
 import {isValidPhone, updateError} from '../utils';
 import {CreatePayment,CreateTickets} from "../apis/payment";
-import TextField from "../components/CustomInput/TextInput";
+import TextField from "../components/CustomInput/TextField";
 import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import DisplayPaymentMessage from '../components/CustomPaymentMessage/DisplayPaymentMessage'
@@ -127,9 +127,13 @@ const PaymentScreen = ({navigation, route}) => {
                             autoCapitalize="none"
                             onChangeText={(value) => handleOnChangeTextPhone(value)}
                         />
-                    <View>
-                        <Text style={styles.title}>Total Amount: {amountPaid}</Text>
-                    </View>
+                  
+                        <Text style={{fontSize: 20,
+                      textAlign: "center",  
+      marginTop: 15,
+        fontWeight: "bold",
+        paddingBottom: 5}}>Total Amount: {amountPaid}</Text>
+                    
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={submitForm}>
@@ -149,7 +153,7 @@ const styles = StyleSheet.create({
 
     fieldContainer: {
         alignSelf: "center",
-        marginVertical: 40,
+        marginVertical: 5,
     },
     arrowContainer: {
         height: 40,
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginVertical: 5,
-        marginLeft: 20,
+        marginLeft: 5,
         paddingHorizontal: 15,
         backgroundColor: Colors.DEFAULT_GREEN,
         width: width - 40,

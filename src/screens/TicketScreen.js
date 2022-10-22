@@ -33,7 +33,7 @@ const TicketScreen = ({navigation,route}) => {
         ) : null}
          <TouchableOpacity
              style={styles.arrowContainer}
-             onPress={() => navigation.goBack()}
+             onPress={() => navigation.replace('Home')}
          >
              <MaterialIcons name="close" size={30} color="#000"/>
          </TouchableOpacity>

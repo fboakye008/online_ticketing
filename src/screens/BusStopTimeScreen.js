@@ -72,7 +72,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 if (booking && booking.id) {
                     setLoading(false);
                     console.log("successfully created booking. ID is ", booking.id);
-                    navigation.replace("PaymentScreen", {
+                    navigation.navigate("PaymentScreen", {
                         bookingId: booking.id,
                         amount: amount,
                         numPassengers: numPassengers,
@@ -160,13 +160,11 @@ const BusStopTimeScreen = ({navigation, route}) => {
                                   label="Time"/>
                 <BookingTextField numOfPassenger={true} label="Number of passengers"
                                   sendDataToParent={sendDataToBusStopTime}/>
-                <ReadOnlyField
-                    style={styles.input}
-                    editable={false}
-                    placeholderTextColor={"black"}
-                    placeholder={amount}
-                    label="Total Amount"
-                />
+
+                    <View>
+                        <Text style={styles.title}>Total Amount: {amount}</Text>
+                    </View>
+                
                 <TouchableOpacity
                     style={styles.btn}
                     onPress={submitForm}

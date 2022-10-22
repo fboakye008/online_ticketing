@@ -14,7 +14,6 @@ import ScheduleScreen from "./ScheduleScreen";
 import TicketScreen from "./TicketScreen";
 import Help from "./Help";
 import About from "./About";
-import Legal from "./Legal"
 import Wallet from "./Wallet";
 import Trips from "./Trips";
 import PaymentScreen from "./PaymentScreen"
@@ -37,7 +36,6 @@ export {
     ScheduleScreen,
     Help,
     About,
-    Legal,
     Wallet,
     Trips,
 };

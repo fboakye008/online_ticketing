@@ -45,14 +45,9 @@ const options = [
         icon: "settings",
         path: "Setting",
     },
+    
     {
         id: 3,
-        label: "Legal",
-        icon: "hand-left-sharp",
-        path: "Legal",
-    },
-    {
-        id: 4,
         label: "Logout",
         icon: "log-out",
         path: "Logout",
