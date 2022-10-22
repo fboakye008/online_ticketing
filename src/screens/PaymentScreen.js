@@ -17,12 +17,17 @@ import {CreatePayment,CreateTickets} from "../apis/payment";
 import TextField from "../components/CustomInput/TextInput";
 import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
-
+import DisplayPaymentMessage from '../components/CustomPaymentMessage/DisplayPaymentMessage'
+import Receipt from "../components/CustomTicket/Receipt";
 
 const {width} = Dimensions.get("window");
 
 const PaymentScreen = ({navigation, route}) => {
     const payload = route.params;
+    //console.log(payload.departureTimeObj)
+    //const departureTimeObj = payload.departureTimeObj;
+
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("");
@@ -108,7 +113,9 @@ const PaymentScreen = ({navigation, route}) => {
                 >
                     <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
                 </TouchableOpacity>
-                <Text style={styles.title}>Payment Page</Text>
+                <Text style={styles.title}>Make Payment</Text>
+                <DisplayPaymentMessage paymentInfo={payload}></DisplayPaymentMessage>
+
                 <View style={styles.fieldContainer} onPress={() => Keyboard.dismiss}>
                     <BookingTextField placeholder="Payment" data={telcos} sendDataToParent={handleTelco}
                                       label="Payment"/>
@@ -120,21 +127,12 @@ const PaymentScreen = ({navigation, route}) => {
                             autoCapitalize="none"
                             onChangeText={(value) => handleOnChangeTextPhone(value)}
                         />
-
-                    <View style={styles.ReadOnlyField}>
-                        <ReadOnlyField
-                            placeholder={amountPaid}
-                            label="Amount"
-                            style={styles.input}
-                           editable={false}
-                           placeholderTextColor={"black"}
-
-                        />
+                    <View>
+                        <Text style={styles.title}>Total Amount: {amountPaid}</Text>
                     </View>
                     <TouchableOpacity
                         style={styles.btn}
-                        onPress={submitForm}
-                    >
+                        onPress={submitForm}>
                         <Text style={styles.btnText}>Pay</Text>
                     </TouchableOpacity>
                 </View>

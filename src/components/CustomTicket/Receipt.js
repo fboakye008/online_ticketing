@@ -10,10 +10,10 @@ const TicketContainer = ({ticketInfo}) => {
         <View style = {styles.T_container}>
             <Text style={styles.title}>VIP Bus Ticket</Text>
             <Text style={styles.text}>Route : {ticketInfo.route}</Text>
-            <Text style={styles.text}>Bus Stop : {ticketInfo.bus_stop}</Text>
+            <Text style={styles.text}>Origin : {ticketInfo.bus_stop}</Text>
             <Text style={styles.text}>Departure Time : {ticketInfo.departure_time}</Text>
             <Text style={styles.text}>Fare : {ticketInfo.fare}</Text>
-            <Text style={styles.t_s}>Bus no : {ticketInfo.bus_no}  Seat no : {ticketInfo.bus_no}</Text>
+            <Text style={styles.t_s}>Bus no : {ticketInfo.bus_no}  Seat no : {ticketInfo.seat_no}</Text>
             <Text style={styles.text}>Serial no: {ticketInfo.serial_no}</Text>
             <QRCode
                 value={ticketInfo.serial_no}
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       marginBottom: 5,
       paddingHorizontal: 10,
-    
+
     },
     text: {
         color: Colors.DEFAULT_BLACK,
