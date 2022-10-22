@@ -136,19 +136,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         paddingTop: 10,
     },
-    //
-    topicsWrapper: {
-        justifyContent: "center",
-        marginHorizontal: 10,
-        marginVertical: 20,
-    },
-
-    amountArrowWrapper: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginVertical: 10,
-    },
 
 });
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
+import { Colors } from "../../contents";
 
 
 const SearchBar = (props) => {
@@ -36,7 +37,7 @@ const SearchBar = (props) => {
                 )}
             </View>
             {props.clicked && (
-                <View>
+                <View >
                     <Button
                         title="Cancel"
                         onPress={() => {
@@ -53,6 +54,9 @@ const SearchBar = (props) => {
 export default SearchBar;
 
 const styles = StyleSheet.create({
+    Button:{
+        backgroundColor: Colors.DEFAULT_GREEN,
+    },
     container: {
         margin: 15,
         justifyContent: "flex-start",
@@ -64,19 +68,38 @@ const styles = StyleSheet.create({
     searchBar__unclicked: {
         padding: 10,
         flexDirection: "row",
-        width: "95%",
-        backgroundColor: "#d9dbda",
+        width: "100%",
+        height: "90%",
+        backgroundColor: Colors.SECONDARY_WHITE,
         borderRadius: 15,
         alignItems: "center",
+        justifyContent: "space-evenly",
+        shadowColor: Colors.DEFAULT_BLACK,
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.121,
+        shadowRadius: 9.11,
+        elevation: 5,
     },
     searchBar__clicked: {
         padding: 10,
         flexDirection: "row",
         width: "80%",
-        backgroundColor: "#d9dbda",
+        height: "90%",
+        backgroundColor: Colors.SECONDARY_WHITE,
         borderRadius: 15,
         alignItems: "center",
         justifyContent: "space-evenly",
+        shadowColor: Colors.DEFAULT_BLACK,
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.121,
+        shadowRadius: 9.11,
+        elevation: 5,
     },
     input: {
         fontSize: 20,

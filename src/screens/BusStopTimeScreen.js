@@ -136,11 +136,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
     }, []);
     return (
         <SafeAreaView style={styles.wrapper}>
-            {error ? (
-                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
-                    {error}
-                </Text>
-            ) : null}
+           
             <TouchableOpacity
                 style={styles.arrowContainer}
                 onPress={() => navigation.goBack()}>

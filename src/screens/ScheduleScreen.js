@@ -219,7 +219,7 @@ const ScheduleScreen = ({navigation, route}) => {
           />
         <FlatList
             data={data}
-            style={{width:"90%",flexGrow: 0,height: "70%"}}
+            style={{width:"90%",flexGrow: 0,height: "75%"}}
             keyExtractor={(item, index) => index+""}
             ListHeaderComponent={tableHeader}
             stickyHeaderIndices={[0]}

@@ -49,6 +49,33 @@ const HomeStackNavigator = () => {
     );
 };
 
+const HelpStack = createNativeStackNavigator();
+
+const HelpStackNavigator = () => {
+    return (
+        <HelpStack.Navigator
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
+                <HelpStack.Screen name="Help" component={Help}/>
+        </HelpStack.Navigator>
+    );
+};
+
+const AboutStack = createNativeStackNavigator();
+
+const AboutStackNavigator = () => {
+    return (
+        <AboutStack.Navigator
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
+                <AboutStack.Screen name="About" component={About}/>
+        </AboutStack.Navigator>
+    );
+};
 const AccountStack = createNativeStackNavigator();
 const AccountStackNavigator = () => {
     return (
@@ -66,6 +93,7 @@ const AccountStackNavigator = () => {
         </AccountStack.Navigator>
     );
 };
+
 
 const BottomTab = createBottomTabNavigator();
 
@@ -88,6 +116,35 @@ const BottomTabNavigator = () => {
                     tabBarIcon: ({size, focused}) => (
                         <Ionicons
                             name="ios-home"
+                            color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+            
+            <BottomTab.Screen
+                name="HelpStack"
+                component={HelpStackNavigator}
+                options={{
+                    tabBarLabel: "Help",
+                    tabBarIcon: ({size, focused}) => (
+                        <Ionicons
+                            name="help-circle"
+                            color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="AboutStack"
+                component={AboutStackNavigator}
+                options={{
+                    tabBarLabel: "About",
+                    tabBarIcon: ({size, focused}) => (
+                        <Ionicons
+                            name="information-circle"
                             color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
                             size={size}
                         />
@@ -129,7 +186,7 @@ const MainStackNavigator = () => {
             <Stack.Screen name="ResetPassword" component={ResetPassword}/>
             <Stack.Screen name="Verification" component={VerificationScreen}/>
             <Stack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
-            <Stack.Screen name="Wallet" component={Wallet} />
+       
             <Stack.Screen name="Home" component={BottomTabNavigator}/>
         </Stack.Navigator>
     );
