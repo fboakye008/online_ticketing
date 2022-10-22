@@ -7,10 +7,13 @@ import uds from "underscore"
 import {RequestSchedule} from "../apis/schedules";
 import {Colors} from "../contents";
 import {updateError} from '../utils';
+import SearchBar from "../components/ListSearch/SearchBar";
 
 
 const ScheduleScreen = ({navigation, route}) => {
     const [error, setError] = useState("");
+    const [searchPhrase, setSearchPhrase] = useState("");
+    const [clicked, setClicked] = useState(false);
     const [columns, setColumns] = useState([
         "Route",
         "Departure",
@@ -86,7 +89,112 @@ const ScheduleScreen = ({navigation, route}) => {
             }
         </View>
     )
+    const includesText = function(item) {
+        let phrase = searchPhrase?searchPhrase.trim() : "";
+        if (phrase === "") {
+            return true;
+        }
+        if (item.route.toUpperCase().includes(phrase.toUpperCase().trim().replace(/\s/g, ""))) {
+            return true;
+        }
+        if (item.short_depart.toUpperCase().includes(phrase.toUpperCase().trim().replace(/\s/g, ""))) {
+            return true;
+        }
+        let num = null;
+        if(phrase.startsWith(">=")){
+            num = phrase.match(/[0-9]+$/);
+            if(num) {
+                return item.available_seats >= parseInt(num);
+            }
+            return false;
+        }
+        if(phrase.startsWith("<=")){
+            num = phrase.match(/[0-9]+$/);
+            if(num) {
+                return item.available_seats <= parseInt(num);
+            }
+            return false;
+        }
+        if(phrase.startsWith("<")){
+            num = phrase.match(/[0-9]+$/);
+            if(num) {
+                return item.available_seats < parseInt(num);
+            }
+            return false;
+        }
+        if(phrase.startsWith(">")){
+            num = phrase.match(/[0-9]+$/);
+            if(num) {
+                return item.available_seats > parseInt(num);
+            }
+            return false;
+        }
+        if(phrase.startsWith("=")){
+            num = phrase.match(/[0-9]+$/);
+            if(num) {
+                return item.available_seats === parseInt(num);
+            }
+            return false;
+        }
+        if(!isNaN(phrase)){
+            return item.available_seats === parseInt(phrase)
+        }
+        return false;
+    }
+    const renderItem = ({ item, index }) => {
 
+        if(includesText(item)){
+            return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
+                <Text style={styles.columnRowTxt}>{item.route}</Text>
+                <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
+                <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
+                <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
+                {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
+            </View>);
+        }
+        // when no input, show all
+        // if (searchPhrase === "") {
+        //     //return <Item name={item.name} details={item.details} />;
+        //     return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
+        //         <Text style={styles.columnRowTxt}>{item.route}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
+        //         {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
+        //     </View>);
+        //
+        // }
+        // // filter of the name
+        // if (item.route.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+        //     return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
+        //         <Text style={styles.columnRowTxt}>{item.route}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
+        //         {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
+        //     </View>);
+        // }
+        // // filter of the description
+        // if (item.short_depart.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+        //     return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
+        //         <Text style={styles.columnRowTxt}>{item.route}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
+        //         {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
+        //     </View>);
+        // }
+        // if (item.available_seats >= searchPhrase.trim()) {
+        //     return (<View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
+        //         <Text style={styles.columnRowTxt}>{item.route}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
+        //         <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
+        //         {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
+        //     </View>);
+        // }
+
+    };
   return (
       <View style={styles.container}>
         {error ? (
@@ -99,26 +207,23 @@ const ScheduleScreen = ({navigation, route}) => {
             onPress={() => navigation.goBack()}>
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
           <View style={styles.titleContainer}>
-        <Text style={styles.title}>Bus Schedules</Text>
+              {!clicked && <Text style={styles.title}>Bus Schedules</Text>}
+        {/*<Text style={styles.title}>Bus Schedules</Text>*/}
         </View>
         </TouchableOpacity>
+          <SearchBar
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              clicked={clicked}
+              setClicked={setClicked}
+          />
         <FlatList
             data={data}
-            style={{width:"90%"}}
+            style={{width:"90%",flexGrow: 0,height: "70%"}}
             keyExtractor={(item, index) => index+""}
             ListHeaderComponent={tableHeader}
             stickyHeaderIndices={[0]}
-            renderItem={({item, index})=> {
-              return (
-                  <View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#F0FBFC" : "white"}}>
-                    <Text style={styles.columnRowTxt}>{item.route}</Text>
-                    <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
-                    <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
-                    <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
-                    {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
-                  </View>
-              )
-            }}
+            renderItem={renderItem}
         />
         {/* <StatusBar style="auto" /> */}
       </View>
