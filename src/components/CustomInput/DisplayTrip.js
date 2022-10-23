@@ -8,7 +8,7 @@ const DisplayTrip = ({title, onPress}) => {
             <View style={styles.iconContainer}>
                 <AntDesign
                     name="clockcircle"
-                    size={16}
+                    size={10}
                     color={"#ffffff"}
                 ></AntDesign>
             </View>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     destinationText: {
         marginLeft: 10,
         fontWeight: "500",
-        fontSize: 18,
+        fontSize: 15,
     },
 });
 

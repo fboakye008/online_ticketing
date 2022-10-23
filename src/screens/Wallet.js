@@ -81,12 +81,15 @@ const Wallet = () => {
                     {error}
                 </Text>
             ) : null}
+
             <TouchableOpacity
-                style={styles.arrowContainer}
-                onPress={() => navigation.goBack()}>
-                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
-            </TouchableOpacity>
-            <Text style={styles.title}>Ticket Wallet</Text>
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+          <View style={styles.titleContainer}>
+          <Text style={styles.title}>Ticket Wallet</Text>
+        </View>
+        </TouchableOpacity>
 
             <View style={styles.walletContainer}>
                 <SwitchButton toggleSwitch={toggleSwitch} options={options}/>
@@ -113,29 +116,25 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
-    arrowContainer: {
-        height: 40,
-        width: 40,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.SECONDARY_WHITE,
-        borderRadius: 10,
-        marginLeft: 10,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.11,
-        elevation: 5,
-    },
-    title: {
-        textAlign: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        paddingTop: 10,
-    },
+    header:{
+        borderBottomColor: Colors.DEFAULT_GREY,
+        borderBottomWidth: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 12,
+        paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
+      },
+      titleContainer:{
+        flex: 1,
+      },
+      title:{
+        fontSize: 18,
+        marginLeft: -38,
+        fontWeight:'bold',
+        textAlign: 'center',
+      },
+
 
 });
 

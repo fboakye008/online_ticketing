@@ -8,7 +8,6 @@ import {
     SignUpScreen,
     ForgotPasswordScreen,
     ResetPassword,
-    // RegisterPhoneNumberScreen,
     VerificationScreen,
     HomeScreen,
     RouteScreen,
@@ -21,7 +20,7 @@ import {
     PaymentScreen,
     PaymentMessage,
     ScheduleScreen,
-    Wallet
+    Wallet, MapScreen
 } from "../screens";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -51,6 +50,7 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="PaymentScreen" component={PaymentScreen}/>
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
             <HomeStack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
+            <HomeStack.Screen name="MapScreen" component={MapScreen}/>
         </HomeStack.Navigator>
     );
 };
@@ -139,7 +139,6 @@ const BottomTabNavigator = () => {
                     ),
                 }}
             />
-
         </BottomTab.Navigator>
     );
 };

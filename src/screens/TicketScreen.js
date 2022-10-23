@@ -31,13 +31,16 @@ const TicketScreen = ({navigation,route}) => {
                 {error}
             </Text>
         ) : null}
-         <TouchableOpacity
-             style={styles.arrowContainer}
-             onPress={() => navigation.replace('Home')}
-         >
-             <MaterialIcons name="close" size={30} color="#000"/>
-         </TouchableOpacity>
-              <Text style={styles.title}>Ticket</Text>
+        <TouchableOpacity
+            style={styles.header}
+            onPress={() => navigation.replace('Home')}>
+          <MaterialIcons name="close" size={30} color="#000" />
+          <View style={styles.titleContainer}>
+               <Text style={styles.title}>Ticket</Text>
+       
+        </View>
+        </TouchableOpacity>
+        
               <ScrollView>
       <View>
           {tickets.map(ticket => {
@@ -58,12 +61,23 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: Colors.ticketbg,
     },
-
-    title: {
-        fontSize: 20,
-        textAlign: "center",
-        fontWeight: "bold",
-        paddingBottom: 5,
+    header:{
+        borderBottomColor: '#eee',
+        borderBottomWidth: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 12,
+        paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
+      },
+      titleContainer:{
+        flex: 1,
+      },
+      title:{
+        fontSize: 18,
+        marginLeft: -38,
+        fontWeight:'bold',
+        textAlign: 'center',
       },
 });
 export default TicketScreen;

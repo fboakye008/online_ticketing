@@ -64,6 +64,13 @@ const HomeSearch = () => {
             <View style={styles.signupContainer}>
                 <Text style={styles.accountText}>Today's Schedule</Text>
                 <Text style={styles.signupText} onPress={() => navigation.navigate('ScheduleScreen')}>View</Text>
+
+            </View>
+
+            <View style={styles.signupContainer}>
+                <Text style={styles.accountText}>Today's Schedule</Text>
+                <Text style={styles.signupText} onPress={() => navigation.navigate('MapScreen')}>View</Text>
+                
             </View>
         </View>
     );
