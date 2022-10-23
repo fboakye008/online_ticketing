@@ -33,14 +33,15 @@ const MapScreen = ({navigation}) => {
         id: 2,
         }
     ]);
-    const [duration, setDuration] = useState("");
-    const [distance, setDistance] = useState("");
-    const [region, setRegion] = useState({
+    const initialRegion = {
         latitude: 5.723669726699578,
         longitude: 0.043682456624945014,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
-    });
+    };
+    const [duration, setDuration] = useState("");
+    const [distance, setDistance] = useState("");
+    const [region, setRegion] = useState(null);
     const onPressZoomIn = function() {
         mapRef.getCamera().then((cam) => {
             cam.zoom += 1;
@@ -67,11 +68,13 @@ const MapScreen = ({navigation}) => {
             <MapView style={styles.map}
                      ref={map=>{mapRef = map}}
                      provider={PROVIDER_GOOGLE}
-                     initialRegion={region}
-                     region={region}
+                     initialRegion={initialRegion}
                      zoomEnabled={false}
                      zoomTapEnabled={false}
                      scrollDuringRotateOrZoomEnabled={false}
+                     onRegionChangeComplete = {region => {
+                         setRegion(region);
+                     }}
                      >
                 {markers.map((marker) => (
                     <Marker
@@ -81,19 +84,19 @@ const MapScreen = ({navigation}) => {
                         title={marker.title}
                     />
                 ))}
-                <Marker
-                    key={24}
-                    identifier={"24"}
-                    coordinate={origin}
-                    title="">
-                    <Card>
-                        <Card.Title title="Trip Info"/>
-                        <Card.Content>
-                            <Paragraph>Duration (mins) : {duration}</Paragraph>
-                            <Paragraph>Distance (km) : {distance}</Paragraph>
-                        </Card.Content>
-                    </Card>
-                </Marker>
+                {/*<Marker*/}
+                {/*    key={24}*/}
+                {/*    identifier={"24"}*/}
+                {/*    coordinate={origin}*/}
+                {/*    title="">*/}
+                {/*    <Card>*/}
+                {/*        <Card.Title title="Trip Info"/>*/}
+                {/*        <Card.Content>*/}
+                {/*            <Paragraph>Duration (mins) : {duration}</Paragraph>*/}
+                {/*            <Paragraph>Distance (km) : {distance}</Paragraph>*/}
+                {/*        </Card.Content>*/}
+                {/*    </Card>*/}
+                {/*</Marker>*/}
                 <MapViewDirections
                     origin={origin}
                     destination={destination}
