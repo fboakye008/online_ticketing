@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 
 import {Colors} from '../contents';
-
+import HomeMap from '../components/HomeMap';
 import {Display} from './utils';
 import {
     MaterialIcons,
@@ -58,9 +58,9 @@ const HomeScreen = ({navigation}) => {
             
            <View style={styles.container}>
                <View>
-                    <Image source={logo} style={[styles.Image]} resizeMode="cover" />
-
-                    <TouchableOpacity
+                    {/* <Image source={logo} style={[styles.Image]} resizeMode="cover" /> */}
+                        <HomeMap/>
+                    {/* <TouchableOpacity
                         style={styles.mapContainer}
                         onPress={() => handleMap()}
                         ref={keyPressRef}>
@@ -76,7 +76,7 @@ const HomeScreen = ({navigation}) => {
                         </View>
                         </View>
                         
-                   </TouchableOpacity>
+                   </TouchableOpacity> */}
                       
                         <View style={styles.messageBox}>
                         <Text style={styles.title}> Travel only if necessary</Text>
@@ -204,12 +204,9 @@ const styles = StyleSheet.create({
 
         width: '100%',
         backgroundColor: Colors.SECONDARY_BLACK,
-       borderTopLeftRadius: 20,
-       borderTopRightRadius: 20,
         padding: 10,
         marginBottom: 2,
         paddingTop: 2,
-       marginLeft: 1,
          height: Display.setHeight(13),
          shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
