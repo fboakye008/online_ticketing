@@ -22,7 +22,6 @@ const HomeScreen = ({navigation}) => {
         
       };
       const handleMap = () => {
-        // navigation.navigate('ScheduleScreen');
         navigation.navigate('MapScreen');
       };
       const handleBuyTicket = async () => {
@@ -60,15 +59,30 @@ const HomeScreen = ({navigation}) => {
            <View style={styles.container}>
                <View>
                     <Image source={logo} style={[styles.Image]} resizeMode="cover" />
+
+                    <TouchableOpacity
+                        style={styles.mapContainer}
+                        onPress={() => handleMap()}
+                        ref={keyPressRef}>
+                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
+                          <AntDesign name="enviromento" size={24} color="black" />
+                          <Text style={styles.topic}>View Bus Location on Map</Text>
+                          <View>
+                            <MaterialIcons
+                              name="keyboard-arrow-right"
+                              size={26}
+                              color="black"
+                            />
+                        </View>
+                        </View>
+                        
+                   </TouchableOpacity>
                       
                         <View style={styles.messageBox}>
                         <Text style={styles.title}> Travel only if necessary</Text>
                           <Text style={styles.text}>
                           We wish you safe travels, unforgettable experiences, and memories to last a lifetime.
                           </Text>
-                          <Text style={styles}>Learn more!</Text>
-         
-                          
                         </View>
                         
                    
@@ -126,24 +140,6 @@ const HomeScreen = ({navigation}) => {
                         </View>
                         
                    </TouchableOpacity>
-
-                   <TouchableOpacity
-                        style={styles.topicsContainer}
-                        onPress={() => handleMap()}
-                        ref={keyPressRef}>
-                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
-                          <AntDesign name="clockcircleo" size={24} color="black" />
-                          <Text style={styles.topic}>Map</Text>
-                          <View>
-                            <MaterialIcons
-                              name="keyboard-arrow-right"
-                              size={26}
-                              color="black"
-                            />
-                        </View>
-                        </View>
-                        
-                   </TouchableOpacity>
                </View>
            </View>
         </SafeAreaView>
@@ -164,13 +160,13 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 20,
       fontWeight: 'bold',
-      color: Colors.SECONDARY_BLACK,
+      color: Colors.DEFAULT_WHITE,
       marginBottom: 10,
     },
     text: {
 
       fontSize: 15,
-      color: Colors.SECONDARY_BLACK,
+      color: Colors.DEFAULT_WHITE,
       marginBottom: 10,
     },
 
@@ -180,17 +176,41 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         fontWeight: "500",
       },
+
+        mapContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginVertical: 2,
+       marginLeft: 1,
+       width: "100%",
+       borderTopLeftRadius: 20,
+       borderTopRightRadius: 20,
+         backgroundColor: Colors.Light,
+         paddingHorizontal: 10,
+         height: Display.setHeight(10),
+         marginTop: 2,
+         marginBottom: 8,
+         shadowColor: Colors.DEFAULT_BLACK,
+        shadowOffset: {
+        width: 0,
+        height: 5,
+        },
+        shadowOpacity: 0.121,
+       shadowRadius: 9.14,
+       elevation: 10,
+      },
       messageBox: {
 
         width: '100%',
-        backgroundColor: Colors.Light,
+        backgroundColor: Colors.SECONDARY_BLACK,
        borderTopLeftRadius: 20,
        borderTopRightRadius: 20,
         padding: 10,
-        marginBottom: 5,
-        paddingTop: 5,
+        marginBottom: 2,
+        paddingTop: 2,
        marginLeft: 1,
-         height: Display.setHeight(19),
+         height: Display.setHeight(13),
          shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
         width: 0,
@@ -205,7 +225,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginVertical: 10,
+        marginVertical: 2,
        marginLeft: 1,
        width: "100%",
        borderTopLeftRadius: 20,
