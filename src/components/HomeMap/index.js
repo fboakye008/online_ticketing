@@ -4,7 +4,7 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 const HomeMap = (props) => {
   return (
     <View style={{
-      height: 300, 
+      height: 400, 
       backgroundColor: "#a0abff",
       justifyContent: 'center',
       alignItems: 'center',

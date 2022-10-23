@@ -9,7 +9,10 @@ import {
     AntDesign,
   } from "@expo/vector-icons";
 
-import logo from "../../src/images/logo1.png";
+
+// import {map} from "../contents/image"
+
+
 import utils from "../apis/utils";
 import {updateError} from "../utils";
 
@@ -17,6 +20,7 @@ import {updateError} from "../utils";
 const HomeScreen = ({navigation}) => {
     const [error, setError] = useState("");
     const keyPressRef = React.useRef(null);
+    const  map = require('../../src/images/map.jpeg');
     const handleSchedule = () => {
         navigation.navigate('ScheduleScreen');
         
@@ -58,8 +62,8 @@ const HomeScreen = ({navigation}) => {
             
            <View style={styles.container}>
                <View>
-                    {/* <Image source={logo} style={[styles.Image]} resizeMode="cover" /> */}
-                        <HomeMap/>
+                    <Image source={map} style={[styles.Image]} resizeMode="cover" /> 
+                        {/* <HomeMap/> */}
                     {/* <TouchableOpacity
                         style={styles.mapContainer}
                         onPress={() => handleMap()}
@@ -188,7 +192,7 @@ const styles = StyleSheet.create({
        borderTopRightRadius: 20,
          backgroundColor: Colors.Light,
          paddingHorizontal: 10,
-         height: Display.setHeight(10),
+         height: Display.setHeight(13),
          marginTop: 2,
          marginBottom: 8,
          shadowColor: Colors.DEFAULT_BLACK,
@@ -207,7 +211,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 2,
         paddingTop: 2,
-         height: Display.setHeight(13),
+         height: Display.setHeight(11),
          shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
         width: 0,
@@ -222,15 +226,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginVertical: 2,
+       marginVertical: 2,
        marginLeft: 1,
        width: "100%",
        borderTopLeftRadius: 20,
        borderTopRightRadius: 20,
          backgroundColor: Colors.LIGHT_GREEN,
          paddingHorizontal: 10,
-         height: Display.setHeight(10),
-         marginTop: 5,
+         height: Display.setHeight(8),
+         marginTop: 2,
          shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
         width: 0,
@@ -242,8 +246,8 @@ const styles = StyleSheet.create({
       },
       Image: {
         
-        height: Display.setHeight(30),
-        width: Display.setWidth(100),
+        height: 390,
+        width: "100%"
       },
 });
 

@@ -78,6 +78,7 @@ const AccountScreen = ({navigation}) => {
             const y = await utils.isLoggedIn()
             if (y) {
                 const user = JSON.parse(y)
+                console.log(user)
                 setUserInfo({...userInfo, ["fullName"]: user.full_name});
             } else {
                 const navPage = 'Account';
