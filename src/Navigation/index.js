@@ -35,8 +35,15 @@ const HomeStackNavigator = () => {
         <HomeStack.Navigator
             screenOptions={{
                 headerShown: false,
-            }}
-        >
+            }}>
+            <HomeStack.Screen name="Splash" component={SplashScreen}/>
+            <HomeStack.Screen name="Welcome" component={WelcomeScreen}/>
+            <HomeStack.Screen name="Signin" component={SignInScreen}/>
+            <HomeStack.Screen name="Signup" component={SignUpScreen}/>
+            <HomeStack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
+            <HomeStack.Screen name="ResetPassword" component={ResetPassword}/>
+            <HomeStack.Screen name="Verification" component={VerificationScreen}/>
+            <HomeStack.Screen name="Wallet" component={Wallet} />
             <HomeStack.Screen name="Home" component={HomeScreen}/>
             <HomeStack.Screen name="Route" component={RouteScreen}/>
             <HomeStack.Screen name="BusStopTimeScreen" component={BusStopTimeScreen}/>
@@ -48,44 +55,14 @@ const HomeStackNavigator = () => {
     );
 };
 
-const HelpStack = createNativeStackNavigator();
-
-const HelpStackNavigator = () => {
-    return (
-        <HelpStack.Navigator
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
-                <HelpStack.Screen name="Help" component={Help}/>
-        </HelpStack.Navigator>
-    );
-};
-
-const AboutStack = createNativeStackNavigator();
-
-const AboutStackNavigator = () => {
-    return (
-        <AboutStack.Navigator
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
-                <AboutStack.Screen name="About" component={About}/>
-        </AboutStack.Navigator>
-    );
-};
 const AccountStack = createNativeStackNavigator();
 const AccountStackNavigator = () => {
     return (
         <AccountStack.Navigator
             screenOptions={{
                 headerShown: false,
-            }}
-        >
+            }}>
             <AccountStack.Screen name="Account" component={AccountScreen}/>
-            <AccountStack.Screen name="Help" component={Help}/>
-            <AccountStack.Screen name="About" component={About}/>
             <AccountStack.Screen name="Wallet" component={Wallet} />
             <AccountStack.Screen name="Trips" component={Trips}/>
         </AccountStack.Navigator>
@@ -107,42 +84,13 @@ const BottomTabNavigator = () => {
             }}
         >
             <BottomTab.Screen
-                name="HomeTab"
+                name="HomeStack"
                 component={HomeStackNavigator}
                 options={{
                     tabBarLabel: "Home",
                     tabBarIcon: ({size, focused}) => (
                         <Ionicons
                             name="ios-home"
-                            color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
-                            size={size}
-                        />
-                    ),
-                }}
-            />
-            
-            <BottomTab.Screen
-                name="HelpStack"
-                component={HelpStackNavigator}
-                options={{
-                    tabBarLabel: "Help",
-                    tabBarIcon: ({size, focused}) => (
-                        <Ionicons
-                            name="help-circle"
-                            color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
-                            size={size}
-                        />
-                    ),
-                }}
-            />
-            <BottomTab.Screen
-                name="AboutStack"
-                component={AboutStackNavigator}
-                options={{
-                    tabBarLabel: "About",
-                    tabBarIcon: ({size, focused}) => (
-                        <Ionicons
-                            name="information-circle"
                             color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
                             size={size}
                         />
@@ -163,31 +111,37 @@ const BottomTabNavigator = () => {
                     ),
                 }}
             />
+            <BottomTab.Screen
+                name="Help"
+                component={Help}
+                options={{
+                    tabBarLabel: "Help",
+                    tabBarIcon: ({size, focused}) => (
+                        <Ionicons
+                            name="help-circle"
+                            color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="About"
+                component={About}
+                options={{
+                    tabBarLabel: "About",
+                    tabBarIcon: ({size, focused}) => (
+                        <Ionicons
+                            name="information-circle"
+                            color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+
         </BottomTab.Navigator>
     );
 };
 
-const Stack = createNativeStackNavigator();
-
-const MainStackNavigator = () => {
-    return (
-        <Stack.Navigator
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
-            <Stack.Screen name="Splash" component={SplashScreen}/>
-            <Stack.Screen name="Welcome" component={WelcomeScreen}/>
-            <Stack.Screen name="Signin" component={SignInScreen}/>
-            <Stack.Screen name="Signup" component={SignUpScreen}/>
-            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}/>
-            <Stack.Screen name="ResetPassword" component={ResetPassword}/>
-            <Stack.Screen name="Verification" component={VerificationScreen}/>
-            <Stack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
-            <Stack.Screen name="Wallet" component={Wallet} />
-            <Stack.Screen name="Home" component={BottomTabNavigator}/>
-        </Stack.Navigator>
-    );
-};
-
-export default MainStackNavigator;
+export default BottomTabNavigator;
