@@ -6,3 +6,4 @@ export default {
     facebook: require('../../src/images/facebook.png'),
     google: require('../../src/images/google.png'),
 };
+

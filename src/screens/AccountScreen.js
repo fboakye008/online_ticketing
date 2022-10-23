@@ -45,7 +45,7 @@ const options = [
         icon: "settings",
         path: "Setting",
     },
-    
+
     {
         id: 3,
         label: "Logout",
@@ -75,9 +75,8 @@ const AccountScreen = ({navigation}) => {
     }
     useEffect(() => {
         async function retrieveUser() {
-            const y = await utils.isLoggedIn()
-            if (y) {
-                const user = JSON.parse(y)
+            const user = await utils.findCachedUser()
+            if (user) {
                 setUserInfo({...userInfo, ["fullName"]: user.full_name});
             } else {
                 const navPage = 'Account';
