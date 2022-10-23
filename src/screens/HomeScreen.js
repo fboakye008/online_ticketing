@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 
 import {Colors} from '../contents';
 import HomeMap from '../components/HomeMap';
@@ -7,14 +7,19 @@ import {Display} from './utils';
 import {
     MaterialIcons,
     AntDesign,
-} from "@expo/vector-icons";
+  } from "@expo/vector-icons";
 
-import logo from "../../src/images/logo1.png";
+
+// import {map} from "../contents/image"
+
+
 import utils from "../apis/utils";
 import {updateError} from "../utils";
 
 
 const HomeScreen = ({navigation}) => {
+    const  map = require('../../src/images/map.jpeg');
+
     const [error, setError] = useState("");
     const keyPressRef = React.useRef(null);
     const [viewStaticMap, setViewStaticMap] = useState(true);
@@ -41,51 +46,66 @@ const HomeScreen = ({navigation}) => {
     }, [navigation]);
     const handleSchedule = () => {
         navigation.navigate('ScheduleScreen');
-    };
-    const handleMap = () => {
-        navigation.navigate('MapScreen');
-    };
-    const handleBuyTicket = async () => {
-        try {
-            const y = await utils.isLoggedIn();
-            let navPage = 'Route';
-            if (y) {
-                navigation.navigate(navPage);
-            } else {
-                navigation.navigate('Signin', {navPage});
-            }
-        } catch (ee) {
-            console.log("Error", ee);
-            return updateError(ee.toString(), setError);
 
-        }
-    };
-    const handleTicketWallet = async () => {
-        try {
-            const y = await utils.isLoggedIn()
-            let navPage = 'Wallet';
-            if (y) {
-                navigation.navigate(navPage);
-            } else {
-                navigation.navigate('Signin', {navPage});
-            }
-        } catch (ee) {
-            console.log("Error", ee)
-            return updateError(ee.toString(), setError);
-        }
-    };
+      };
+      const handleMap = () => {
+        navigation.navigate('MapScreen');
+      };
+      const handleBuyTicket = async () => {
+          try {
+              const y = await utils.isLoggedIn();
+              let navPage = 'Route';
+              if (y) {
+                  navigation.navigate(navPage);
+              } else {
+                  navigation.navigate('Signin', {navPage});
+              }
+          }catch(ee){
+              console.log("Error",ee);
+              return updateError(ee.toString(), setError);
+
+          }
+      };
+      const handleTicketWallet =  async() => {
+          try {
+                const y = await utils.isLoggedIn()
+                let navPage =  'Wallet';
+                if(y){
+                    navigation.navigate(navPage);
+                }else{
+                  navigation.navigate('Signin',{navPage});
+                }
+          }catch(ee){
+              console.log("Error",ee)
+              return updateError(ee.toString(), setError);
+          }
+      };
     return (
         <SafeAreaView>
-            <View style={styles.container}>
-                <View>
-                    {viewStaticMap ? (
-                            <View style={styles.messageBox}>
-                                <Text style={styles.title}> View Static Map</Text>
-                            </View>
-                        ) :
-                        <HomeMap/>
-                    }
-                    <View style={styles.messageBox}>
+
+           <View style={styles.container}>
+               <View>
+                    <Image source={map} style={[styles.Image]} resizeMode="cover" />
+                        {/* <HomeMap/> */}
+                    {/* <TouchableOpacity
+                        style={styles.mapContainer}
+                        onPress={() => handleMap()}
+                        ref={keyPressRef}>
+                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
+                          <AntDesign name="enviromento" size={24} color="black" />
+                          <Text style={styles.topic}>View Bus Location on Map</Text>
+                          <View>
+                            <MaterialIcons
+                              name="keyboard-arrow-right"
+                              size={26}
+                              color="black"
+                            />
+                        </View>
+                        </View>
+
+                   </TouchableOpacity> */}
+
+                        <View style={styles.messageBox}>
                         <Text style={styles.title}> Travel only if necessary</Text>
                         <Text style={styles.text}>
                             We wish you safe travels, unforgettable experiences, and memories to last a lifetime.
