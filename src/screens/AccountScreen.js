@@ -10,6 +10,7 @@ import {Ionicons} from "@expo/vector-icons";
 import {Colors} from "../contents";
 import {useNavigation} from "@react-navigation/native";
 import utils from "../apis/utils";
+import {updateError} from "../utils";
 
 const items = [
     {
@@ -55,34 +56,54 @@ const options = [
 ];
 
 const AccountScreen = ({navigation}) => {
-    //const navigation = useNavigation();
     const [userInfo, setUserInfo] = useState({
         fullName: "",
         phone: "",
         apiKey: "",
     });
     const {fullName, phone, apiKey} = userInfo;
+
+
     const handleAction = function (item) {
         async function removeUser() {
             await utils.removeUser();
-            navigation.replace("Home")
+            navigation.navigate("Home");
+            return;
         }
+
         if (item.option.path === "Logout") {
             removeUser().catch(console.error);
-        } else{
+
+        } else {
             navigation.navigate(item.option.path);
         }
     }
-    useEffect(() => {
-        async function retrieveUser() {
-            const user = await utils.findCachedUser()
-            if (user) {
-                setUserInfo({...userInfo, ["fullName"]: user.full_name});
-            } else {
+    const focusHandler = navigation.addListener('focus', () => {
+        retrieveUser().catch(console.error);
+        return;
+    });
+    const retrieveUser = async function () {
+        try {
+            const y = await utils.isLoggedIn();
+            if (y) {
+                const user = await utils.findCachedUser();
+                if (user) {
+                    setUserInfo({...userInfo, ["fullName"]: user.full_name});
+                } else {
+                    const navPage = 'Account';
+                    navigation.navigate('Signin', {navPage});
+                }
+            }else{
                 const navPage = 'Account';
                 navigation.navigate('Signin', {navPage});
             }
+            return focusHandler;
+        } catch (ex) {
+            const navPage = 'Account';
+            navigation.navigate('Signin', {navPage});
         }
+    }
+    useEffect(() => {
         retrieveUser().catch(console.error);
     }, []);
     return (

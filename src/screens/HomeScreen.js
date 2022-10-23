@@ -2,110 +2,92 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 
 import {Colors} from '../contents';
-import HomeMap from '../components/HomeMap';
 import {Display} from './utils';
 import {
     MaterialIcons,
     AntDesign,
-  } from "@expo/vector-icons";
-
-
-// import {map} from "../contents/image"
-
+} from "@expo/vector-icons";
 
 import utils from "../apis/utils";
 import {updateError} from "../utils";
+import HomeMap from "../components/HomeMap";
+import {useFocusEffect} from '@react-navigation/native';
 
 
 const HomeScreen = ({navigation}) => {
-    const  map = require('../../src/images/map.jpeg');
-
+    const map = require('../../src/images/map.jpeg');
     const [error, setError] = useState("");
     const keyPressRef = React.useRef(null);
     const [viewStaticMap, setViewStaticMap] = useState(true);
-    useEffect(() => {
-        async function populateData() {
-            try {
-                const y = await utils.isLoggedIn();
-                if (y) {
-                    //if y but no upcoming trips still show static image
-                    setViewStaticMap(false);
-                } else {
-                    setViewStaticMap(true);
-                }
-            } catch (ee) {
-                setViewStaticMap(true);
-                return updateError(ee.toString(), setError);
-            }
-        }
+
+    const focusHandler = navigation.addListener('focus', () => {
         populateData().catch();
-        const focusHandler = navigation.addListener('focus', () => {
-            console.log("Refreshing Page");
-        });
-        return focusHandler;
+        return;
+    });
+    const populateData = async function() {
+        try {
+            const y = await utils.isLoggedIn();
+            if (y) {
+                //if y but no upcoming trips still show static image
+                setViewStaticMap(false);
+            } else {
+                setViewStaticMap(true);
+            }
+            return focusHandler;
+        } catch (ee) {
+            setViewStaticMap(true);
+            return updateError(ee.toString(), setError);
+        }
+    }
+    useEffect(() => {
+        populateData().catch();
     }, [navigation]);
     const handleSchedule = () => {
         navigation.navigate('ScheduleScreen');
-
-      };
-      const handleMap = () => {
+    };
+    const handleMap = () => {
         navigation.navigate('MapScreen');
-      };
-      const handleBuyTicket = async () => {
-          try {
-              const y = await utils.isLoggedIn();
-              let navPage = 'Route';
-              if (y) {
-                  navigation.navigate(navPage);
-              } else {
-                  navigation.navigate('Signin', {navPage});
-              }
-          }catch(ee){
-              console.log("Error",ee);
-              return updateError(ee.toString(), setError);
-
-          }
-      };
-      const handleTicketWallet =  async() => {
-          try {
-                const y = await utils.isLoggedIn()
-                let navPage =  'Wallet';
-                if(y){
-                    navigation.navigate(navPage);
-                }else{
-                  navigation.navigate('Signin',{navPage});
-                }
-          }catch(ee){
-              console.log("Error",ee)
-              return updateError(ee.toString(), setError);
-          }
-      };
+    };
+    const handleBuyTicket = async () => {
+        try {
+            const y = await utils.isLoggedIn();
+            let navPage = 'Route';
+            if (y) {
+                navigation.navigate(navPage);
+            } else {
+                navigation.navigate('Signin', {navPage});
+            }
+        } catch (ee) {
+            console.log("Error", ee);
+            return updateError(ee.toString(), setError);
+        }
+    };
+    const handleTicketWallet = async () => {
+        try {
+            const y = await utils.isLoggedIn()
+            let navPage = 'Wallet';
+            if (y) {
+                navigation.navigate(navPage);
+            } else {
+                navigation.navigate('Signin', {navPage});
+            }
+        } catch (ee) {
+            console.log("Error", ee)
+            return updateError(ee.toString(), setError);
+        }
+    };
     return (
         <SafeAreaView>
 
-           <View style={styles.container}>
-               <View>
-                    <Image source={map} style={[styles.Image]} resizeMode="cover" />
-                        {/* <HomeMap/> */}
-                    {/* <TouchableOpacity
-                        style={styles.mapContainer}
-                        onPress={() => handleMap()}
-                        ref={keyPressRef}>
-                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
-                          <AntDesign name="enviromento" size={24} color="black" />
-                          <Text style={styles.topic}>View Bus Location on Map</Text>
-                          <View>
-                            <MaterialIcons
-                              name="keyboard-arrow-right"
-                              size={26}
-                              color="black"
-                            />
-                        </View>
-                        </View>
+            <View style={styles.container}>
+                <View>
+                    {viewStaticMap ? (
+                            <Image source={map} style={[styles.Image]} resizeMode="cover"/>
+                        ) :
+                        <HomeMap/>
+                    }
 
-                   </TouchableOpacity> */}
-
-                        <View style={styles.messageBox}>
+                    <View style={styles.messageBox}>
                         <Text style={styles.title}> Travel only if necessary</Text>
                         <Text style={styles.text}>
                             We wish you safe travels, unforgettable experiences, and memories to last a lifetime.
