@@ -21,6 +21,7 @@ import {
     PaymentScreen,
     PaymentMessage,
     ScheduleScreen,
+    MapScreen,
     Wallet
 } from "../screens";
 
@@ -44,6 +45,7 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="PaymentScreen" component={PaymentScreen}/>
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
             <HomeStack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
+            <HomeStack.Screen name="MapScreen" component={MapScreen}/>
         </HomeStack.Navigator>
     );
 };
@@ -130,7 +132,7 @@ const BottomTabNavigator = () => {
                         <Ionicons
                             name="help-circle"
                             color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
-                            size={size}
+                            size={30}
                         />
                     ),
                 }}
@@ -144,7 +146,7 @@ const BottomTabNavigator = () => {
                         <Ionicons
                             name="information-circle"
                             color={focused ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY}
-                            size={size}
+                            size={30}
                         />
                     ),
                 }}
@@ -184,6 +186,7 @@ const MainStackNavigator = () => {
             <Stack.Screen name="ResetPassword" component={ResetPassword}/>
             <Stack.Screen name="Verification" component={VerificationScreen}/>
             <Stack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
+            <Stack.Screen name="MapScreen" component={MapScreen}/>
             <Stack.Screen name="Wallet" component={Wallet} />
             <Stack.Screen name="Home" component={BottomTabNavigator}/>
         </Stack.Navigator>

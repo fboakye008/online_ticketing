@@ -11,6 +11,7 @@ import PaymentMessage from "./PaymentMessage";
 import HomeScreen from "./HomeScreen";
 import AccountScreen from "./AccountScreen";
 import ScheduleScreen from "./ScheduleScreen";
+import MapScreen from "./MapScreen";
 import TicketScreen from "./TicketScreen";
 import Help from "./Help";
 import About from "./About";
@@ -34,6 +35,7 @@ export {
     HomeScreen,
     AccountScreen,
     ScheduleScreen,
+    MapScreen,
     Help,
     About,
     Wallet,

@@ -19,6 +19,11 @@ const HomeScreen = ({navigation}) => {
     const keyPressRef = React.useRef(null);
     const handleSchedule = () => {
         navigation.navigate('ScheduleScreen');
+        
+      };
+      const handleMap = () => {
+        // navigation.navigate('ScheduleScreen');
+        navigation.navigate('MapScreen');
       };
       const handleBuyTicket = async () => {
           try {
@@ -111,6 +116,24 @@ const HomeScreen = ({navigation}) => {
                         <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
                           <AntDesign name="clockcircleo" size={24} color="black" />
                           <Text style={styles.topic}>Today's Schedule</Text>
+                          <View>
+                            <MaterialIcons
+                              name="keyboard-arrow-right"
+                              size={26}
+                              color="black"
+                            />
+                        </View>
+                        </View>
+                        
+                   </TouchableOpacity>
+
+                   <TouchableOpacity
+                        style={styles.topicsContainer}
+                        onPress={() => handleMap()}
+                        ref={keyPressRef}>
+                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15  }}>
+                          <AntDesign name="clockcircleo" size={24} color="black" />
+                          <Text style={styles.topic}>Map</Text>
                           <View>
                             <MaterialIcons
                               name="keyboard-arrow-right"

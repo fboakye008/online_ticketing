@@ -4,7 +4,7 @@ import Separator from '../components/WelcomeCard/Separator';
 import {Colors, image as MyImage} from '../contents';
 import TextField from '../components/CustomInput/TextInput';
 import {Display} from './utils';
-import utils from "../apis/utils";
+import { MaterialIcons} from '@expo/vector-icons';
 import LoginUser from "../apis/login";
 import LoadingScreen from "./utils/LoadingScreen";
 import SubmitButton from '../components/CustomInput/SubmitButton';
@@ -80,8 +80,16 @@ const SignInScreen = ({navigation, route}) => {
                     {error}
                 </Text>
             ) : null}
+            <TouchableOpacity
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+          <View style={styles.titleContainer}>
+               <Text style={styles.title}>Welcome!</Text>
+       
+        </View>
+        </TouchableOpacity>
             <View style={styles.contentContainer}>
-                <Text style={styles.headerTitle}>Welcome!</Text>
                 <Text style={styles.content}>
                     Enter your Username and password, and enjoy your trip!
                 </Text>
@@ -134,48 +142,27 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
-    headerTitle: {
-        Colors: Colors.DEFAULT_BLACK,
-        fontSize: 30,
-        fontWeight: 'bold',
-    },
-    inputContainer: {
-        height: 55,
-        paddingHorizontal: 20,
+    header:{
+        borderBottomColor: '#eee',
+        borderBottomWidth: 5,
         flexDirection: 'row',
-        justifyContent: 'center',
-        borderRadius: 5,
-        borderWidth: 0.5,
-        backgroundColor: Colors.Light,
-        borderColor: Colors.LIGHT_GREEN,
         alignItems: 'center',
-    },
+        paddingBottom: 12,
+        paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
+      },
+    
     content: {
         colors: Colors.LIGHT_GREY,
-        fontSize: 18,
+        fontSize: 15,
         marginVertical: 15,
+        marginLeft: 10,
     },
     contentContainer: {
-        paddingTop: 50,
+        paddingTop: 10,
         paddingHorizontal: 20,
     },
-    inputSubContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    topic: {
-        fontSize: 16,
-        paddingLeft: 10,
-        fontWeight: "500",
-    },
-    inputText: {
-        fontSize: 18,
-        textAlignVertical: 'center',
-        padding: 0,
-        height: Display.setHeight(6),
-        color: Colors.DEFAULT_BLACK,
-        flex: 1,
-    },
+    
     forgotPasswordContainer: {
         marginHorizontal: 20,
         alignItems: 'center',
@@ -272,6 +259,15 @@ const styles = StyleSheet.create({
         shadowRadius: 9.11,
         elevation: 5,
     },
+    titleContainer:{
+        flex: 1,
+      },
+      title:{
+        fontSize: 18,
+        marginLeft: -38,
+        fontWeight:'bold',
+        textAlign: 'center',
+      },
 });
 
 export default SignInScreen;
