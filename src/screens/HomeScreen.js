@@ -86,7 +86,6 @@ const HomeScreen = ({navigation}) => {
                         ) :
                         <HomeMap/>
                     }
-
                     <View style={styles.messageBox}>
                         <Text style={styles.title}> Travel only if necessary</Text>
                         <Text style={styles.text}>

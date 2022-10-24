@@ -1,30 +1,142 @@
-import {View} from 'react-native';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import {useState} from "react";
+import {Dimensions, StyleSheet, TouchableOpacity, View, Platform} from 'react-native';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapViewDirections from "react-native-maps-directions";
+import {EvilIcons} from "@expo/vector-icons";
+import {GOOGLE_API_KEY} from "@env";
+import {useEffect, useRef, useState} from "react";
+import {Card, Paragraph} from "react-native-paper";
+
 
 const HomeMap = () => {
-    const [markers, setMarkers] = useState([]);
-
+    const {width, height} = Dimensions.get('window');
+    const origin = {latitude: 5.723669726699578, longitude: 0.043682456624945014};
+    const destination = {latitude: 5.722853131829537, longitude: 0.03143773186297082};
+    let provider;
+    if(Platform.OS === 'ios' ){
+    }else{
+        provider = PROVIDER_GOOGLE
+    }
+    const ASPECT_RATIO = width / height;
+    const LATITUDE_DELTA = 0.02;
+    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+    let mapRef = useRef();
+    //const [markers, setMarkers] = useState([]);
+    const [markers, setMarkers] = useState([
+        {
+            coordinate: origin,
+            title: "Kpone Affordable Housing",
+            id: 1,
+        },
+        {
+            coordinate: destination,
+            title: "Community 25 Mall",
+            id: 2,
+        }
+    ]);
+    const initialRegion = {
+        latitude: 5.723669726699578,
+        longitude: 0.043682456624945014,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+    };
+    const [duration, setDuration] = useState("");
+    const [distance, setDistance] = useState("");
+    const [region, setRegion] = useState(null);
+    const onPressZoomIn = function() {
+        mapRef.getCamera().then((cam) => {
+            cam.zoom += 1;
+            mapRef.animateCamera(cam);
+        });
+    }
+    const onPressZoomOut = function() {
+        mapRef.getCamera().then((cam) => {
+            cam.zoom -= 1;
+            mapRef.animateCamera(cam);
+        });
+    }
     return (
         <View style={{
             height: 440,
             backgroundColor: "#a0abff",
             justifyContent: 'center',
             alignItems: 'center',
-        }}>
+        }} >
+            <TouchableOpacity
+                onPress={() => { onPressZoomOut() }}>
+                <EvilIcons name="minus" size={24} color="red"/>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => { onPressZoomIn() }}>
+                <EvilIcons name="plus" size={24} color="red"/>
+            </TouchableOpacity>
 
-            <MapView
-                style={{height: "100%", width: "100%"}}
-                provider={PROVIDER_GOOGLE}
-                initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-            ></MapView>
+            <MapView style={{height: "100%", width: "100%"}}
+                     ref={map=>{mapRef = map}}
+                     provider={provider}
+                     initialRegion={initialRegion}
+                     onRegionChangeComplete = {region => {
+                         setRegion(region);
+                     }}>
+                {markers.map((marker) => (
+                    <Marker
+                        key={marker.id}
+                        identifier={marker.id}
+                        coordinate={marker.coordinate}
+                        title={marker.title}
+                    />
+                ))}
+                {/*<Marker*/}
+                {/*    key={24}*/}
+                {/*    identifier={"24"}*/}
+                {/*    coordinate={origin}*/}
+                {/*    title="">*/}
+                {/*    <Card>*/}
+                {/*        <Card.Title title="Trip Info"/>*/}
+                {/*        <Card.Content>*/}
+                {/*            <Paragraph>Duration (mins) : {duration}</Paragraph>*/}
+                {/*            <Paragraph>Distance (km) : {distance}</Paragraph>*/}
+                {/*        </Card.Content>*/}
+                {/*    </Card>*/}
+                {/*</Marker>*/}
+                <MapViewDirections
+                    origin={origin}
+                    destination={destination}
+                    strokeWidth={5}
+                    strokeColor="#0096FF"
+                    apikey={GOOGLE_API_KEY}
+                    onReady={result => {
+                        setDistance(result.distance)
+                        setDuration(parseFloat(result.duration).toFixed(2))
+                    }}
+                />
+            </MapView>
+
         </View>
-    )
+    );
 }
+
+
+
+// return (
+//         <View style={{
+//             height: 440,
+//             backgroundColor: "#a0abff",
+//             justifyContent: 'center',
+//             alignItems: 'center',
+//         }}>
+//
+//             <MapView
+//                 style={{height: "100%", width: "100%"}}
+//                 provider={PROVIDER_GOOGLE}
+//                 initialRegion={{
+//                     latitude: 37.78825,
+//                     longitude: -122.4324,
+//                     latitudeDelta: 0.0922,
+//                     longitudeDelta: 0.0421,
+//                 }}
+//             ></MapView>
+//         </View>
+//     )
+// }
 
 export default HomeMap;
