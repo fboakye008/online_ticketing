@@ -80,7 +80,10 @@ const HomeMap = (navigator) => {
                      onRegionChangeComplete = {region => {
                          setRegion(region);
                      }}
-                     onMapReady={() => {_mapRef.current.fitToSuppliedMarkers(['1','2'],{ edgePadding:
+                     onMapReady={() => {
+                         _mapRef.current.fitToSuppliedMarkers(['mk1','mk2'],
+                         {
+                         edgePadding:
                              {top: 50,
                                  right: 50,
                                  bottom: 50,
