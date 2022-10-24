@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet, TouchableOpacity, View, Platform} from 'react-native';
+import {Dimensions, StyleSheet, TouchableOpacity, View, Platform, Text, Image} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from "react-native-maps-directions";
 import {EvilIcons} from "@expo/vector-icons";
@@ -7,7 +7,7 @@ import {useEffect, useRef, useState} from "react";
 import {Card, Paragraph} from "react-native-paper";
 
 
-const HomeMap = () => {
+const HomeMap = (navigator) => {
     const {width, height} = Dimensions.get('window');
     const origin = {latitude: 5.723669726699578, longitude: 0.043682456624945014};
     const destination = {latitude: 5.722853131829537, longitude: 0.03143773186297082};
@@ -19,18 +19,22 @@ const HomeMap = () => {
     const ASPECT_RATIO = width / height;
     const LATITUDE_DELTA = 0.02;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-    let mapRef = useRef();
+    const _mapRef = useRef(null);
     //const [markers, setMarkers] = useState([]);
     const [markers, setMarkers] = useState([
         {
             coordinate: origin,
             title: "Kpone Affordable Housing",
             id: 1,
+        image: require('../../../assets/logo1.png'),
+            identifier: 'mk1'
         },
         {
             coordinate: destination,
             title: "Community 25 Mall",
             id: 2,
+            identifier: 'mk2',
+            image: require('../../../assets/bus_stop.png')
         }
     ]);
     const initialRegion = {
@@ -43,17 +47,23 @@ const HomeMap = () => {
     const [distance, setDistance] = useState("");
     const [region, setRegion] = useState(null);
     const onPressZoomIn = function() {
-        mapRef.getCamera().then((cam) => {
+        _mapRef.current.getCamera().then((cam) => {
             cam.zoom += 1;
-            mapRef.animateCamera(cam);
+            _mapRef.current.animateCamera(cam);
         });
     }
     const onPressZoomOut = function() {
-        mapRef.getCamera().then((cam) => {
+        _mapRef.current.getCamera().then((cam) => {
             cam.zoom -= 1;
-            mapRef.animateCamera(cam);
+            _mapRef.current.animateCamera(cam);
         });
     }
+    useEffect(() => {
+        // _mapRef.current.animateCamera({center: {
+        //         latitude: destination.latitude,
+        //         longitude: destination.longitude
+        //     }}, 1000)
+    }, []);
     return (
         <View style={{
             height: 440,
@@ -61,29 +71,31 @@ const HomeMap = () => {
             justifyContent: 'center',
             alignItems: 'center',
         }} >
-            <TouchableOpacity
-                onPress={() => { onPressZoomOut() }}>
-                <EvilIcons name="minus" size={24} color="red"/>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => { onPressZoomIn() }}>
-                <EvilIcons name="plus" size={24} color="red"/>
-            </TouchableOpacity>
+
 
             <MapView style={{height: "100%", width: "100%"}}
-                     ref={map=>{mapRef = map}}
+                     ref={_mapRef}
                      provider={provider}
                      initialRegion={initialRegion}
                      onRegionChangeComplete = {region => {
                          setRegion(region);
-                     }}>
+                     }}
+                     onMapReady={() => {_mapRef.current.fitToSuppliedMarkers(['1','2'],{ edgePadding:
+                             {top: 50,
+                                 right: 50,
+                                 bottom: 50,
+                                 left: 50}
+                     })}}
+            >
                 {markers.map((marker) => (
                     <Marker
                         key={marker.id}
-                        identifier={marker.id}
+                        identifier={marker.identifier}
                         coordinate={marker.coordinate}
                         title={marker.title}
-                    />
+                    >
+                        <Image source={marker.image} style={{ height: 24, width: 24 }} />
+                    </Marker>
                 ))}
                 {/*<Marker*/}
                 {/*    key={24}*/}
@@ -109,8 +121,23 @@ const HomeMap = () => {
                         setDuration(parseFloat(result.duration).toFixed(2))
                     }}
                 />
+                <TouchableOpacity
+                    onPress = {() => _mapRef.current.animateCamera({center: {
+                        latitude: destination.latitude,
+                        longitude: destination.longitude
+                    }}, 1)}>
+                    <Text>Tap Me</Text>
+                </TouchableOpacity>
             </MapView>
 
+            {/*<TouchableOpacity*/}
+            {/*    onPress={() => { onPressZoomOut() }}>*/}
+            {/*    <EvilIcons name="minus" size={24} color="red"/>*/}
+            {/*</TouchableOpacity>*/}
+            {/*<TouchableOpacity*/}
+            {/*    onPress={() => { onPressZoomIn() }}>*/}
+            {/*    <EvilIcons name="plus" size={24} color="red"/>*/}
+            {/*</TouchableOpacity>*/}
         </View>
     );
 }
