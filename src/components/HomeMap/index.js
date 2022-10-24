@@ -45,6 +45,7 @@ const HomeMap = (navigator) => {
     };
     const [duration, setDuration] = useState("");
     const [distance, setDistance] = useState("");
+    const [departureTime, setDepartureTime] = useState("");
     const [region, setRegion] = useState(null);
     const onPressZoomIn = function() {
         _mapRef.current.getCamera().then((cam) => {
@@ -71,8 +72,6 @@ const HomeMap = (navigator) => {
             justifyContent: 'center',
             alignItems: 'center',
         }} >
-
-
             <MapView style={{height: "100%", width: "100%"}}
                      ref={_mapRef}
                      provider={provider}
@@ -100,19 +99,6 @@ const HomeMap = (navigator) => {
                         <Image source={marker.image} style={{ height: 24, width: 24 }} />
                     </Marker>
                 ))}
-                {/*<Marker*/}
-                {/*    key={24}*/}
-                {/*    identifier={"24"}*/}
-                {/*    coordinate={origin}*/}
-                {/*    title="">*/}
-                {/*    <Card>*/}
-                {/*        <Card.Title title="Trip Info"/>*/}
-                {/*        <Card.Content>*/}
-                {/*            <Paragraph>Duration (mins) : {duration}</Paragraph>*/}
-                {/*            <Paragraph>Distance (km) : {distance}</Paragraph>*/}
-                {/*        </Card.Content>*/}
-                {/*    </Card>*/}
-                {/*</Marker>*/}
                 <MapViewDirections
                     origin={origin}
                     destination={destination}
@@ -124,12 +110,16 @@ const HomeMap = (navigator) => {
                         setDuration(parseFloat(result.duration).toFixed(2))
                     }}
                 />
-                <TouchableOpacity
-                    onPress = {() => _mapRef.current.animateCamera({center: {
-                        latitude: destination.latitude,
-                        longitude: destination.longitude
-                    }}, 1)}>
-                    <Text>Tap Me</Text>
+                <TouchableOpacity>
+                    <Card>
+                        <Card.Content>
+                            <Text>
+                                <Text style={{fontWeight: "bold"}}>Duration :</Text><Text> {duration} (mins)</Text>
+                                <Text style={{fontWeight: "bold"}}> Distance :</Text><Text> {distance} (km)</Text>
+                                <Text style={{fontWeight: "bold"}}> Departure :</Text><Text> {departureTime}</Text>
+                            </Text>
+                        </Card.Content>
+                    </Card>
                 </TouchableOpacity>
             </MapView>
 
