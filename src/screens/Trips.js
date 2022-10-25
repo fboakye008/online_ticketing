@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
+import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity,Image, ScrollView} from "react-native";
 import {MaterialIcons} from "@expo/vector-icons";
 import {Colors} from "../contents";
 import _ from "underscore";
 import moment from "moment";
 import {fetchTickets} from "../apis/tickets";
 import {updateError} from '../utils';
+import projectlogo from "../../src/images/projectLogo.png";
 import DisplayTrip from "../components/CustomInput/DisplayTrip";
 
 
@@ -52,7 +53,7 @@ const Trips = ({navigation}) => {
                     {error}
                 </Text>
             ) : null}
-            <TouchableOpacity
+            {/* <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
@@ -60,8 +61,18 @@ const Trips = ({navigation}) => {
           <Text style={styles.title}>Trips ({numTrips})</Text>
                 
         </View>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 <Text style={styles.Headertopic}>Trips ({numTrips}) </Text>
+           <View>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+          </View>
         </TouchableOpacity>
-            
             
             <ScrollView>
                 
@@ -85,22 +96,35 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header:{
-        borderBottomColor: Colors.DEFAULT_GREY,
+        borderBottomColor: '#eee',
+        justifyContent: "space-between",
+        width: "100%",
         borderBottomWidth: 5,
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 12,
+        marginLeft: 1,
+        marginTop: 12,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },
+      Headertopic: {
+        flex: 1,
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: "bold",
+    },
+     
+      Image: {
+
+        height: 30,
+        width: 30,
+        marginRight: 20,
+    },
+
       titleContainer:{
         flex: 1,
       },
-      title:{
-        fontSize: 18,
-        marginLeft: -38,
-        fontWeight:'bold',
-        textAlign: 'center',
-      },
+     
 })
 export default Trips;

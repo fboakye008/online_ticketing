@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Image,
   Dimensions,
   ScrollView,
 } from "react-native";
@@ -14,6 +15,7 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { Colors } from "../contents";
+import projectlogo from "../../src/images/projectLogo.png";
 import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
@@ -53,13 +55,18 @@ const Help = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+     
       <TouchableOpacity
-        style={styles.arrowContainer}
-        onPress={() => navigation.goBack()}
-      >
-        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-      </TouchableOpacity>
-      <Text style={styles.title}>Help</Text>
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 <Text style={styles.Headertopic}>Help </Text>
+           <View>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+          </View>
+        </TouchableOpacity>
       <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
         <View style={styles.topicsWrapper}>
           <Text style={styles.allTopics}>All Topics</Text>
@@ -105,29 +112,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 
-  title: {
+  header:{
+    borderBottomColor: '#eee',
+    justifyContent: "space-between",
+    width: "100%",
+    borderBottomWidth: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 12,
+    marginLeft: 1,
+    marginTop: 12,
+    paddingHorizontal: 12,
+    backgroundColor: Colors.DEFAULT_WHITE,
+  },
+  Headertopic: {
+    flex: 1,
     fontSize: 20,
-    textAlign: "center",
+    textAlign: 'center',
     fontWeight: "bold",
-    paddingBottom: 5,
-  },
-  arrowContainer: {
-    height: 40,
-    width: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: Colors.SECONDARY_WHITE,
-    borderRadius: 10,
-    marginLeft: 10,
-    shadowColor: Colors.DEFAULT_BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.121,
-    shadowRadius: 9.11,
-    elevation: 5,
-  },
+},
   topic: {
     fontSize: 16,
     paddingLeft: 10,
@@ -149,5 +152,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 15,
   },
+  Image: {
+
+    height: 30,
+    width: 30,
+    marginRight: 20,
+},
 });
 export default Help;

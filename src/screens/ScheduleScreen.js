@@ -1,6 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity, SafeAreaView,} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity,Image, SafeAreaView,} from 'react-native';
 import {MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import _ from "lodash"
 import uds from "underscore"
@@ -8,6 +8,7 @@ import {RequestSchedule} from "../apis/schedules";
 import {Colors} from "../contents";
 import {updateError} from '../utils';
 import SearchBar from "../components/ListSearch/SearchBar";
+import projectlogo from "../../src/images/projectLogo.png";
 import moment from "moment";
 
 
@@ -162,15 +163,20 @@ const ScheduleScreen = ({navigation, route}) => {
               {error}
             </Text>
         ) : null}
+
         <TouchableOpacity
-            style={styles.header}
+                        style={styles.header}
             onPress={() => navigation.goBack()}>
-          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-          <View style={styles.titleContainer}>
-              {!clicked && <Text style={styles.title}>Schedule ({dateToday})</Text>}
-        {/*<Text style={styles.title}>Bus Schedules</Text>*/}
-        </View>
-        </TouchableOpacity>
+                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                        {!clicked && <Text style={styles.topic}>Schedule ({dateToday})</Text>}
+      
+                            <View>
+                            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+                            </View>
+                        </View>
+
+                    </TouchableOpacity>
           <SearchBar
               searchPhrase={searchPhrase}
               setSearchPhrase={setSearchPhrase}
@@ -193,23 +199,7 @@ const ScheduleScreen = ({navigation, route}) => {
 }
 
 const styles = StyleSheet.create({
-  arrowContainer: {
-    height: 40,
-    width: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: Colors.SECONDARY_WHITE,
-    borderRadius: 10,
-    marginLeft: 10,
-    shadowColor: Colors.DEFAULT_BLACK,
-    shadowOffset: {
-        width: 0,
-        height: 5,
-    },
-    shadowOpacity: 0.121,
-    shadowRadius: 9.11,
-    elevation: 5,
-},
+//   
   columnHeader: {
     width: "30%",
     justifyContent: "center",
@@ -236,12 +226,16 @@ const styles = StyleSheet.create({
 
   header:{
     borderBottomColor: '#eee',
+    justifyContent: "space-between",
+    width: "100%",
     borderBottomWidth: 5,
     flexDirection: 'row',
     alignItems: 'center',
     paddingBottom: 12,
+    marginLeft: 1,
+    paddingTop:12,
     paddingHorizontal: 12,
-
+    backgroundColor: Colors.DEFAULT_WHITE,
   },
   tableHeader: {
     flexDirection: "row",
@@ -259,6 +253,12 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems:"center",
   },
+  topic: {
+    flex: 1,
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: "500",
+},
 
   titleContainer:{
     flex: 1,
@@ -269,7 +269,12 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     textAlign: 'center',
   },
+  Image: {
 
+    height: 30,
+    width: 30,
+    marginRight: 20,
+},
 });
 
 

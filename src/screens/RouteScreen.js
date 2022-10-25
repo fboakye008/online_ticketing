@@ -4,6 +4,7 @@ import {
     View,
     Text,
     StyleSheet,
+    Image,
     Dimensions,
     TouchableOpacity,
     SafeAreaView,
@@ -13,12 +14,13 @@ import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import {Colors} from "../contents";
 import moment from 'moment';
 import {RequestRoutes} from "../apis/routes";
-
 const {height, width} = Dimensions.get("window");
 import utils from "../apis/utils";
 import {updateError} from '../utils';
+import projectlogo from '../../src/images/projectLogo.png';
 
 const Routes = ({navigation}) => {
+  
     const [error, setError] = useState("");
     const [routeMessage, setRouteMessage] = useState("Route");
     const [data, setData] = useState({
@@ -65,13 +67,28 @@ const Routes = ({navigation}) => {
                     {error}
                 </Text>
             ) : null}
-            <TouchableOpacity
-                style={styles.arrowContainer}
-                onPress={() => navigation.goBack()}>
-                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+           
+            {/* <TouchableOpacity
+            
+            onPress={() => navigation.goBack()}>
+          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+          <View style={styles.titleContainer}>
+               <Text style={styles.title}>Select Your Route</Text>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+        </View>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+                        style={styles.header}
+            onPress={() => navigation.goBack()}>
+                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                            <Text style={styles.topic}>Select Your Route</Text>
+                            <View>
+                            </View>
+                        </View>
 
-            </TouchableOpacity>
-            <Text style={styles.text}> Select Your Route</Text>
+                    </TouchableOpacity>
+                    <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
 
             <View style={styles.container}>
                 <ReadOnlyField
@@ -98,23 +115,7 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
     },
-    arrowContainer: {
-        height: 40,
-        width: 40,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.SECONDARY_WHITE,
-        borderRadius: 10,
-        marginLeft: 10,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.11,
-        elevation: 5,
-    },
+   
     container: {
         flex: 1,
         justifyContent: "center",
@@ -122,7 +123,6 @@ const styles = StyleSheet.create({
         height: height,
     },
 
-    //
     btn: {
         justifyContent: "center",
         alignItems: "center",
@@ -146,6 +146,31 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "bold",
     },
+    header:{
+        borderBottomColor: '#eee',
+        borderBottomWidth: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 12,
+        paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
+      },
+      titleContainer:{
+        flex: 1,
+      },
+      title:{
+        fontSize: 18,
+        marginLeft: -38,
+        fontWeight:'bold',
+        textAlign: 'center',
+      },
+      Image: {
+
+        height: 100,
+        width: 100,
+        marginLeft: "36%",
+        marginTop: 10
+    },
     text: {
         justifyContent: "space-between",
         alignItems: "center",
@@ -156,6 +181,13 @@ const styles = StyleSheet.create({
         marginLeft: 60
     },
 
+    topic: {
+        flex: 1,
+        fontSize: 18,
+        marginLeft: -38,
+        fontWeight:'bold',
+       textAlign: 'center',
+    },
 });
 
 export default Routes;

@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Dimensions,
     TouchableOpacity,
+    Image,
     SafeAreaView,
 } from "react-native";
 import BookingTextField from "../components/CustomBookingInput";
@@ -14,6 +15,7 @@ import {Colors} from "../contents";
 import moment from 'moment';
 import _ from "underscore";
 import {CreateBooking} from "../apis/booking";
+import projectlogo from "../../src/images/projectLogo.png";
 
 const {height, width} = Dimensions.get("window");
 import {updateError} from '../utils';
@@ -138,14 +140,20 @@ const BusStopTimeScreen = ({navigation, route}) => {
     }, []);
     return (
         <SafeAreaView style={styles.wrapper}>
-           
+          
             <TouchableOpacity
-                style={styles.arrowContainer}
-                onPress={() => navigation.goBack()}>
-                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+                        style={styles.header}
+            onPress={() => navigation.goBack()}>
+                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                         <Text style={styles.topic}>Departure </Text>
+      
+                            <View>
+                            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+                            </View>
+                        </View>
 
-            </TouchableOpacity>
-            <Text style={styles.text}> Departure</Text>
+                    </TouchableOpacity>
             <View style={styles.container}>
                 <ReadOnlyField
                     style={styles.input}
@@ -179,23 +187,7 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
     },
-    arrowContainer: {
-        height: 40,
-        width: 40,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.SECONDARY_WHITE,
-        borderRadius: 10,
-        marginLeft: 10,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.11,
-        elevation: 5,
-    },
+   
     container: {
         flex: 1,
         justifyContent: "center",
@@ -227,6 +219,19 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "bold",
     },
+    header:{
+        borderBottomColor: '#eee',
+        justifyContent: "space-between",
+        width: "100%",
+        borderBottomWidth: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 12,
+        marginLeft: 1,
+        paddingTop:12,
+        paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
+      },
     text: {
 
         justifyContent: "space-between",
@@ -236,6 +241,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 100,
         paddingTop: 5,
         paddingLeft: 145
+    },
+    Image: {
+
+        height: 30,
+        width: 30,
+        marginRight: 20,
     },
 });
 
