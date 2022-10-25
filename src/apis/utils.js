@@ -1,23 +1,24 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {API_URL} from "@env";
+import {ROUTE_URL} from "@env";
 import _ from "underscore";
 
 
 const self = module.exports = {
-    removeUser: async function() {
+    removeUser: async function () {
         try {
             await AsyncStorage.removeItem("user")
         } catch (e) {
 
         }
     },
-    isLoggedIn : async function () {
+    isLoggedIn: async function () {
         const savedUser = await AsyncStorage.getItem("user");
-        if (savedUser){
+        if (savedUser) {
             return true;
         }
-       return false;
-      },
+        return false;
+    },
     /**
      * Look in storage to find cached user. if null, forward to login page
      * @returns {Promise<null|any>}
@@ -29,14 +30,60 @@ const self = module.exports = {
         }
         throw new Error("You have been logged out of the system. Please log back in!");
     },
-   uniquify : function (objArray) {
-        if(objArray) {
+    uniquify: function (objArray) {
+        if (objArray) {
             let result = objArray?.map(a => ({"value": a.route_id, "label": a.route}));
             return _.uniq(result, function (x) {
                 return x["value"];
             });
-        }else{
+        } else {
             return [];
+        }
+    },
+    /**
+     * MAke a request to the API
+     * @returns {Promise<null|any>}
+     */
+    makeMapAPIRequest: async function (origin, destination, departureTime) {
+        try {
+            const payload = {
+                origin: {
+                    location: {
+                        latLng: origin
+                    }
+                },
+                destination: {
+                    location: {
+                        latLng: destination
+                    }
+                },
+                routingPreference: "TRAFFIC_AWARE",
+                travelMode:  "DRIVE",
+                languageCode: "en",
+                units : "METRIC",
+                departureTime: departureTime
+            };
+            const url = `${ROUTE_URL}`;
+            const options = {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Goog-Api-Key": "AIzaSyAxmcKRmk6orYwdehkPATjDnnKPrLHSQU8",
+                    "X-Goog-FieldMask": "routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline",
+                }
+            };
+            const response = await fetch(url, options);
+            let data = await response.json();
+            if (response.ok) {
+                return data;
+            } else {
+                throw data.error.message;
+            }
+
+        } catch (error) {
+            console.log(error);
+            throw error
         }
     },
     /**
@@ -64,9 +111,9 @@ const self = module.exports = {
             }
             const response = await fetch(url, options);
             let data = await response.json();
-            if(response.ok){
+            if (response.ok) {
                 return data;
-            }else{
+            } else {
                 throw data.error.message;
             }
 
