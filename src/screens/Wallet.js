@@ -15,6 +15,7 @@ import SwitchButton from "../components/CustomSwitch/SwitchButton";
 import Receipt from "../components/CustomTicket/Receipt";
 import _ from "underscore";
 import moment from "moment";
+import projectlogo from "../../src/images/projectLogo.png";
 import {fetchTickets} from "../apis/tickets";
 import {updateError} from "../utils";
 
@@ -82,13 +83,16 @@ const Wallet = () => {
                 </Text>
             ) : null}
 
-            <TouchableOpacity
+        <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>
-          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-          <View style={styles.titleContainer}>
-          <Text style={styles.title}>Ticket Wallet</Text>
-        </View>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 <Text style={styles.Headertopic}>Ticket Wallet </Text>
+           <View>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+          </View>
         </TouchableOpacity>
 
             <View style={styles.walletContainer}>
@@ -117,24 +121,33 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.DEFAULT_WHITE,
     },
     header:{
-        borderBottomColor: Colors.DEFAULT_GREY,
+        borderBottomColor: '#eee',
+        justifyContent: "space-between",
+        width: "100%",
         borderBottomWidth: 5,
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 12,
+        marginLeft: 1,
+        marginTop: 12,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },
+      Headertopic: {
+        flex: 1,
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: "bold",
+    },
       titleContainer:{
         flex: 1,
       },
-      title:{
-        fontSize: 18,
-        marginLeft: -38,
-        fontWeight:'bold',
-        textAlign: 'center',
-      },
+      Image: {
 
+        height: 30,
+        width: 30,
+        marginRight: 20,
+    },
 
 });
 

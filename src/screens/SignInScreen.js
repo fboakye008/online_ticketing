@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignInScreen = ({navigation, route}) => {
+    const projectlogo = require('../../src/images/projectLogo.png');
     const nextPage = route.params.navPage;
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -89,10 +90,13 @@ const SignInScreen = ({navigation, route}) => {
        
         </View>
         </TouchableOpacity>
+        
             <View style={styles.contentContainer}>
-                <Text style={styles.content}>
+                {/* <Text style={styles.content}>
                     Enter your Username and password, and enjoy your trip!
-                </Text>
+                </Text> */}
+                <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+
                 <TextField
                     value={phone}
                     onChangeText={(value) => handleOnChangeText(value, "phone")}
@@ -268,6 +272,12 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         textAlign: 'center',
       },
+      Image: {
+
+        height: 100,
+        width: 100,
+        marginLeft: "35%"
+    },
 });
 
 export default SignInScreen;

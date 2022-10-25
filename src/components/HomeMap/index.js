@@ -69,15 +69,17 @@ const HomeMap = (navigator) => {
     }, []);
     return (
         <View style={{
-            height: 440,
+            height: 300,
             backgroundColor: "#a0abff",
             justifyContent: 'center',
             alignItems: 'center',
         }} >
+       
             <MapView style={{height: "100%", width: "100%"}}
                      ref={_mapRef}
                      provider={provider}
                      initialRegion={initialRegion}
+                     region={region}
                      onRegionChangeComplete = {region => {
                          setRegion(region);
                      }}
@@ -112,7 +114,7 @@ const HomeMap = (navigator) => {
                         setDuration(parseFloat(result.duration).toFixed(2))
                     }}
                 />
-                <TouchableOpacity>
+                {/* <View><TouchableOpacity>
                     <Card>
                         <Card.Content>
                             <Text>
@@ -123,7 +125,10 @@ const HomeMap = (navigator) => {
                         </Card.Content>
                     </Card>
                 </TouchableOpacity>
+                </View> */}
+                 
             </MapView>
+            
 
             {/*<TouchableOpacity*/}
             {/*    onPress={() => { onPressZoomOut() }}>*/}

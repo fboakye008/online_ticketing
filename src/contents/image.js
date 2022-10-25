@@ -5,6 +5,7 @@ export default {
     travel: require('../../src/images/Travel.png'),
     facebook: require('../../src/images/facebook.png'),
     map: require('../../src/images/map.jpeg'),
+    projectlogo: require ('../../src/images/projectLogo.png'),
     google: require('../../src/images/google.png'),
 };
 
