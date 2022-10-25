@@ -39,16 +39,12 @@ const MapScreen = ({navigation}) => {
             longitudeDelta: LONGITUDE_DELTA
         })
     });
-    const [coordinate,setCoordinate] = useState(new AnimatedRegion({
+    const [coordinate, setCoordinate] = useState(new AnimatedRegion({
         latitude: origin.latitude,
         longitude: origin.longitude,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
     }))
-    const [count, setCount] = useState(0);
-    const [locationCount, setlocationCount] = useState(0);
-    const [locationFlag, setlocationFlag] = useState(0);
-    //const {curLoc, destinationCords, isLoading, coordinate} = st;
     const [coords, setCoords] = useState([{"latitude": 5.72361, "longitude": 0.04364}, {
         "latitude": 5.72393,
         "longitude": 0.04307
@@ -72,18 +68,11 @@ const MapScreen = ({navigation}) => {
     ]);
 
     const [region, setRegion] = useState(initialRegion);
-    const tokyoRegion = {
-        latitude: 35.6762,
-        longitude: 139.6503,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-    };
-
 
     useEffect(() => {
         async function populateData() {
             try {
-               // const cd = await getDirections(origin, destination);
+                // const cd = await getDirections(origin, destination);
                 //setCoords(cd);
                 // console.log(cd);
                 return "done"
@@ -111,31 +100,7 @@ const MapScreen = ({navigation}) => {
                 clearInterval(i);
             }
         }, 4000);
-
-        // const interval = setInterval(() => {
-        //     getLiveLocation()
-        // }, 1000);
-        // setTimeout(() => { clearInterval(interval); console.log('stopping'); }, 25000);
     }
-
-    const onCenter = () => {
-        mapRef.current.animateToRegion({
-            latitude: curLoc.latitude,
-            longitude: curLoc.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA
-        })
-    }
-
-    const changeRegion = (region) => {
-        setRegion({
-            latitude: curLoc.latitude,
-            longitude: curLoc.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA
-        });
-    }
-
     const startAnimation = (lat, longg) => {
         const newCoordinate = {
             latitude: lat,
@@ -176,11 +141,10 @@ const MapScreen = ({navigation}) => {
                                                 strokeWidth={3}
                                                 lineDashPattern={[1]}/>}
 
-                <Marker.Animated style={{paddingVertical: 1, paddingHorizontal: 1, borderRadius: 1, elevation: 1}}
+                <Marker.Animated style={styles.markerAnimation}
                                  ref={markerRef}
-                                 coordinate={coordinate}
-                >
-                    <Image source={imagepointer} style={{ height: 24, width: 30 ,transform: [{ rotateY: '180deg'}]}} />
+                                 coordinate={coordinate}>
+                    <Image source={imagepointer} style={styles.image}/>
                 </Marker.Animated>
             </MapView>
             <Button onPress={() => animateRoute()} title="Start Animation" color="#841584"/>
@@ -194,14 +158,16 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         alignItems: "center",
     },
+    markerAnimation: {
+        paddingVertical: 1,
+        paddingHorizontal: 1,
+        borderRadius: 1,
+        elevation: 1
+    },
     map: {
         ...StyleSheet.absoluteFillObject,
     },
-    image: {
-        // height: 180,
-        // width: 200,
-        transform: [{ rotate: '90deg' }]
-    },
+    image: {height: 24, width: 30, transform: [{rotateY: '180deg'}]},
     text: {
         fontSize: 20,
         backgroundColor: "lightblue",
