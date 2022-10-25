@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: "bold",
     },
-      titleContainer:{
-        flex: 1,
-      },
+    // titleContainer:{
+    //    flex: 1,
+    //   },
       Image: {
 
         height: 30,

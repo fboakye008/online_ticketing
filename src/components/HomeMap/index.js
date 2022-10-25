@@ -2,6 +2,7 @@ import {Dimensions, StyleSheet, TouchableOpacity, View, Platform, Text, Image} f
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from "react-native-maps-directions";
 import {EvilIcons} from "@expo/vector-icons";
+import { Display } from '../../screens/utils';
 import {GOOGLE_API_KEY} from "@env";
 import {useEffect, useRef, useState} from "react";
 import {Card, Paragraph} from "react-native-paper";
@@ -67,10 +68,14 @@ const HomeMap = (navigator) => {
     }, []);
     return (
         <View style={{
-            height: 300,
-            backgroundColor: "#a0abff",
-            justifyContent: 'center',
-            alignItems: 'center',
+
+
+        backgroundColor: "#a0abff",
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: Display.setHeight(50),
+        width: Display.setWidth(100),
+
         }} >
        
             <MapView style={{height: "100%", width: "100%"}}

@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 2,
         paddingTop: 2,
-        height: Display.setHeight(10),
+        height: Display.setHeight(12),
         shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
             width: 0,
@@ -249,8 +249,10 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     Image: {
-
-        height: Display.setHeight(30),
+        backgroundColor: "#a0abff",
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: Display.setHeight(50),
         width: Display.setWidth(100),
     },
 });
