@@ -43,7 +43,7 @@ const HomeScreen = ({navigation}) => {
         populateData().catch();
     }, [navigation]);
     const handleSchedule = () => {
-        navigation.navigate('ScheduleScreen');
+        navigation.navigate('MapScreen');
     };
     const handleMap = () => {
         navigation.navigate('MapScreen');

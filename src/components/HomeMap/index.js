@@ -11,7 +11,7 @@ const HomeMap = (navigator) => {
     const {width, height} = Dimensions.get('window');
     const origin = {latitude: 5.723669726699578, longitude: 0.043682456624945014};
     const destination = {latitude: 5.722853131829537, longitude: 0.03143773186297082};
-    let provider;
+    let provider= PROVIDER_GOOGLE
     if(Platform.OS === 'ios' ){
     }else{
         provider = PROVIDER_GOOGLE
@@ -60,6 +60,8 @@ const HomeMap = (navigator) => {
         });
     }
     useEffect(() => {
+        //find the latest non-expired entry
+
         // _mapRef.current.animateCamera({center: {
         //         latitude: destination.latitude,
         //         longitude: destination.longitude
