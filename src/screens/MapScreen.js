@@ -100,18 +100,13 @@ const MapScreen = ({navigation}) => {
         }).catch();
     }, [coords]);
 
-    const ff = function () {
+    const animateRoute = function () {
 
         let counter = 0;
-        console.log("coords", coords.length)
         let i = setInterval(function () {
-            console.log("before", coords.length)
             const q = coords[counter];
-
-            console.log("after", q);
             startAnimation(q.latitude, q.longitude)
             counter++;
-            console.log("counter", counter)
             if (counter === coords.length) {
                 clearInterval(i);
             }
@@ -149,20 +144,7 @@ const MapScreen = ({navigation}) => {
             longitudeDelta: 0.012,
         };
         mapRef.current.animateToRegion({latitude: lat, longitude: longg}, 3000);
-        if (Platform.OS === 'android') {
-            if (markerRef) {
-               // mapRef.current.animateToRegion({latitude: lat, longitude: longg}, 3000);
-                markerRef.current.animateMarkerToCoordinate(newCoordinate,4000);//  number of duration between points
-            }
-        } else {
-            //mapRef.current.animateToRegion({latitude: lat, longitude: longg}, 3000);
-            coordinate.timing(newCoordinate).start();
-        }
-
-        //complete this animation in 3 seconds
-       // mapRef.current.animateToRegion({latitude: lat, longitude: longg}, 3000);
-        //complete this animation in 3 seconds
-
+        coordinate.timing(newCoordinate).start();
     };
     const getDirections = async (startLoc, destinationLoc) => {
         try {
@@ -201,7 +183,7 @@ const MapScreen = ({navigation}) => {
                     <Image source={imagepointer} style={{ height: 24, width: 30 ,transform: [{ rotateY: '180deg'}]}} />
                 </Marker.Animated>
             </MapView>
-            <Button onPress={() => ff()} title="Start Animation" color="#841584"/>
+            <Button onPress={() => animateRoute()} title="Start Animation" color="#841584"/>
         </View>
     );
 }
