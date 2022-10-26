@@ -1,39 +1,39 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image} from 'react-native';
 import MapView, {Marker, AnimatedRegion, Polyline} from 'react-native-maps';
 import imagePath from '../constants/imagePath';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_API_KEY} from "@env";
 
-const MapScreen = ({ navigation }) => {
+const MapScreen = () => {
+
     const screen = Dimensions.get('window');
     const ASPECT_RATIO = screen.width / screen.height;
     const LATITUDE_DELTA = 0.04;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+    const mapRef = useRef();
+    const markerRef = useRef();
     const origin = {latitude: 5.723669726699578, longitude: 0.043682456624945014};
     const destination = {latitude: 5.722853131829537, longitude: 0.03143773186297082};
-    const mapRef = useRef()
-    const markerRef = useRef()
     const coords= [
-        {"latitude": 5.72361, "longitude": 0.04364}, {
-        "latitude": 5.72393,
-        "longitude": 0.04307
-    }, {"latitude": 5.72427, "longitude": 0.0424}, {"latitude": 5.72457, "longitude": 0.04178}, {
-        "latitude": 5.72476,
-        "longitude": 0.04141
-    }, {"latitude": 5.72423, "longitude": 0.04104}, {"latitude": 5.72207, "longitude": 0.0392}, {
-        "latitude": 5.72159,
-        "longitude": 0.0388
-    }, {"latitude": 5.72144, "longitude": 0.03866}, {"latitude": 5.72081, "longitude": 0.03816}, {
-        "latitude": 5.71995,
-        "longitude": 0.03746
-    }, {"latitude": 5.71928, "longitude": 0.03697}, {"latitude": 5.71897, "longitude": 0.03651}, {
-        "latitude": 5.71898,
-        "longitude": 0.03644
-    }, {"latitude": 5.72233, "longitude": 0.03142}, {"latitude": 5.72245, "longitude": 0.03147}, {
-        "latitude": 5.72253,
-        "longitude": 0.03149
-    }, {"latitude": 5.72268, "longitude": 0.03146},
+        {"latitude": 5.72361, "longitude": 0.04364},
+        {"latitude": 5.72393, "longitude": 0.04307},
+        {"latitude": 5.72427, "longitude": 0.0424},
+        {"latitude": 5.72457, "longitude": 0.04178},
+        {"latitude": 5.72476, "longitude": 0.04141},
+        {"latitude": 5.72423, "longitude": 0.04104},
+        {"latitude": 5.72207, "longitude": 0.0392},
+        {"latitude": 5.72159, "longitude": 0.0388},
+        {"latitude": 5.72144, "longitude": 0.03866},
+        {"latitude": 5.72081, "longitude": 0.03816},
+        {"latitude": 5.71995, "longitude": 0.03746},
+        {"latitude": 5.71928, "longitude": 0.03697},
+        {"latitude": 5.71897, "longitude": 0.03651},
+        {"latitude": 5.71898, "longitude": 0.03644},
+        {"latitude": 5.72233, "longitude": 0.03142},
+        {"latitude": 5.72245, "longitude": 0.03147},
+        {"latitude": 5.72253, "longitude": 0.03149},
+        {"latitude": 5.72268, "longitude": 0.03146},
         {"latitude": 5.72284, "longitude": 0.03139}
     ];
     const [state, setState] = useState({
@@ -51,13 +51,13 @@ const MapScreen = ({ navigation }) => {
         distance: 1,
         heading: 0
     });
-    const { curLoc, time, distance,timeStr, distanceStr, destinationCords, isLoading, coordinate,live } = state
+    const { curLoc, timeStr, distanceStr, destinationCords, coordinate,live } = state
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
-
-    useEffect(() => {
-        getLiveLocation(coords[0])
-    }, [])
-
+    /**
+     *
+     * @param q
+     * @returns {Promise<void>}
+     */
     const getLiveLocation = async (q) => {
         animate(q.latitude, q.longitude);
         updateState({
@@ -71,18 +71,30 @@ const MapScreen = ({ navigation }) => {
             })
         })
     }
+    /**
+     *
+     */
+    useEffect(() => {
+        const g = getLiveLocation(coords[0])
+    }, [])
+    /**
+     *
+     */
     useEffect(() => {
         let counter = 0;
         const interval = setInterval(() => {
             const q = coords[counter];
-            getLiveLocation(q)
+            const g = getLiveLocation(q)
             counter++;
             if (counter === coords.length) {
                 clearInterval(interval);
             }
         }, 2000);
     }, [])
-
+    /**
+     *
+     * @param data
+     */
     const fetchValue = (data) => {
          updateState({
             destinationCords: {
@@ -91,11 +103,18 @@ const MapScreen = ({ navigation }) => {
             }
         })
     }
+    /**
+     *
+     * @param latitude
+     * @param longitude
+     */
     const animate = (latitude, longitude) => {
         const newCoordinate = { latitude, longitude };
         coordinate.timing(newCoordinate).start();
     }
-
+    /**
+     *
+     */
     const onCenter = () => {
         mapRef.current.animateToRegion({
             latitude: curLoc.latitude,
@@ -104,10 +123,14 @@ const MapScreen = ({ navigation }) => {
             longitudeDelta: LONGITUDE_DELTA
         })
     }
-
+    /**
+     *
+     * @param distance
+     * @param time
+     */
     const fetchTime = (distance, time) => {
         const dst = `Distance: ${distance.toFixed(2)} km`;
-        const tst = `Duration: ${time.toFixed(0)} min`
+        const tst = `Duration: ${time.toFixed(0)} min`;
         updateState({
             distance: distance,
             time: time,
@@ -118,8 +141,6 @@ const MapScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-
-
             <View style={{ flex: 1 }}>
                 <MapView
                     ref={mapRef}
@@ -142,7 +163,6 @@ const MapScreen = ({ navigation }) => {
                             resizeMode="contain"
                         />
                     </Marker.Animated>
-
                     {Object.keys(destinationCords).length > 0 && (<Marker
                         coordinate={destinationCords}
                         image={imagePath.icGreenMarker}
@@ -212,7 +232,7 @@ const styles = StyleSheet.create({
         borderTopEndRadius: 24,
         borderTopStartRadius: 24
     },
-    inpuStyle: {
+    inputStyle: {
         backgroundColor: 'white',
         borderRadius: 4,
         borderWidth: 1,

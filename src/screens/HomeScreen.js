@@ -12,10 +12,12 @@ import utils from "../apis/utils";
 import {updateError} from "../utils";
 import HomeMap from "../components/HomeMap";
 import {useFocusEffect} from '@react-navigation/native';
+import {map} from "../constants/imagePath";
 
 
 const HomeScreen = ({navigation}) => {
-    const {map} =  require("../constants/imagePath")
+    //const {map} = require("../constants/imagePath")
+    const map = require('../assets/images/map.jpeg')
     const [error, setError] = useState("");
     const keyPressRef = React.useRef(null);
     const [viewStaticMap, setViewStaticMap] = useState(true);
@@ -24,7 +26,7 @@ const HomeScreen = ({navigation}) => {
         populateData().catch();
         return;
     });
-    const populateData = async function() {
+    const populateData = async function () {
         try {
             const y = await utils.isLoggedIn();
             if (y) {
@@ -77,145 +79,98 @@ const HomeScreen = ({navigation}) => {
         }
     };
     return (
-        <SafeAreaView>
-
-            <View style={styles.container}>
-                <View>
-                    {viewStaticMap ? (
-                            <Image source={map} style={[styles.Image]} resizeMode="cover"/>
-                        ) :
-                        <HomeMap/>
-                    }
-                    <View style={styles.messageBox}>
-                        <Text style={styles.title}> Travel only if necessary</Text>
-                        <Text style={styles.text}>
-                            We wish you safe travels, unforgettable experiences, and memories to last a lifetime.
-                        </Text>
+        <View style={[styles.container, {
+            flexDirection: "column"
+        }]}>
+            <View style={{flex: 7}}>
+                {viewStaticMap ? (
+                        <Image source={map} style={[styles.Image]}/>
+                    ) :
+                    <HomeMap/>
+                }
+            </View>
+            <View style={[styles.messageBox, {
+                flex: 1}]}>
+                <Text style={styles.title}> Travel only if necessary</Text>
+                <Text style={styles.text}>
+                    We wish you safe travels, unforgettable experiences, and memories to last a lifetime.
+                </Text>
+            </View>
+            <View style={{flex: 1}}>
+                <TouchableOpacity
+                    style={styles.topicsContainer}
+                    onPress={() => handleBuyTicket()}
+                    ref={keyPressRef}>
+                    <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <AntDesign name="bars" size={24} color="black"/>
+                        <Text style={styles.topic}>Buy Ticket</Text>
+                        <View>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                size={26}
+                                color="black"
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            <View style={{flex: 1}}>
+                <TouchableOpacity
+                    style={styles.topicsContainer}
+                    onPress={() => handleTicketWallet()}
+                    ref={keyPressRef}>
+                    <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <AntDesign name="wallet" size={24} color="black"/>
+                        <Text style={styles.topic}>Ticket Wallet</Text>
+                        <View>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                size={26}
+                                color="black"
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            <View style={{flex: 1}}>
+                <TouchableOpacity
+                    style={styles.topicsContainer}
+                    onPress={() => handleSchedule()}
+                    ref={keyPressRef}>
+                    <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <AntDesign name="clockcircleo" size={24} color="black"/>
+                        <Text style={styles.topic}>Today's Schedule</Text>
+                        <View>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                size={26}
+                                color="black"
+                            />
+                        </View>
                     </View>
 
-
-                    <TouchableOpacity
-                        style={styles.topicsContainer}
-                        onPress={() => handleBuyTicket()}
-                        ref={keyPressRef}>
-                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-                            <AntDesign name="bars" size={24} color="black"/>
-                            <Text style={styles.topic}>Buy Ticket</Text>
-                            <View>
-                                <MaterialIcons
-                                    name="keyboard-arrow-right"
-                                    size={26}
-                                    color="black"
-                                />
-                            </View>
-                        </View>
-
-                    </TouchableOpacity>
-
-
-                    <TouchableOpacity
-                        style={styles.topicsContainer}
-                        onPress={() => handleTicketWallet()}
-                        ref={keyPressRef}>
-                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-                            <AntDesign name="wallet" size={24} color="black"/>
-                            <Text style={styles.topic}>Ticket Wallet</Text>
-                            <View>
-                                <MaterialIcons
-                                    name="keyboard-arrow-right"
-                                    size={30}
-                                    color="black"
-                                />
-                            </View>
-                        </View>
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.topicsContainer}
-                        onPress={() => handleSchedule()}
-                        ref={keyPressRef}>
-                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-                            <AntDesign name="clockcircleo" size={24} color="black"/>
-                            <Text style={styles.topic}>Today's Schedule</Text>
-                            <View>
-                                <MaterialIcons
-                                    name="keyboard-arrow-right"
-                                    size={26}
-                                    color="black"
-                                />
-                            </View>
-                        </View>
-
-                    </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.DEFAULT_WHITE,
+       padding: 20,
     },
-    container1: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: Colors.DEFAULT_WHITE,
-        marginBottom: 10,
-    },
-    text: {
-
-        fontSize: 15,
-        color: Colors.DEFAULT_WHITE,
-        marginBottom: 10,
-    },
-
-    topic: {
-        flex: 1,
-        fontSize: 16,
-        paddingLeft: 5,
-        fontWeight: "500",
-    },
-
-    mapContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginVertical: 2,
-        marginLeft: 1,
-        width: "100%",
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        backgroundColor: Colors.Light,
-        paddingHorizontal: 10,
-        height: Display.setHeight(10),
-        marginTop: 2,
-        marginBottom: 8,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.14,
-        elevation: 10,
+    Image: {
+        backgroundColor: "#a0abff",
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: Display.setHeight(50),
+        width: Display.setWidth(100),
     },
     messageBox: {
-
         width: '100%',
         backgroundColor: Colors.SECONDARY_BLACK,
-        padding: 10,
         marginBottom: 2,
-        paddingTop: 2,
-        height: Display.setHeight(12),
         shadowColor: Colors.DEFAULT_BLACK,
         shadowOffset: {
             width: 0,
@@ -223,9 +178,22 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.121,
         shadowRadius: 9.11,
-        elevation: 5,
     },
-
+    text: {
+        fontSize: 15,
+        color: Colors.DEFAULT_WHITE,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: Colors.DEFAULT_WHITE,
+        marginBottom: 10,
+    },
+    topic: {
+        fontSize: 16,
+        paddingLeft: 5,
+        fontWeight: "500",
+    },
     topicsContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -247,13 +215,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.121,
         shadowRadius: 9.11,
         elevation: 5,
-    },
-    Image: {
-        backgroundColor: "#a0abff",
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: Display.setHeight(50),
-        width: Display.setWidth(100),
     },
 });
 
