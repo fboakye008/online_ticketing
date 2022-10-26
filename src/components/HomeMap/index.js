@@ -5,6 +5,7 @@ import {EvilIcons} from "@expo/vector-icons";
 import { Display } from '../../screens/utils';
 import {GOOGLE_API_KEY} from "@env";
 import {useEffect, useRef, useState} from "react";
+import imagePath from '../../constants/imagePath';
 import {Card, Paragraph} from "react-native-paper";
 
 
@@ -27,7 +28,7 @@ const HomeMap = (navigator) => {
             coordinate: origin,
             title: "Kpone Affordable Housing",
             id: 1,
-        image: require('../../../assets/logo1.png'),
+            image: imagePath.bus,
             identifier: 'mk1'
         },
         {
@@ -35,7 +36,7 @@ const HomeMap = (navigator) => {
             title: "Community 25 Mall",
             id: 2,
             identifier: 'mk2',
-            image: require('../../../assets/bus_stop.png')
+            image: imagePath.busStop
         }
     ]);
     const initialRegion = {
@@ -79,7 +80,7 @@ const HomeMap = (navigator) => {
         width: Display.setWidth(100),
 
         }} >
-       
+
             <MapView style={{height: "100%", width: "100%"}}
                      ref={_mapRef}
                      provider={provider}
@@ -131,9 +132,9 @@ const HomeMap = (navigator) => {
                     </Card>
                 </TouchableOpacity>
                 </View> */}
-                 
+
             </MapView>
-            
+
 
             {/*<TouchableOpacity*/}
             {/*    onPress={() => { onPressZoomOut() }}>*/}

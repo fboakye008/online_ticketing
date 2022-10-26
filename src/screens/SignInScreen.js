@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignInScreen = ({navigation, route}) => {
-    const projectlogo = require('../../src/images/projectLogo.png');
+    const {projectlogo} = require('../constants/imagePath');
     const nextPage = route.params.navPage;
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -87,10 +87,10 @@ const SignInScreen = ({navigation, route}) => {
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
           <View style={styles.titleContainer}>
                <Text style={styles.title}>Welcome!</Text>
-       
+
         </View>
         </TouchableOpacity>
-        
+
             <View style={styles.contentContainer}>
                 {/* <Text style={styles.content}>
                     Enter your Username and password, and enjoy your trip!
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },
-    
+
     content: {
         colors: Colors.LIGHT_GREY,
         fontSize: 15,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingHorizontal: 20,
     },
-    
+
     forgotPasswordContainer: {
         marginHorizontal: 20,
         alignItems: 'center',

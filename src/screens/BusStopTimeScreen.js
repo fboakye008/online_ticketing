@@ -15,7 +15,7 @@ import {Colors} from "../contents";
 import moment from 'moment';
 import _ from "underscore";
 import {CreateBooking} from "../apis/booking";
-import projectlogo from "../../src/images/projectLogo.png";
+import imagePath from '../constants/imagePath';
 
 const {height, width} = Dimensions.get("window");
 import {updateError} from '../utils';
@@ -140,16 +140,16 @@ const BusStopTimeScreen = ({navigation, route}) => {
     }, []);
     return (
         <SafeAreaView style={styles.wrapper}>
-          
+
             <TouchableOpacity
                         style={styles.header}
             onPress={() => navigation.goBack()}>
                         <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
                         <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
                          <Text style={styles.topic}>Departure </Text>
-      
+
                             <View>
-                            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+                            <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
                             </View>
                         </View>
 
@@ -172,7 +172,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
                     <View>
                         <Text style={styles.title}>Total Amount: {amount}</Text>
                     </View>
-                
+
                 <TouchableOpacity
                     style={styles.btn}
                     onPress={submitForm}
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
     },
-   
+
     container: {
         flex: 1,
         justifyContent: "center",

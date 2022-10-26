@@ -15,7 +15,7 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { Colors } from "../contents";
-import projectlogo from "../../src/images/projectLogo.png";
+import imagePath from '../constants/imagePath';
 import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
@@ -36,8 +36,8 @@ const topics = [
     dropdown:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
   },
-  
-  
+
+
 ];
 
 const Help = () => {
@@ -55,7 +55,7 @@ const Help = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-     
+
       <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>
@@ -63,7 +63,7 @@ const Help = () => {
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
                  <Text style={styles.Headertopic}>Help </Text>
            <View>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+               <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
           </View>
         </TouchableOpacity>

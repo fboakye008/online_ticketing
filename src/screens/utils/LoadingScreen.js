@@ -1,8 +1,7 @@
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import React from "react";
 import Lottie from "lottie-react-native";
-import loadingImage from "../../images/loading.json";
-
+import loadingImage from "../../assets/json/loading.json";
 const LoadingScreen = () => {
   const { width } = useWindowDimensions();
   return (

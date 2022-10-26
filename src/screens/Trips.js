@@ -6,11 +6,11 @@ import _ from "underscore";
 import moment from "moment";
 import {fetchTickets} from "../apis/tickets";
 import {updateError} from '../utils';
-import projectlogo from "../../src/images/projectLogo.png";
 import DisplayTrip from "../components/CustomInput/DisplayTrip";
 
 
 const Trips = ({navigation}) => {
+    const {projectlogo} = require('../constants/imagePath');
     const [error, setError] = useState("");
     const [trips, setTrips] = useState([]);
     const [numTrips, setNumTrips] = useState("0");
@@ -59,7 +59,7 @@ const Trips = ({navigation}) => {
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
           <View style={styles.titleContainer}>
           <Text style={styles.title}>Trips ({numTrips})</Text>
-                
+
         </View>
         </TouchableOpacity> */}
         <TouchableOpacity
@@ -73,9 +73,9 @@ const Trips = ({navigation}) => {
             </View>
           </View>
         </TouchableOpacity>
-            
+
             <ScrollView>
-                
+
 
             <TouchableOpacity
             style={styles.tripHistoryWrapper} >
@@ -84,7 +84,7 @@ const Trips = ({navigation}) => {
                         return <DisplayTrip title={trip.title} key={trip.key}></DisplayTrip>
                             })}
                     </View>
-                        
+
                     </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: "bold",
     },
-     
+
       Image: {
 
         height: 30,
@@ -125,6 +125,6 @@ const styles = StyleSheet.create({
       titleContainer:{
         flex: 1,
       },
-     
+
 })
 export default Trips;

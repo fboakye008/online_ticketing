@@ -17,10 +17,10 @@ import {RequestRoutes} from "../apis/routes";
 const {height, width} = Dimensions.get("window");
 import utils from "../apis/utils";
 import {updateError} from '../utils';
-import projectlogo from '../../src/images/projectLogo.png';
+
 
 const Routes = ({navigation}) => {
-  
+    const {projectlogo} = require('../constants/imagePath');
     const [error, setError] = useState("");
     const [routeMessage, setRouteMessage] = useState("Route");
     const [data, setData] = useState({
@@ -67,9 +67,9 @@ const Routes = ({navigation}) => {
                     {error}
                 </Text>
             ) : null}
-           
+
             {/* <TouchableOpacity
-            
+
             onPress={() => navigation.goBack()}>
           <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
           <View style={styles.titleContainer}>
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
     },
-   
+
     container: {
         flex: 1,
         justifyContent: "center",

@@ -15,13 +15,12 @@ import SwitchButton from "../components/CustomSwitch/SwitchButton";
 import Receipt from "../components/CustomTicket/Receipt";
 import _ from "underscore";
 import moment from "moment";
-import projectlogo from "../../src/images/projectLogo.png";
 import {fetchTickets} from "../apis/tickets";
 import {updateError} from "../utils";
 
-const {width} = Dimensions.get("window");
-
 const Wallet = () => {
+    const {width} = Dimensions.get("window");
+    const {projectlogo} = require('../constants/imagePath');
     const navigation = useNavigation();
     const [error, setError] = useState("");
     const [switchValue, setSwitchValue] = useState(true);

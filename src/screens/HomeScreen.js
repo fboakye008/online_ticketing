@@ -15,7 +15,7 @@ import {useFocusEffect} from '@react-navigation/native';
 
 
 const HomeScreen = ({navigation}) => {
-    const map = require('../../src/images/map.jpeg');
+    const {map} =  require("../constants/imagePath")
     const [error, setError] = useState("");
     const keyPressRef = React.useRef(null);
     const [viewStaticMap, setViewStaticMap] = useState(true);

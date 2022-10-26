@@ -5,14 +5,14 @@ import {MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import _ from "lodash"
 import uds from "underscore"
 import {RequestSchedule} from "../apis/schedules";
-import {Colors} from "../contents";
+import {Colors,image} from "../contents";
 import {updateError} from '../utils';
 import SearchBar from "../components/ListSearch/SearchBar";
-import projectlogo from "../../src/images/projectLogo.png";
 import moment from "moment";
 
 
 const ScheduleScreen = ({navigation, route}) => {
+    const {projectlogo} = image.projectlogo;
     const [dateToday] = moment().startOf('day').toISOString().split("T");
     const [error, setError] = useState("");
     const [searchPhrase, setSearchPhrase] = useState("");
@@ -170,7 +170,7 @@ const ScheduleScreen = ({navigation, route}) => {
                         <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
                         <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
                         {!clicked && <Text style={styles.topic}>Schedule ({dateToday})</Text>}
-      
+
                             <View>
                             <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
                             </View>
@@ -199,7 +199,7 @@ const ScheduleScreen = ({navigation, route}) => {
 }
 
 const styles = StyleSheet.create({
-//   
+//
   columnHeader: {
     width: "30%",
     justifyContent: "center",
