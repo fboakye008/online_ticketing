@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {API_URL} from "@env";
 import {ROUTE_URL} from "@env";
+import {GOOGLE_API_KEY} from "@env";
 import _ from "underscore";
 
 
@@ -69,7 +70,7 @@ const self = module.exports = {
                 body: JSON.stringify(payload),
                 headers: {
                     "Content-Type": "application/json",
-                    "X-Goog-Api-Key": "AIzaSyAxmcKRmk6orYwdehkPATjDnnKPrLHSQU8",
+                    "X-Goog-Api-Key": GOOGLE_API_KEY,
                     "X-Goog-FieldMask": "routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline",
                 }
             };

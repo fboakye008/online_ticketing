@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image} from 'react-native';
+import { Button,View, Text, StyleSheet, TouchableOpacity, Dimensions, Image} from 'react-native';
 import MapView, {Marker, AnimatedRegion, Polyline} from 'react-native-maps';
 import imagePath from '../constants/imagePath';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_API_KEY} from "@env";
-
+import {findMapRoute} from "../apis/map";
+import {updateError} from '../utils';
 const MapScreen = () => {
 
     const screen = Dimensions.get('window');
@@ -13,29 +14,34 @@ const MapScreen = () => {
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
     const mapRef = useRef();
     const markerRef = useRef();
-    const origin = {latitude: 5.723669726699578, longitude: 0.043682456624945014};
-    const destination = {latitude: 5.722853131829537, longitude: 0.03143773186297082};
-    const coords= [
-        {"latitude": 5.72361, "longitude": 0.04364},
-        {"latitude": 5.72393, "longitude": 0.04307},
-        {"latitude": 5.72427, "longitude": 0.0424},
-        {"latitude": 5.72457, "longitude": 0.04178},
-        {"latitude": 5.72476, "longitude": 0.04141},
-        {"latitude": 5.72423, "longitude": 0.04104},
-        {"latitude": 5.72207, "longitude": 0.0392},
-        {"latitude": 5.72159, "longitude": 0.0388},
-        {"latitude": 5.72144, "longitude": 0.03866},
-        {"latitude": 5.72081, "longitude": 0.03816},
-        {"latitude": 5.71995, "longitude": 0.03746},
-        {"latitude": 5.71928, "longitude": 0.03697},
-        {"latitude": 5.71897, "longitude": 0.03651},
-        {"latitude": 5.71898, "longitude": 0.03644},
-        {"latitude": 5.72233, "longitude": 0.03142},
-        {"latitude": 5.72245, "longitude": 0.03147},
-        {"latitude": 5.72253, "longitude": 0.03149},
-        {"latitude": 5.72268, "longitude": 0.03146},
-        {"latitude": 5.72284, "longitude": 0.03139}
-    ];
+    // const origin = {latitude: 5.723669726699578, longitude: 0.043682456624945014};
+    // const destination = {latitude: 5.722853131829537, longitude: 0.03143773186297082};
+    const [coordinates, setCoordinates] = useState([]);
+    const [origin, setOrigin] = useState({});
+    const [destination, setDestination] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    // const coords= [
+    //     {"latitude": 5.72361, "longitude": 0.04364},
+    //     {"latitude": 5.72393, "longitude": 0.04307},
+    //     {"latitude": 5.72427, "longitude": 0.0424},
+    //     {"latitude": 5.72457, "longitude": 0.04178},
+    //     {"latitude": 5.72476, "longitude": 0.04141},
+    //     {"latitude": 5.72423, "longitude": 0.04104},
+    //     {"latitude": 5.72207, "longitude": 0.0392},
+    //     {"latitude": 5.72159, "longitude": 0.0388},
+    //     {"latitude": 5.72144, "longitude": 0.03866},
+    //     {"latitude": 5.72081, "longitude": 0.03816},
+    //     {"latitude": 5.71995, "longitude": 0.03746},
+    //     {"latitude": 5.71928, "longitude": 0.03697},
+    //     {"latitude": 5.71897, "longitude": 0.03651},
+    //     {"latitude": 5.71898, "longitude": 0.03644},
+    //     {"latitude": 5.72233, "longitude": 0.03142},
+    //     {"latitude": 5.72245, "longitude": 0.03147},
+    //     {"latitude": 5.72253, "longitude": 0.03149},
+    //     {"latitude": 5.72268, "longitude": 0.03146},
+    //     {"latitude": 5.72284, "longitude": 0.03139}
+    // ];
     const [state, setState] = useState({
         curLoc: origin,
         live: "0",
@@ -71,26 +77,57 @@ const MapScreen = () => {
             })
         })
     }
+
+    useEffect(() => {
+        async function populateData() {
+            try {
+                const mapData = await findMapRoute();
+                if(mapData) {
+                    setCoordinates(mapData?.coordinates);
+                    setOrigin(mapData?.origin);
+                    setDestination(mapData?.destination);
+                    fetchTime(mapData?.distance, mapData?.duration);
+                }
+                return "done"
+            }catch(err){
+                console.log(err);
+                console.log("Something went wrong")
+                return updateError(err.toString(), setError);
+            }
+        }
+        populateData().catch();
+    }, [coordinates]);
     /**
      *
      */
-    useEffect(() => {
-        const g = getLiveLocation(coords[0])
-    }, [])
+    // useEffect(() => {
+    //     const g = getLiveLocation(coordinates[0])
+    // }, [])
     /**
      *
      */
-    useEffect(() => {
+    // useEffect(() => {
+    //     let counter = 0;
+    //     const interval = setInterval(() => {
+    //         const q = coordinates[counter];
+    //         const g = getLiveLocation(q)
+    //         counter++;
+    //         if (counter === coordinates.length) {
+    //             clearInterval(interval);
+    //         }
+    //     }, 2000);
+    // }, [])
+    const startAnimation = function(){
         let counter = 0;
         const interval = setInterval(() => {
-            const q = coords[counter];
+            const q = coordinates[counter];
             const g = getLiveLocation(q)
             counter++;
-            if (counter === coords.length) {
+            if (counter === coordinates.length) {
                 clearInterval(interval);
             }
         }, 2000);
-    }, [])
+    }
     /**
      *
      * @param data
@@ -196,7 +233,7 @@ const MapScreen = () => {
                                 }}
                             />);
                             default:
-                            return (coords.length > 0 && <Polyline coordinates={coords}
+                            return (coordinates.length > 0 && <Polyline coordinates={coordinates}
                                                             strokeColor={"red"}
                                                             strokeWidth={3}
                                                             lineDashPattern={[1]}/>);
@@ -216,6 +253,7 @@ const MapScreen = () => {
             <View style={styles.bottomCard}>
                 <Text>Time left: {distanceStr} </Text>
                 <Text>Distance left: {timeStr}</Text>
+                <Button onPress={() => startAnimation()} title="Start Animation" color="#841584"/>
             </View>
         </View>
     );
