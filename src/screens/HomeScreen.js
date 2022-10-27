@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView} from 'react-native';
-
 import {Colors} from '../contents';
 import {Display} from './utils';
 import {
     MaterialIcons,
     AntDesign,
 } from "@expo/vector-icons";
-
 import utils from "../apis/utils";
 import {updateError} from "../utils";
 import HomeMap from "../components/HomeMap";
