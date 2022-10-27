@@ -17,7 +17,8 @@ import Help from "./Help";
 import About from "./About";
 import Wallet from "./Wallet";
 import Trips from "./Trips";
-import PaymentScreen from "./PaymentScreen"
+import PaymentScreen from "./PaymentScreen";
+import SettingScreen from "./SettingScreen";
 
 export {
     SplashScreen,
@@ -40,4 +41,5 @@ export {
     About,
     Wallet,
     Trips,
+    SettingScreen,
 };

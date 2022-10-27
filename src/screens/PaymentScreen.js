@@ -7,6 +7,7 @@ import {
     Dimensions,
     KeyboardAvoidingView,
     Platform,
+    Image,
     Keyboard,
 } from "react-native";
 import React, {useEffect, useState} from "react";
@@ -16,14 +17,17 @@ import {isValidPhone, updateError} from '../utils';
 import {CreatePayment,CreateTickets} from "../apis/payment";
 import TextField from "../components/CustomInput/TextField";
 import BookingTextField from "../components/CustomBookingInput";
-import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import DisplayPaymentMessage from '../components/CustomPaymentMessage/DisplayPaymentMessage'
-import Receipt from "../components/CustomTicket/Receipt";
+import projectlogo from "../assets/images/projectLogo.png";
 
 const {width} = Dimensions.get("window");
 
 const PaymentScreen = ({navigation, route}) => {
     const payload = route.params;
+    //console.log(payload.departureTimeObj)
+    //const departureTimeObj = payload.departureTimeObj;
+
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("");
@@ -103,13 +107,18 @@ const PaymentScreen = ({navigation, route}) => {
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-                <TouchableOpacity
-                    style={styles.arrowContainer}
-                    onPress={() => navigation.goBack()}
-                >
-                    <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
-                </TouchableOpacity>
-                <Text style={styles.title}>Make Payment</Text>
+            <TouchableOpacity
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 <Text style={styles.Headertopic}>Make Payment </Text>
+           <View>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+          </View>
+        </TouchableOpacity>
+               
                 <DisplayPaymentMessage paymentInfo={payload}></DisplayPaymentMessage>
 
                 <View style={styles.fieldContainer} onPress={() => Keyboard.dismiss}>
@@ -123,13 +132,12 @@ const PaymentScreen = ({navigation, route}) => {
                             autoCapitalize="none"
                             onChangeText={(value) => handleOnChangeTextPhone(value)}
                         />
-
-                        <Text style={{fontSize: 20,
-                      textAlign: "center",
-      marginTop: 15,
-        fontWeight: "bold",
-        paddingBottom: 5}}>Total Amount: {amountPaid}</Text>
-
+                  
+                        <Text style={{fontSize: 18,
+                                textAlign: "center",  
+                                 marginTop: 15,
+                                paddingBottom: 5}}>Total Amount: {amountPaid}</Text>
+                    
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={submitForm}>
@@ -149,36 +157,10 @@ const styles = StyleSheet.create({
 
     fieldContainer: {
         alignSelf: "center",
-        marginVertical: 5,
+        marginVertical: 2,
     },
-    arrowContainer: {
-        height: 40,
-        width: 40,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.SECONDARY_WHITE,
-        borderRadius: 10,
-        marginLeft: 10,
-        shadowColor: Colors.DEFAULT_BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.121,
-        shadowRadius: 9.11,
-        elevation: 5,
-    },
-    ReadOnlyField:{
-        marginVertical: 20,
-        marginLeft: 175,
-    },
+   
 
-    title: {
-        fontSize: 20,
-        textAlign: "center",
-        fontWeight: "bold",
-        paddingBottom: 5,
-      },
     btn: {
         justifyContent: "center",
         alignItems: "center",
@@ -203,5 +185,31 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "bold",
     },
+    header:{
+        borderBottomColor: '#eee',
+        justifyContent: "space-between",
+        width: "100%",
+        borderBottomWidth: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 12,
+        marginLeft: 1,
+        paddingTop: 12,
+        paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
+      },
+      Headertopic: {
+        flex: 1,
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: "bold",
+    },
+      Image: {
+
+        height: 30,
+        width: 30,
+        marginRight: 20,
+    },
+
 });
 export default PaymentScreen;

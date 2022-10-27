@@ -5,6 +5,7 @@ import {
     StyleSheet,
     TouchableOpacity,
     TextInput,
+    Image,
     SafeAreaView,
     Dimensions,
 } from "react-native";
@@ -14,6 +15,7 @@ import {Display} from "./utils";
 import {useState} from "react";
 import {RequestNewPassword, VerifyOTP} from "../apis/reset";
 import {updateError} from "../utils";
+import projectlogo from "../assets/images/projectLogo.png";
 import {MaterialIcons} from "@expo/vector-icons";
 
 const {height} = Dimensions.get("window");
@@ -98,13 +100,17 @@ const VerificationScreen = ({navigation, route}) => {
                 </Text>
             ) : null}
             <TouchableOpacity
-                style={styles.header}
-                onPress={() => navigation.goBack()}>
-                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>OTP Verification</Text>
-                </View>
-            </TouchableOpacity>
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 <Text style={styles.Headertopic}>OTP Verification</Text>
+           <View>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+          </View>
+        </TouchableOpacity>
+          
             <View style={styles.contentContainer}>
                 <Separator height={10}/>
                 <Text style={styles.content}>
@@ -160,13 +166,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold",
     },
-    title: {
-        fontSize: 20,
-        lineHeight: 20 * 1.4,
-        marginTop: 50,
-        marginBottom: 10,
-        marginHorizontal: 20,
-    },
+   
     contentContainer: {
         paddingTop: 50,
         paddingHorizontal: 20,
@@ -232,14 +232,31 @@ const styles = StyleSheet.create({
         fontSize: 16,
         alignItems: "center",
     },
-    header: {
+    header:{
+        borderBottomColor: '#eee',
+        justifyContent: "space-between",
+        width: "100%",
+        borderBottomWidth: 5,
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 12,
+        marginLeft: 1,
+        marginTop: 12,
         paddingHorizontal: 12,
-    },
-    titleContainer: {
+        backgroundColor: Colors.DEFAULT_WHITE,
+      },
+      Headertopic: {
         flex: 1,
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: "bold",
     },
+      Image: {
+
+        height: 30,
+        width: 30,
+        marginRight: 20,
+    },
+
 });
 export default VerificationScreen;

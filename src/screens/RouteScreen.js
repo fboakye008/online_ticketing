@@ -14,13 +14,13 @@ import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import {Colors} from "../contents";
 import moment from 'moment';
 import {RequestRoutes} from "../apis/routes";
+import projectlogo from "../assets/images/projectLogo.png";
 const {height, width} = Dimensions.get("window");
 import utils from "../apis/utils";
 import {updateError} from '../utils';
 
 
 const Routes = ({navigation}) => {
-    const {projectlogo} = require('../constants/imagePath');
     const [error, setError] = useState("");
     const [routeMessage, setRouteMessage] = useState("Route");
     const [data, setData] = useState({
@@ -62,21 +62,6 @@ const Routes = ({navigation}) => {
     }, []);
     return (
         <SafeAreaView style={styles.wrapper}>
-            {error ? (
-                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
-                    {error}
-                </Text>
-            ) : null}
-
-            {/* <TouchableOpacity
-
-            onPress={() => navigation.goBack()}>
-          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-          <View style={styles.titleContainer}>
-               <Text style={styles.title}>Select Your Route</Text>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-        </View>
-        </TouchableOpacity> */}
         <TouchableOpacity
                         style={styles.header}
             onPress={() => navigation.goBack()}>
@@ -89,6 +74,11 @@ const Routes = ({navigation}) => {
 
                     </TouchableOpacity>
                     <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+                    {error ? (
+                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                    {error}
+                </Text>
+            ) : null}
 
             <View style={styles.container}>
                 <ReadOnlyField

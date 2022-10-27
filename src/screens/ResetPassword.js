@@ -3,6 +3,7 @@ import {
     Text,
     StyleSheet,
     SafeAreaView,
+    Image,
     ScrollView,
 } from "react-native";
 import {Colors} from "../contents";
@@ -12,6 +13,7 @@ import SubmitButton from "../components/CustomInput/SubmitButton";
 import LoadingScreen from "./utils/LoadingScreen";
 import {isValidObjField, updateError} from "../utils";
 import {ResetNewPassword} from "../apis/reset";
+import projectlogo from "../assets/images/projectLogo.png";
 
 const ResetPassword = ({navigation, route}) => {
     const [loading, setLoading] = useState(false);
@@ -83,16 +85,23 @@ const ResetPassword = ({navigation, route}) => {
                     {error}
                 </Text>
             ) : null}
-            <ScrollView
+            
+            <TouchableOpacity
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 <Text style={styles.Headertopic}>Create New Password </Text>
+           <View>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <ScrollView
                 contentContainerStyle={{flexGrow: 1}}
                 keyboardShouldPersistTaps="handled"
                 style={styles.contentContainer}
             >
-                <Separator height={5}/>
-                <Text style={styles.headerTitle}>Create New Password</Text>
-                <Text style={styles.content}>
-                    Enter your password and confirm.
-                </Text>
 
                 <TextField
                     value={password}
@@ -142,22 +151,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
 
-    headerTitle: {
-        Colors: Colors.DEFAULT_BLACK,
-        fontSize: 30,
-        fontWeight: "bold",
-    },
     title: {
         fontSize: 20,
         lineHeight: 20 * 1.4,
         marginTop: 50,
         marginBottom: 10,
         marginHorizontal: 20,
-    },
-    content: {
-        colors: Colors.grey,
-        fontSize: 18,
-        marginVertical: 10,
     },
     inputContainer: {
         backgroundColor: Colors.LIGHT_GREY2,
@@ -190,6 +189,33 @@ const styles = StyleSheet.create({
         lineHeight: 13 * 1.4,
         marginLeft: 5,
     },
+
+    header:{
+        borderBottomColor: '#eee',
+        justifyContent: "space-between",
+        width: "100%",
+        borderBottomWidth: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 12,
+        marginLeft: 1,
+        marginTop: 12,
+        paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
+      },
+      Headertopic: {
+        flex: 1,
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: "bold",
+    },
+    Image: {
+
+        height: 30,
+        width: 30,
+        marginRight: 20,
+    },
+
 });
 
 export default ResetPassword;

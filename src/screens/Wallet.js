@@ -13,6 +13,7 @@ import {Colors} from "../contents";
 import {useNavigation} from "@react-navigation/native";
 import SwitchButton from "../components/CustomSwitch/SwitchButton";
 import Receipt from "../components/CustomTicket/Receipt";
+import projectlogo from "../assets/images/projectLogo.png";
 import _ from "underscore";
 import moment from "moment";
 import {fetchTickets} from "../apis/tickets";
@@ -20,7 +21,6 @@ import {updateError} from "../utils";
 
 const Wallet = () => {
     const {width} = Dimensions.get("window");
-    const {projectlogo} = require('../constants/imagePath');
     const navigation = useNavigation();
     const [error, setError] = useState("");
     const [switchValue, setSwitchValue] = useState(true);
@@ -76,11 +76,6 @@ const Wallet = () => {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#e6e7e8"}}>
-            {error ? (
-                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
-                    {error}
-                </Text>
-            ) : null}
 
         <TouchableOpacity
             style={styles.header}
@@ -128,7 +123,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 12,
         marginLeft: 1,
-        marginTop: 12,
+        paddingTop: 12,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },

@@ -5,6 +5,8 @@ import {
   StatusBar,
   StyleSheet,
   SafeAreaView,
+  TouchableOpacity,
+  Image,
   ScrollView,
 } from "react-native";
 import { Colors } from "../contents";
@@ -12,26 +14,25 @@ import Separator from "../components/WelcomeCard/Separator";
 import TextField from "../components/CustomInput/TextInput";
 import SubmitButton from "../components/CustomInput/SubmitButton";
 import CreateUser from "../apis/user";
+import {MaterialIcons} from "@expo/vector-icons";
+import projectlogo from "../assets/images/projectLogo.png";
 import LoadingScreen from "./utils/LoadingScreen";
 import { isValidObjField, updateError,isValidPhone,isValidEmail } from '../utils';
 
 const SignUpScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isPasswordShow, setPasswordShow] = useState(false);
-  const [isConfirmPasswordShow, setConfirmPasswordShow] = useState(false);
-
+ 
   const [userInfo, setUserInfo] = useState({
     fullName: "",
     email: "",
     phone: "",
-    password: "",
-    confirmPassword: "",
+    
   });
 
   const [error, setError] = useState("");
 
-  const { fullName, email, phone, password, confirmPassword } = userInfo;
+  const { fullName, email, phone } = userInfo;
 
   const handleOnChangeText = (value, fieldName) => {
     setUserInfo({ ...userInfo, [fieldName]: value });
@@ -49,12 +50,7 @@ const SignUpScreen = ({ navigation }) => {
     // Phone number must have 9 digits
     if (!isValidPhone(phone))
       return updateError("Phone number must have 10 digits!", setError);
-    // password must have 8 or more characters
-    if (!password.trim() || password.length < 8)
-      return updateError("Password is less than 8 characters!", setError);
-    // password and confirm password must be the same
-    if (password !== confirmPassword)
-      return updateError("Password does not match!", setError);
+    
     return true;
   };
 
@@ -89,23 +85,29 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView >
+     
       
-        <Separator height={5} />
-        <Text style={styles.headerTitle}>Create Account</Text>
-        <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-        style={styles.contentContainer}
-      >
-       {error ? (
+      <TouchableOpacity
+            style={styles.header}
+            onPress={() => navigation.navigate('Account')}>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 <Text style={styles.Headertopic}>Personal Info </Text>
+           <View>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+          </View>
+        </TouchableOpacity>
+        {error ? (
         <Text style={{ color: Colors.Red, fontSize: 12, textAlign: "center" }}>
           {error}
         </Text>
       ) : null}
-        <Text style={styles.content}>
-          Enter your Email, choose a username and password.
-        </Text>
-       
+        <ScrollView
+         contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        style={styles.contentContainer}
+      >
         <TextField
           value={fullName}
           onChangeText={(value) => handleOnChangeText(value, "fullName")}
@@ -118,7 +120,7 @@ const SignUpScreen = ({ navigation }) => {
           value={email}
           onChangeText={(value) => handleOnChangeText(value, "email")}
           label={`Email`}
-          placeholder={`Example@gmail.com`}
+          placeholder={`Email Address`}
           icon={`mail`}
           autoCapitalize="none"
         />
@@ -126,71 +128,21 @@ const SignUpScreen = ({ navigation }) => {
           value={phone}
           onChangeText={(value) => handleOnChangeText(value, "phone")}
           label={`Phone Number`}
-          placeholder={`Phone Number must be 10 digits`}
+          placeholder={`Phone Number`}
           icon={`phone`}
           selectionColor={Colors.DEFAULT_GREEN}
           keyboardType="number-pad"
           autoCapitalize="none"
         />
-        <TextField
-          value={password}
-          onChangeText={(value) => handleOnChangeText(value, "password")}
-          autoCapitalize="none"
-          secureTextEntry={isPasswordShow ? false : true}
-          label={`Password`}
-          name="password"
-          placeholder={`Password must be at least 8 characters`}
-          icon={`lock`}
-          isPasswordShow={isPasswordShow}
-          isPassword={true}
-          setPasswordShow={setPasswordShow}
-        />
-        <TextField
-          value={confirmPassword}
-          onChangeText={(value) => handleOnChangeText(value, "confirmPassword")}
-          autoCapitalize="none"
-          name="password"
-          label={`Confirm Password`}
-          placeholder={`Password must be at least 8 characters`}
-          icon={`lock`}
-          secureTextEntry={isConfirmPasswordShow ? false : true}
-          isPasswordShow={isConfirmPasswordShow}
-          isPassword={true}
-          setPasswordShow={setConfirmPasswordShow}
-        />
         <Separator height={10} />
         <SubmitButton
-          // onPress={() => navigation.navigate('RegisterPhone')}
           onPress={submitForm}
-          title="Create Account"
+          title="Save"
         />
         <View style={styles.signupContainer}>
-          <Text style={styles.accountText}>Already have an account?</Text>
-          <Text
-            style={styles.signupText}
-            onPress={() => navigation.navigate("Signin")}
-          >
-            Sign In
-          </Text>
+          <Text style={styles.accountText}>Delete account</Text>
         </View>
-        <View style={{ marginHorizontal: 25 }}>
-          <Text style={styles.accountText}>
-            By signing up, you confirm that you accept our {""}
-            <Text
-              style={styles.signupText}
-              onPress={() => navigation.navigate(onTermsOfUsePressed)}
-            >
-              Terms of Use {""}
-            </Text>
-            and {""}
-            <Text
-              style={styles.signupText}
-              onPress={() => navigation.navigate(onPrivacyPressed)}
-            >
-              Privacy Policy
-            </Text>
-          </Text>
-        </View>
+        
       </ScrollView>
       {loading && <LoadingScreen />}
     </SafeAreaView>
@@ -207,20 +159,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 20,
   },
-
-  headerTitle: {
-    Colors: Colors.DEFAULT_BLACK,
-    fontSize: 30,
-    fontWeight: "bold",
-
-  },
-
-  content: {
-    colors: Colors.grey,
-    fontSize: 18,
-    marginVertical: 10,
-  },
-
   signupContainer: {
     marginHorizontal: 20,
     justifyContent: "center",
@@ -231,14 +169,35 @@ const styles = StyleSheet.create({
   accountText: {
     fontSize: 16,
     lineHeight: 13 * 1.4,
+    color: Colors.Red,
+  },
+ 
+  header:{
+    borderBottomColor: '#eee',
+    justifyContent: "space-between",
+    width: "100%",
+    borderBottomWidth: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 12,
+    marginLeft: 1,
+    paddingTop: 12,
+    paddingHorizontal: 12,
+    backgroundColor: Colors.DEFAULT_WHITE,
+  },
+  Headertopic: {
+    flex: 1,
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: "bold",
+},
+  Image: {
 
-  },
-  signupText: {
-    color: Colors.DEFAULT_GREEN,
-    fontSize: 16,
-    lineHeight: 13 * 1.4,
-    marginLeft: 5,
-  },
+    height: 30,
+    width: 30,
+    marginRight: 20,
+},
+
 });
 
 export default SignUpScreen;

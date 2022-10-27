@@ -7,13 +7,13 @@ import {Display} from './utils';
 import { MaterialIcons} from '@expo/vector-icons';
 import LoginUser from "../apis/login";
 import LoadingScreen from "./utils/LoadingScreen";
+import projectlogo from "../assets/images/projectLogo.png";
 import SubmitButton from '../components/CustomInput/SubmitButton';
 import {isValidObjField, updateError, isValidPhone} from '../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignInScreen = ({navigation, route}) => {
-    const {projectlogo} = require('../constants/imagePath');
     const nextPage = route.params.navPage;
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -76,11 +76,7 @@ const SignInScreen = ({navigation, route}) => {
     return (
 
         <SafeAreaView>
-            {error ? (
-                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
-                    {error}
-                </Text>
-            ) : null}
+           
             <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>
@@ -90,11 +86,13 @@ const SignInScreen = ({navigation, route}) => {
 
         </View>
         </TouchableOpacity>
+        {error ? (
+                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                    {error}
+                </Text>
+            ) : null}
 
             <View style={styles.contentContainer}>
-                {/* <Text style={styles.content}>
-                    Enter your Username and password, and enjoy your trip!
-                </Text> */}
                 <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
 
                 <TextField

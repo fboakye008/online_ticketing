@@ -16,14 +16,16 @@ const TicketContainer = ({ticketInfo}) => {
             <Text style={styles.text}>Origin : {ticketInfo.bus_stop}</Text>
             <Text style={styles.text}>Departure Date : {departureDate}</Text>
             <Text style={styles.text}>Departure Time : {departureTime}</Text>
+            <View style={styles.qrcode}><QRCode
+                value={ticketInfo.serial_no}
+                size={27}
+                bgColor='#000000'
+                fgColor='#FFFFFF'/>
+                </View>
             <Text style={styles.text}>Fare : {ticketInfo.fare}</Text>
             <Text style={styles.t_s}>Bus no : {ticketInfo.bus_no}  Seat no : {ticketInfo.seat_no}</Text>
             <Text style={styles.text}>Serial no: {ticketInfo.serial_no}</Text>
-            <QRCode
-                value={ticketInfo.serial_no}
-                size={30}
-                bgColor='#000000'
-                fgColor='#FFFFFF'/>
+            
     </View>
 
   )
@@ -31,6 +33,9 @@ const TicketContainer = ({ticketInfo}) => {
 
 
 const styles = StyleSheet.create({
+  qrcode:{
+    marginLeft: "80%"
+  },
     T_container:{
         width: '100%',
         backgroundColor: Colors.DEFAULT_WHITE,
@@ -42,7 +47,7 @@ const styles = StyleSheet.create({
     },
     t_s:{
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       colors: Colors.DEFAULT_BLACK,
       fontSize: 15,
       fontWeight: "bold",
