@@ -69,11 +69,7 @@ import {
   };
   
 const styles=StyleSheet.create({ 
-  label:{
-   marginVertical: 5,
-   fontSize: 15,
-   color: Colors.DEFAULT_BLACK,
-  },
+  
 inputContainer: {
   justifyContent: "space-between",
   flexDirection: "row",
@@ -92,10 +88,6 @@ inputContainer: {
   shadowRadius: 9.11,
   elevation: 5,
   },
-  // inputSubContainer: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  // },
   inputText: {
     fontSize: 18,
     textAlignVertical: 'center',

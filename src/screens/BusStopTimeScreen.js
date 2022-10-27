@@ -15,7 +15,7 @@ import {Colors} from "../contents";
 import moment from 'moment';
 import _ from "underscore";
 import {CreateBooking} from "../apis/booking";
-import imagePath from '../constants/imagePath';
+import projectlogo from "../assets/images/projectLogo.png";
 
 const {height, width} = Dimensions.get("window");
 import {updateError} from '../utils';
@@ -149,7 +149,7 @@ const BusStopTimeScreen = ({navigation, route}) => {
                          <Text style={styles.topic}>Departure </Text>
 
                             <View>
-                            <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
+                            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
                             </View>
                         </View>
 
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
         height: height,
     },
 
-    //
+  
     btn: {
         justifyContent: "center",
         alignItems: "center",
@@ -220,18 +220,18 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     header:{
-        borderBottomColor: '#eee',
-        justifyContent: "space-between",
-        width: "100%",
-        borderBottomWidth: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingBottom: 12,
-        marginLeft: 1,
-        paddingTop:12,
-        paddingHorizontal: 12,
-        backgroundColor: Colors.DEFAULT_WHITE,
-      },
+            borderBottomColor: '#eee',
+            justifyContent: "space-between",
+            width: "100%",
+            borderBottomWidth: 5,
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingBottom: 12,
+            marginLeft: 1,
+            paddingTop:12,
+            paddingHorizontal: 12,
+            backgroundColor: Colors.DEFAULT_WHITE,
+          },
     text: {
 
         justifyContent: "space-between",
@@ -241,6 +241,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 100,
         paddingTop: 5,
         paddingLeft: 145
+    },
+    topic: {
+        flex: 1,
+        fontSize: 16,
+        textAlign: 'center',
+        fontWeight: "bold",
     },
     Image: {
 

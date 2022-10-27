@@ -20,7 +20,8 @@ import {
     PaymentScreen,
     PaymentMessage,
     ScheduleScreen,
-    Wallet, MapScreen
+    Wallet, MapScreen,
+    SettingScreen
 } from "../screens";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -51,6 +52,7 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
             <HomeStack.Screen name="ScheduleScreen" component={ScheduleScreen}/>
             <HomeStack.Screen name="MapScreen" component={MapScreen}/>
+            <HomeStack.Screen name="SettingScreen" component={SettingScreen}/>
         </HomeStack.Navigator>
     );
 };

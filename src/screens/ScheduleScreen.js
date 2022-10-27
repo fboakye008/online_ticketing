@@ -7,12 +7,12 @@ import uds from "underscore"
 import {RequestSchedule} from "../apis/schedules";
 import {Colors,image} from "../contents";
 import {updateError} from '../utils';
+import projectlogo from "../assets/images/projectLogo.png";
 import SearchBar from "../components/ListSearch/SearchBar";
 import moment from "moment";
 
 
 const ScheduleScreen = ({navigation, route}) => {
-    const {projectlogo} = image.projectlogo;
     const [dateToday] = moment().startOf('day').toISOString().split("T");
     const [error, setError] = useState("");
     const [searchPhrase, setSearchPhrase] = useState("");

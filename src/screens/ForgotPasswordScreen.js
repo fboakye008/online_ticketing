@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import SubmitButton from '../components/CustomInput/SubmitButton';
 import TextField from '../components/CustomInput/TextInput';
@@ -7,6 +7,7 @@ import {Colors} from '../contents';
 import {RequestNewPassword} from "../apis/reset";
 import LoadingScreen from "./utils/LoadingScreen";
 import {updateError,isValidEmail} from "../utils";
+import projectlogo from "../assets/images/projectLogo.png";
 import {MaterialIcons} from "@expo/vector-icons";
 
 /**
@@ -49,21 +50,24 @@ const ForgotPasswordScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
+           
+        <TouchableOpacity
+            style={styles.header}
+            onPress={() => navigation.goBack()}>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 <Text style={styles.Headertopic}>Make Payment </Text>
+           <View>
+               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+          </View>
+        </TouchableOpacity>
+            <View style={styles.contentContainer}>
             {error ? (
                 <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
                     {error}
                 </Text>
             ) : null}
-            <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
-          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-          <View style={styles.titleContainer}>
-        <Text style={styles.title}>Forgot Password</Text>
-        </View>
-        </TouchableOpacity>
-            <View style={styles.contentContainer}>
-
                 <Text style={styles.content}>
                     Enter your email to help you recover your password
                 </Text>
@@ -103,21 +107,31 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     header:{
+        borderBottomColor: '#eee',
+        justifyContent: "space-between",
+        width: "100%",
+        borderBottomWidth: 5,
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 12,
+        marginLeft: 1,
+        marginTop: 12,
         paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
       },
-      titleContainer:{
+      Headertopic: {
         flex: 1,
-      },
-      title:{
-        Colors: Colors.DEFAULT_BLACK,
-         fontSize: 20,
-        marginLeft: -38,
-        fontWeight:'bold',
+        fontSize: 20,
         textAlign: 'center',
-      },
+        fontWeight: "bold",
+    },
+      Image: {
+
+        height: 30,
+        width: 30,
+        marginRight: 20,
+    },
+
 
 });
 export default ForgotPasswordScreen;

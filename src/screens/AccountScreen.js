@@ -2,12 +2,14 @@ import {
     View,
     Text,
     StyleSheet,
+    Image,
     SafeAreaView,
     TouchableOpacity,
 } from "react-native";
 import React, {useEffect, useState} from "react";
 import {Ionicons} from "@expo/vector-icons";
 import {Colors} from "../contents";
+import projectlogo from "../assets/images/projectLogo.png";
 import {useNavigation} from "@react-navigation/native";
 import utils from "../apis/utils";
 import {updateError} from "../utils";
@@ -44,7 +46,7 @@ const options = [
         id: 2,
         label: "Settings",
         icon: "settings",
-        path: "Setting",
+        path: "SettingScreen",
     },
 
     {
@@ -140,6 +142,8 @@ const AccountScreen = ({navigation}) => {
                     </TouchableOpacity>
                 ))}
             </View>
+            <Image source={projectlogo} style={[styles.Image]} resizeMode="contain"/>
+
         </SafeAreaView>
     );
 };
@@ -202,6 +206,13 @@ const styles = StyleSheet.create({
     },
     optionLabel: {
         paddingLeft: 20,
+    },
+   
+    Image: {
+
+        height: 100,
+        width: 100,
+        marginLeft: "35%"
     },
 });
 

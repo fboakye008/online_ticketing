@@ -5,12 +5,12 @@ import {Colors} from "../contents";
 import _ from "underscore";
 import moment from "moment";
 import {fetchTickets} from "../apis/tickets";
+import projectlogo from "../assets/images/projectLogo.png";
 import {updateError} from '../utils';
 import DisplayTrip from "../components/CustomInput/DisplayTrip";
 
 
 const Trips = ({navigation}) => {
-    const {projectlogo} = require('../constants/imagePath');
     const [error, setError] = useState("");
     const [trips, setTrips] = useState([]);
     const [numTrips, setNumTrips] = useState("0");
@@ -48,20 +48,7 @@ const Trips = ({navigation}) => {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#e6e7e8"}}>
-            {error ? (
-                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
-                    {error}
-                </Text>
-            ) : null}
-            {/* <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
-          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-          <View style={styles.titleContainer}>
-          <Text style={styles.title}>Trips ({numTrips})</Text>
-
-        </View>
-        </TouchableOpacity> */}
+            
         <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>
@@ -73,7 +60,12 @@ const Trips = ({navigation}) => {
             </View>
           </View>
         </TouchableOpacity>
-
+        {error ? (
+                <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
+                    {error}
+                </Text>
+            ) : null}
+        
             <ScrollView>
 
 
@@ -104,7 +96,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 12,
         marginLeft: 1,
-        marginTop: 12,
+        paddingTop: 12,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },
