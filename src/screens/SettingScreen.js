@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, {useLayoutEffect, useMemo, useState} from "react";
 import {
   View,
   Text,
@@ -18,25 +18,23 @@ import {MaterialIcons} from "@expo/vector-icons";
 import projectlogo from "../assets/images/projectLogo.png";
 import LoadingScreen from "./utils/LoadingScreen";
 import { isValidObjField, updateError,isValidPhone,isValidEmail } from '../utils';
+import {findMapRoute} from "../apis/map";
+import {AnimatedRegion} from "react-native-maps";
+import utils from "../apis/utils";
 
 const SignUpScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
- 
-  const [userInfo, setUserInfo] = useState({
-    fullName: "",
+  const [user, setUser] = useState({
+    fullName : "",
     email: "",
-    phone: "",
-    
+    phone: ""
   });
-
+  const {
+    fullName,email,phone
+  } = user
+  const updateUser = (data) => setUser((user) => ({...user, ...data}));
   const [error, setError] = useState("");
 
-  const { fullName, email, phone } = userInfo;
-
-  const handleOnChangeText = (value, fieldName) => {
-    setUserInfo({ ...userInfo, [fieldName]: value });
-  };
   const isValidForm = () => {
     //We will accept only if all of the fielsa have value
     if (!isValidObjField(userInfo))
@@ -50,7 +48,7 @@ const SignUpScreen = ({ navigation }) => {
     // Phone number must have 9 digits
     if (!isValidPhone(phone))
       return updateError("Phone number must have 10 digits!", setError);
-    
+
     return true;
   };
 
@@ -83,10 +81,34 @@ const SignUpScreen = ({ navigation }) => {
     }
   };
 
+  useMemo(() => {
+    async function populateData() {
+      try {
+        const user = await utils.findCachedUser();
+        if (user) {
+          console.log(user)
+          updateUser({
+            fullName : user.full_name,
+            email: user.email,
+            phone: user.phone
+          })
+        } else {
+          const navPage = 'Settings';
+          navigation.navigate('Signin', {navPage});
+        }
+        return "done"
+      } catch (err) {
+        console.log(err);
+        console.log("Something went wrong")
+        return updateError(err.toString(), setError);
+      }
+    }
+    populateData().catch();
+  }, []);
   return (
     <SafeAreaView >
-     
-      
+
+
       <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.navigate('Account')}>
@@ -110,25 +132,22 @@ const SignUpScreen = ({ navigation }) => {
       >
         <TextField
           value={fullName}
-          onChangeText={(value) => handleOnChangeText(value, "fullName")}
           label={`Full Name`}
-          placeholder={`Full Name`}
+          placeholder={fullName}
           icon={`user`}
           autoCapitalize="none"
         />
         <TextField
           value={email}
-          onChangeText={(value) => handleOnChangeText(value, "email")}
           label={`Email`}
-          placeholder={`Email Address`}
+          placeholder={email}
           icon={`mail`}
           autoCapitalize="none"
         />
         <TextField
           value={phone}
-          onChangeText={(value) => handleOnChangeText(value, "phone")}
           label={`Phone Number`}
-          placeholder={`Phone Number`}
+          placeholder={phone}
           icon={`phone`}
           selectionColor={Colors.DEFAULT_GREEN}
           keyboardType="number-pad"
@@ -142,7 +161,7 @@ const SignUpScreen = ({ navigation }) => {
         <View style={styles.signupContainer}>
           <Text style={styles.accountText}>Delete account</Text>
         </View>
-        
+
       </ScrollView>
       {loading && <LoadingScreen />}
     </SafeAreaView>
@@ -171,7 +190,7 @@ const styles = StyleSheet.create({
     lineHeight: 13 * 1.4,
     color: Colors.Red,
   },
- 
+
   header:{
     borderBottomColor: '#eee',
     justifyContent: "space-between",

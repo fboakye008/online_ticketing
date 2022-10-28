@@ -58,7 +58,7 @@ const SignInScreen = ({navigation, route}) => {
                 let user = await LoginUser(userInfo);
                 if (user && user.phone) {
                     setLoading(false);
-                    const payload = {phone: user.phone, full_name: user.full_name, api_key: user.api_key};
+                    const payload = {phone: user.phone, full_name: user.full_name, email: user.email, api_key: user.api_key};
                     await AsyncStorage.setItem("user", JSON.stringify(payload))
                     navigation.navigate(`${nextPage}`);
                 } else {
@@ -76,7 +76,7 @@ const SignInScreen = ({navigation, route}) => {
     return (
 
         <SafeAreaView>
-           
+
             <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>
