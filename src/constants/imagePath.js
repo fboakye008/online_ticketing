@@ -1,5 +1,6 @@
 export default {
     icGreenMarker: require("../assets/images/greenMarker.png"),
+    icRedMarker: require("../assets/images/redMarker.png"),
     greenIndicator: require("../assets/images/greenIndicator.png"),
     icBike: require("../assets/images/bike.png"),
     bus: require('../assets/images/logo1.png'),

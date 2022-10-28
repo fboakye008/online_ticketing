@@ -15,22 +15,22 @@ const MapScreen = () => {
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
     const mapRef = useRef();
     const markerRef = useRef();
-    let provider;
-    if (Platform.OS === 'ios') {
-    } else {
-        provider = PROVIDER_GOOGLE
-    }
+    let provider = PROVIDER_GOOGLE
+    // if (Platform.OS === 'ios') {
+    // } else {
+    //     provider = PROVIDER_GOOGLE
+    // }
     const [error, setError] = useState("");
     const [state, setState] = useState({
         origin: {},
         destination: {},
         currentLocation: {},
-        live: "1",
+        live: "0",
         isLoading: false,
         coordinates: [],
         coordinate: new AnimatedRegion({
-            latitude: 0.0,
-            longitude: 0.0,
+            latitude: {},
+            longitude: {},
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA
         }),
@@ -96,8 +96,8 @@ const MapScreen = () => {
                         destination: mapData?.destination,
                         initialRegion: initRegion,
                         coordinate: new AnimatedRegion({
-                            latitude: origin.latitude,
-                            longitude: origin.longitude,
+                            latitude: mapData.origin.latitude,
+                            longitude: mapData.origin.longitude,
                             latitudeDelta: LATITUDE_DELTA,
                             longitudeDelta: LONGITUDE_DELTA
                         })
@@ -205,20 +205,14 @@ const MapScreen = () => {
                     }
                     }
                 >
+
                     <Marker.Animated
                         ref={markerRef}
                         coordinate={coordinate}
-                        identifier={"mk1"}>
-                        <Image
-                            source={imagePath.bus}
-                            style={{
-                                width: 40,
-                                height: 40,
-                                //transform: [{rotate: `${heading}deg`}]
-                            }}
-                            resizeMode="contain"
-                        />
-                    </Marker.Animated>
+                        identifier={"mk1"}
+                        image={imagePath.icRedMarker}
+                    />
+
                     {Object.keys(destination).length > 0 && (<Marker
                         coordinate={destination}
                         identifier={"mk2"}

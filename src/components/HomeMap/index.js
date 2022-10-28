@@ -53,13 +53,12 @@ const HomeMap = () => {
                         latitudeDelta: LATITUDE_DELTA,
                         longitudeDelta: LONGITUDE_DELTA,
                     };
-
                     const mks = [
                         {
                             coordinate: mapData.origin,
                             title: mapData.originBusStop,
                             id: 1,
-                            image: imagePath.bus,
+                            image: imagePath.icRedMarker,
                             identifier: 'mk1'
                         },
                         {
@@ -67,7 +66,7 @@ const HomeMap = () => {
                             title: mapData.destinationBusStop,
                             id: 2,
                             identifier: 'mk2',
-                            image: imagePath.busStop
+                            image: imagePath.icGreenMarker
                         }
                     ]
                     updateState({
