@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Button,View, Text, StyleSheet, TouchableOpacity, Dimensions, Image} from 'react-native';
-import MapView, {Marker, AnimatedRegion, Polyline} from 'react-native-maps';
+import React, {useState, useRef, useEffect, useMemo} from 'react';
+import {Button, View, Text, StyleSheet, TouchableOpacity, Dimensions, Image, Platform} from 'react-native';
+import MapView, {Marker, AnimatedRegion, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import imagePath from '../constants/imagePath';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_API_KEY} from "@env";
 import {findMapRoute} from "../apis/map";
 import {updateError} from '../utils';
+
 const MapScreen = () => {
 
     const screen = Dimensions.get('window');
@@ -14,51 +15,40 @@ const MapScreen = () => {
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
     const mapRef = useRef();
     const markerRef = useRef();
-    // const origin = {latitude: 5.723669726699578, longitude: 0.043682456624945014};
-    // const destination = {latitude: 5.722853131829537, longitude: 0.03143773186297082};
-    const [coordinates, setCoordinates] = useState([]);
-    const [origin, setOrigin] = useState({});
-    const [destination, setDestination] = useState({});
-    const [loading, setLoading] = useState(false);
+    let provider;
+    if (Platform.OS === 'ios') {
+    } else {
+        provider = PROVIDER_GOOGLE
+    }
     const [error, setError] = useState("");
-    // const coords= [
-    //     {"latitude": 5.72361, "longitude": 0.04364},
-    //     {"latitude": 5.72393, "longitude": 0.04307},
-    //     {"latitude": 5.72427, "longitude": 0.0424},
-    //     {"latitude": 5.72457, "longitude": 0.04178},
-    //     {"latitude": 5.72476, "longitude": 0.04141},
-    //     {"latitude": 5.72423, "longitude": 0.04104},
-    //     {"latitude": 5.72207, "longitude": 0.0392},
-    //     {"latitude": 5.72159, "longitude": 0.0388},
-    //     {"latitude": 5.72144, "longitude": 0.03866},
-    //     {"latitude": 5.72081, "longitude": 0.03816},
-    //     {"latitude": 5.71995, "longitude": 0.03746},
-    //     {"latitude": 5.71928, "longitude": 0.03697},
-    //     {"latitude": 5.71897, "longitude": 0.03651},
-    //     {"latitude": 5.71898, "longitude": 0.03644},
-    //     {"latitude": 5.72233, "longitude": 0.03142},
-    //     {"latitude": 5.72245, "longitude": 0.03147},
-    //     {"latitude": 5.72253, "longitude": 0.03149},
-    //     {"latitude": 5.72268, "longitude": 0.03146},
-    //     {"latitude": 5.72284, "longitude": 0.03139}
-    // ];
     const [state, setState] = useState({
-        curLoc: origin,
-        live: "0",
-        destinationCords: destination,
+        origin: {},
+        destination: {},
+        currentLocation: {},
+        live: "1",
         isLoading: false,
+        coordinates: [],
         coordinate: new AnimatedRegion({
-            latitude: origin.latitude,
-            longitude: origin.longitude,
+            latitude: 0.0,
+            longitude: 0.0,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA
         }),
-        time: 1,
-        distance: 1,
+        distanceStr: "",
+        timeStr: "",
+        time: 0,
+        distance: 0,
         heading: 0
     });
-    const { curLoc, timeStr, distanceStr, destinationCords, coordinate,live } = state
-    const updateState = (data) => setState((state) => ({ ...state, ...data }));
+    const {
+        origin,
+        destination,
+        currentLocation,
+        live,
+        isLoading, coordinates, coordinate,
+        distanceStr, timeStr, distance, time, initialRegion
+    } = state
+    const updateState = (data) => setState((state) => ({...state, ...data}));
     /**
      *
      * @param q
@@ -68,7 +58,7 @@ const MapScreen = () => {
         animate(q.latitude, q.longitude);
         updateState({
             live: live,
-            curLoc: q,
+            currentLocation: q,
             coordinate: new AnimatedRegion({
                 latitude: q.latitude,
                 longitude: q.longitude,
@@ -77,66 +67,92 @@ const MapScreen = () => {
             })
         })
     }
-
-    useEffect(() => {
+    useMemo(() => {
         async function populateData() {
             try {
                 const mapData = await findMapRoute();
-                if(mapData) {
-                    setCoordinates(mapData?.coordinates);
-                    setOrigin(mapData?.origin);
-                    setDestination(mapData?.destination);
-                    fetchTime(mapData?.distance, mapData?.duration);
+                if (mapData) {
+
+                    let sumLat = mapData.coordinates.reduce((a, c) => {
+                        return parseFloat(a) + parseFloat(c.latitude)
+                    }, 0);
+                    let sumLong = mapData.coordinates.reduce((a, c) => {
+                        return parseFloat(a) + parseFloat(c.longitude)
+                    }, 0);
+
+                    let avgLat = (sumLat / mapData.coordinates.length) || 0;
+                    let avgLong = (sumLong / mapData.coordinates.length) || 0;
+
+                    const initRegion = {
+                        latitude: parseFloat(avgLat),
+                        longitude: avgLong,
+                        latitudeDelta: 0.20,
+                        longitudeDelta: 0.20,
+                    };
+                    updateState({
+                        origin: mapData.origin,
+                        currentLocation: mapData.origin,
+                        coordinates: mapData.coordinates,
+                        destination: mapData?.destination,
+                        initialRegion: initRegion,
+                        coordinate: new AnimatedRegion({
+                            latitude: origin.latitude,
+                            longitude: origin.longitude,
+                            latitudeDelta: LATITUDE_DELTA,
+                            longitudeDelta: LONGITUDE_DELTA
+                        })
+                    })
+                    const timeStr = mapData.duration.replace("s", "").trim();
+                    const duration = Math.ceil(parseInt(timeStr) / 60)
+                    const distance = Math.ceil(parseInt(mapData?.distance) / 1000)
+                    fetchTime(distance, duration);
                 }
                 return "done"
-            }catch(err){
+            } catch (err) {
                 console.log(err);
                 console.log("Something went wrong")
                 return updateError(err.toString(), setError);
             }
         }
+
         populateData().catch();
-    }, [coordinates]);
+    }, []);
     /**
      *
      */
-    // useEffect(() => {
-    //     const g = getLiveLocation(coordinates[0])
-    // }, [])
-    /**
-     *
-     */
-    // useEffect(() => {
-    //     let counter = 0;
-    //     const interval = setInterval(() => {
-    //         const q = coordinates[counter];
-    //         const g = getLiveLocation(q)
-    //         counter++;
-    //         if (counter === coordinates.length) {
-    //             clearInterval(interval);
-    //         }
-    //     }, 2000);
-    // }, [])
-    const startAnimation = function(){
-        let counter = 0;
-        const interval = setInterval(() => {
-            const q = coordinates[counter];
-            const g = getLiveLocation(q)
-            counter++;
-            if (counter === coordinates.length) {
-                clearInterval(interval);
-            }
-        }, 2000);
+    useEffect(() => {
+        // let counter = 0;
+        // const interval = setInterval(() => {
+        //     const q = coordinates[counter];
+        //     const g = getLiveLocation(q)
+        //     counter++;
+        //     if (counter === coordinates.length) {
+        //         clearInterval(interval);
+        //     }
+        // }, 2000);
+    }, [])
+    const startAnimation = function () {
+        if (coordinates && coordinates.length > 0) {
+            let counter = 0;
+            const interval = setInterval(() => {
+                const q = coordinates[counter];
+                const g = getLiveLocation(q)
+                counter++;
+                if (counter === coordinates.length) {
+                    clearInterval(interval);
+                }
+            }, 500);
+        }
     }
     /**
      *
      * @param data
      */
     const fetchValue = (data) => {
-         updateState({
-            destinationCords: {
-                latitude: data.destinationCords.latitude,
-                longitude: data.destinationCords.longitude,
+        updateState({
+            destination: {
+                latitude: data.latitude,
+                longitude: data.longitude,
             }
         })
     }
@@ -146,7 +162,7 @@ const MapScreen = () => {
      * @param longitude
      */
     const animate = (latitude, longitude) => {
-        const newCoordinate = { latitude, longitude };
+        const newCoordinate = {latitude, longitude};
         coordinate.timing(newCoordinate).start();
     }
     /**
@@ -154,8 +170,8 @@ const MapScreen = () => {
      */
     const onCenter = () => {
         mapRef.current.animateToRegion({
-            latitude: curLoc.latitude,
-            longitude: curLoc.longitude,
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA
         })
@@ -165,7 +181,7 @@ const MapScreen = () => {
      * @param distance
      * @param time
      */
-    const fetchTime = (distance, time) => {
+    const fetchTime = (distance, time, foo) => {
         const dst = `Distance: ${distance.toFixed(2)} km`;
         const tst = `Duration: ${time.toFixed(0)} min`;
         updateState({
@@ -178,18 +194,21 @@ const MapScreen = () => {
 
     return (
         <View style={styles.container}>
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
                 <MapView
                     ref={mapRef}
                     style={StyleSheet.absoluteFill}
-                    initialRegion={{
-                        ...curLoc,
-                        latitudeDelta: LATITUDE_DELTA,
-                        longitudeDelta: LONGITUDE_DELTA,
-                    }}>
+                    provider={provider}
+                    initialRegion={initialRegion}
+                    onMapReady={() => {
+                        mapRef.current.fitToSuppliedMarkers(['mk1', 'mk2'])
+                    }
+                    }
+                >
                     <Marker.Animated
                         ref={markerRef}
-                        coordinate={coordinate}>
+                        coordinate={coordinate}
+                        identifier={"mk1"}>
                         <Image
                             source={imagePath.bus}
                             style={{
@@ -200,43 +219,45 @@ const MapScreen = () => {
                             resizeMode="contain"
                         />
                     </Marker.Animated>
-                    {Object.keys(destinationCords).length > 0 && (<Marker
-                        coordinate={destinationCords}
+                    {Object.keys(destination).length > 0 && (<Marker
+                        coordinate={destination}
+                        identifier={"mk2"}
                         image={imagePath.icGreenMarker}
                     />)}
                     {(() => {
                         switch (live) {
                             case "1":
-                            return Object.keys(destinationCords).length > 0 && (<MapViewDirections
-                                origin={curLoc}
-                                destination={destinationCords}
-                                apikey={GOOGLE_API_KEY}
-                                strokeWidth={6}
-                                strokeColor="red"
-                                optimizeWaypoints={true}
-                                onStart={(params) => {
-                                    //console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
-                                }}
-                                onReady={result => {
-                                    fetchTime(result.distance, result.duration)
-                                    mapRef.current.fitToCoordinates(result.coordinates, {
-                                        edgePadding: {
-                                            // right: 30,
-                                            // bottom: 300,
-                                            // left: 30,
-                                            // top: 100,
-                                        },
-                                    });
-                                }}
-                                onError={(errorMessage) => {
-                                    // console.log('GOT AN ERROR');
-                                }}
-                            />);
+                                return Object.keys(currentLocation).length > 0 && (<MapViewDirections
+                                    origin={currentLocation}
+                                    destination={destination}
+                                    apikey={GOOGLE_API_KEY}
+                                    strokeWidth={6}
+                                    strokeColor="red"
+                                    optimizeWaypoints={true}
+                                    onStart={(params) => {
+                                        //console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
+                                    }}
+                                    onReady={result => {
+                                        fetchTime(result.distance, result.duration)
+                                        mapRef.current.fitToCoordinates(result.coordinates, {
+                                            edgePadding: {
+                                                // right: 30,
+                                                // bottom: 300,
+                                                // left: 30,
+                                                // top: 100,
+                                            },
+                                        });
+                                    }}
+                                    onError={(errorMessage) => {
+                                        console.log(errorMessage)
+                                        // console.log('GOT AN ERROR');
+                                    }}
+                                />);
                             default:
-                            return (coordinates.length > 0 && <Polyline coordinates={coordinates}
-                                                            strokeColor={"red"}
-                                                            strokeWidth={3}
-                                                            lineDashPattern={[1]}/>);
+                                return (coordinates.length > 0 && <Polyline coordinates={coordinates}
+                                                                            strokeColor={"red"}
+                                                                            strokeWidth={3}
+                                                                            lineDashPattern={[1]}/>);
                         }
                     })()}
                 </MapView>
@@ -247,7 +268,7 @@ const MapScreen = () => {
                         right: 0
                     }}
                     onPress={onCenter}>
-                    <Image source={imagePath.greenIndicator} />
+                    <Image source={imagePath.greenIndicator}/>
                 </TouchableOpacity>
             </View>
             <View style={styles.bottomCard}>

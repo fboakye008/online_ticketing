@@ -43,8 +43,9 @@ const HomeScreen = ({navigation}) => {
         populateData().catch();
     }, [navigation]);
     const handleSchedule = () => {
-        navigation.navigate('MapScreen');
+        navigation.navigate('ScheduleScreen');
     };
+
     const handleMap = () => {
         navigation.navigate('MapScreen');
     };
@@ -138,6 +139,25 @@ const HomeScreen = ({navigation}) => {
                     <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
                         <AntDesign name="clockcircleo" size={24} color="black"/>
                         <Text style={styles.topic}>Today's Schedule</Text>
+                        <View>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                size={26}
+                                color="black"
+                            />
+                        </View>
+                    </View>
+
+                </TouchableOpacity>
+            </View>
+            <View style={{flex: 1}}>
+                <TouchableOpacity
+                    style={styles.topicsContainer}
+                    onPress={() => handleMap()}
+                    ref={keyPressRef}>
+                    <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <AntDesign name="exclamationcircle" size={24} color="black"/>
+                        <Text style={styles.topic}>Simulation</Text>
                         <View>
                             <MaterialIcons
                                 name="keyboard-arrow-right"
