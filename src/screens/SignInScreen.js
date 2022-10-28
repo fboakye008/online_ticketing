@@ -4,7 +4,7 @@ import Separator from '../components/WelcomeCard/Separator';
 import {Colors, image as MyImage} from '../contents';
 import TextField from '../components/CustomInput/TextInput';
 import {Display} from './utils';
-import { MaterialIcons} from '@expo/vector-icons';
+import {MaterialIcons} from '@expo/vector-icons';
 import LoginUser from "../apis/login";
 import LoadingScreen from "./utils/LoadingScreen";
 import projectlogo from "../assets/images/projectLogo.png";
@@ -58,7 +58,12 @@ const SignInScreen = ({navigation, route}) => {
                 let user = await LoginUser(userInfo);
                 if (user && user.phone) {
                     setLoading(false);
-                    const payload = {phone: user.phone, full_name: user.full_name, email: user.email, api_key: user.api_key};
+                    const payload = {
+                        date_created: user.date_created,
+                        last_modified: user.last_modified,
+                        phone: user.phone, full_name: user.full_name,
+                        email: user.email, api_key: user.api_key
+                    };
                     await AsyncStorage.setItem("user", JSON.stringify(payload))
                     navigation.navigate(`${nextPage}`);
                 } else {
@@ -78,15 +83,15 @@ const SignInScreen = ({navigation, route}) => {
         <SafeAreaView>
 
             <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
-          <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-          <View style={styles.titleContainer}>
-               <Text style={styles.title}>Welcome!</Text>
+                style={styles.header}
+                onPress={() => navigation.goBack()}>
+                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>Welcome!</Text>
 
-        </View>
-        </TouchableOpacity>
-        {error ? (
+                </View>
+            </TouchableOpacity>
+            {error ? (
                 <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
                     {error}
                 </Text>
@@ -144,7 +149,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
-    header:{
+    header: {
         borderBottomColor: '#eee',
         borderBottomWidth: 5,
         flexDirection: 'row',
@@ -152,7 +157,7 @@ const styles = StyleSheet.create({
         paddingBottom: 12,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
-      },
+    },
 
     content: {
         colors: Colors.LIGHT_GREY,
@@ -261,16 +266,16 @@ const styles = StyleSheet.create({
         shadowRadius: 9.11,
         elevation: 5,
     },
-    titleContainer:{
+    titleContainer: {
         flex: 1,
-      },
-      title:{
+    },
+    title: {
         fontSize: 18,
         marginLeft: -38,
-        fontWeight:'bold',
+        fontWeight: 'bold',
         textAlign: 'center',
-      },
-      Image: {
+    },
+    Image: {
 
         height: 100,
         width: 100,
