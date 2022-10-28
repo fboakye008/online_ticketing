@@ -14,7 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignInScreen = ({navigation, route}) => {
-    const nextPage = route.params.navPage;
+    let nextPage = route?.params?.navPage;
+    if(!nextPage){
+        nextPage = "Home";
+    }
     const [loading, setLoading] = useState(false);
     useEffect(() => {
 

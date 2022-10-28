@@ -9,12 +9,8 @@ import {
 import utils from "../apis/utils";
 import {updateError} from "../utils";
 import HomeMap from "../components/HomeMap";
-import {useFocusEffect} from '@react-navigation/native';
-import {map} from "../constants/imagePath";
-
 
 const HomeScreen = ({navigation}) => {
-    //const {map} = require("../constants/imagePath")
     const map = require('../assets/images/map.jpeg')
     const [error, setError] = useState("");
     const keyPressRef = React.useRef(null);
