@@ -9,8 +9,7 @@ function CreateUser(userInfo) {
     username:
       userInfo?.fullName.split(" ")[0] +
       Math.floor(1000 + Math.random() * 9000),
-    password: userInfo?.password,
-    account_status: 1,
+    password: userInfo?.password
   };
   const fetchAPI = async () => {
     const options = {
