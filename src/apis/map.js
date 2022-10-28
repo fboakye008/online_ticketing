@@ -64,7 +64,7 @@ const findMapRoute = async function () {
             return null;
         }
 
-        if (Object.keys(ticketInfo) > 0) {
+        if (Object.keys(ticketInfo).length > 0) {
             const resp = await utils.makeMapAPIRequest(ticketInfo.origin, ticketInfo.destination, ticketInfo.departureTime);
             const encodedPolyline = resp.routes[0].polyline.encodedPolyline;
             const points = decode(encodedPolyline, 5);
