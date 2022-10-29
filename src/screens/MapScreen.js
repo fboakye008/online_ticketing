@@ -21,6 +21,7 @@ const MapScreen = () => {
     } else {
         provider = PROVIDER_GOOGLE
     }
+    const [intervalID, setIntervalID] = useState(-1);
     const [error, setError] = useState("");
     const [state, setState] = useState({
         origin: {},
@@ -55,10 +56,10 @@ const MapScreen = () => {
      * @param q
      * @returns {Promise<void>}
      */
-    const getLiveLocation = async (q) => {
+    const getLiveLocation = async (q,clive) => {
         animate(q.latitude, q.longitude);
         updateState({
-            live: live,
+            live: clive,
             currentLocation: q,
             coordinate: new AnimatedRegion({
                 latitude: q.latitude,
@@ -131,18 +132,22 @@ const MapScreen = () => {
         //         clearInterval(interval);
         //     }
         // }, 2000);
-    }, [])
-    const startAnimation = function () {
+    }, [intervalID])
+    const startAnimation = function (clive) {
         if (coordinates && coordinates.length > 0) {
+            if(intervalID > -1){
+                clearInterval(intervalID);
+            }
             let counter = 0;
             const interval = setInterval(() => {
                 const q = coordinates[counter];
-                const g = getLiveLocation(q)
+                const g = getLiveLocation(q,clive)
                 counter++;
                 if (counter === coordinates.length) {
                     clearInterval(interval);
                 }
             }, 500);
+            setIntervalID(interval);
         }
     }
     /**
@@ -269,7 +274,8 @@ const MapScreen = () => {
             <View style={styles.bottomCard}>
                 <Text>Time left: {distanceStr} </Text>
                 <Text>Distance left: {timeStr}</Text>
-                <Button onPress={() => startAnimation()} title="Start Animation" color="#841584"/>
+                <Button onPress={() => startAnimation("0")} title="Animation 0" color="#841584"/>
+                <Button onPress={() => startAnimation("1")} title="Animation 1" color="#841584"/>
             </View>
         </View>
     );
