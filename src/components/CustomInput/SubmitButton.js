@@ -3,21 +3,19 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors } from '../../contents';
 import { Display } from '../../screens/utils';
 
-const SubmitButton = ({title, onPress}) => {
+const SubmitButton = ({title, disabled, onPress}) => {
   return (
-    <TouchableOpacity
+    <TouchableOpacity disabled={disabled? true:false}
     onPress={onPress}
         style={styles.signinButton}
-        // onPress={() => navigation.navigate('RegisterPhone')}
         activeOpacity={0.8}
-        // onPress={() => navigation.navigate('Verification', { phoneNumber })}
       >
         <Text style={styles.signinButtonText}>{title}</Text>
       </TouchableOpacity>
   )
 }
 
-const styles=StyleSheet.create({ 
+const styles=StyleSheet.create({
 signinButton: {
     backgroundColor: Colors.DEFAULT_GREEN,
     borderRadius: 50,

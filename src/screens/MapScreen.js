@@ -11,15 +11,17 @@ const MapScreen = () => {
 
     const screen = Dimensions.get('window');
     const ASPECT_RATIO = screen.width / screen.height;
-    const LATITUDE_DELTA = 0.04;
-    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+    const LATITUDE_DELTA = 0.20;
+    const LONGITUDE_DELTA =LATITUDE_DELTA * ASPECT_RATIO;
+    const CENTER_OFFSET_DELTA = 0.20;
     const mapRef = useRef();
     const markerRef = useRef();
-    let provider;
+    let provider
     if (Platform.OS === 'ios') {
     } else {
         provider = PROVIDER_GOOGLE
     }
+    const [intervalID, setIntervalID] = useState(-1);
     const [error, setError] = useState("");
     const [state, setState] = useState({
         origin: {},
@@ -29,8 +31,8 @@ const MapScreen = () => {
         isLoading: false,
         coordinates: [],
         coordinate: new AnimatedRegion({
-            latitude: 0.0,
-            longitude: 0.0,
+            latitude: {},
+            longitude: {},
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA
         }),
@@ -54,10 +56,10 @@ const MapScreen = () => {
      * @param q
      * @returns {Promise<void>}
      */
-    const getLiveLocation = async (q) => {
+    const getLiveLocation = async (q,clive) => {
         animate(q.latitude, q.longitude);
         updateState({
-            live: live,
+            live: clive,
             currentLocation: q,
             coordinate: new AnimatedRegion({
                 latitude: q.latitude,
@@ -86,8 +88,8 @@ const MapScreen = () => {
                     const initRegion = {
                         latitude: parseFloat(avgLat),
                         longitude: avgLong,
-                        latitudeDelta: 0.20,
-                        longitudeDelta: 0.20,
+                        latitudeDelta: LATITUDE_DELTA + CENTER_OFFSET_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA + CENTER_OFFSET_DELTA,
                     };
                     updateState({
                         origin: mapData.origin,
@@ -96,8 +98,8 @@ const MapScreen = () => {
                         destination: mapData?.destination,
                         initialRegion: initRegion,
                         coordinate: new AnimatedRegion({
-                            latitude: origin.latitude,
-                            longitude: origin.longitude,
+                            latitude: mapData.origin.latitude,
+                            longitude: mapData.origin.longitude,
                             latitudeDelta: LATITUDE_DELTA,
                             longitudeDelta: LONGITUDE_DELTA
                         })
@@ -130,18 +132,22 @@ const MapScreen = () => {
         //         clearInterval(interval);
         //     }
         // }, 2000);
-    }, [])
-    const startAnimation = function () {
+    }, [intervalID])
+    const startAnimation = function (clive) {
         if (coordinates && coordinates.length > 0) {
+            if(intervalID > -1){
+                clearInterval(intervalID);
+            }
             let counter = 0;
             const interval = setInterval(() => {
                 const q = coordinates[counter];
-                const g = getLiveLocation(q)
+                const g = getLiveLocation(q,clive)
                 counter++;
                 if (counter === coordinates.length) {
                     clearInterval(interval);
                 }
             }, 500);
+            setIntervalID(interval);
         }
     }
     /**
@@ -205,20 +211,14 @@ const MapScreen = () => {
                     }
                     }
                 >
+
                     <Marker.Animated
                         ref={markerRef}
                         coordinate={coordinate}
-                        identifier={"mk1"}>
-                        <Image
-                            source={imagePath.bus}
-                            style={{
-                                width: 40,
-                                height: 40,
-                                //transform: [{rotate: `${heading}deg`}]
-                            }}
-                            resizeMode="contain"
-                        />
-                    </Marker.Animated>
+                        identifier={"mk1"}
+                        image={imagePath.busIcon}
+                    />
+
                     {Object.keys(destination).length > 0 && (<Marker
                         coordinate={destination}
                         identifier={"mk2"}
@@ -274,7 +274,8 @@ const MapScreen = () => {
             <View style={styles.bottomCard}>
                 <Text>Time left: {distanceStr} </Text>
                 <Text>Distance left: {timeStr}</Text>
-                <Button onPress={() => startAnimation()} title="Start Animation" color="#841584"/>
+                <Button onPress={() => startAnimation("0")} title="Animation 0" color="#841584"/>
+                <Button onPress={() => startAnimation("1")} title="Animation 1" color="#841584"/>
             </View>
         </View>
     );

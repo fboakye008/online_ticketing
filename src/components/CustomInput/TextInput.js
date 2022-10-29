@@ -10,22 +10,22 @@ import {
   import { Colors } from '../../contents';
   import { Display } from '../../screens/utils';
 
-  const TextField = (props) =>{ 
+  const TextField = (props) =>{
     const {placeholder, label,isPassword,
             icon,
             setPasswordShow,
-            isPasswordShow,  
+            isPasswordShow,
             onFocus = ()=>{}
           } = props
           const [isFocused, setIsFocused] = React.useState(false);
   return(
     <>
       <Text style={styles.label}></Text>
-      
+
       <View style={[
-            styles.inputContainer, 
+            styles.inputContainer,
             {
-                borderColor: isFocused 
+                borderColor: isFocused
                  ?Colors.LIGHT_GREEN
                  : Colors.Light
                  },
@@ -36,8 +36,8 @@ import {
           color={Colors.DEFAULT_GREY}
           style={{ marginRight: 10 }}
         />
-      <TextInput 
-      {...props} 
+      <TextInput
+      {...props}
       placeholder={placeholder}
       placeholderTextColor={Colors.DEFAULT_GREY}
           SelectionColor={Colors.DEFAULT_GREEN}
@@ -50,7 +50,7 @@ import {
             onBlur={()=>{
                 setIsFocused(false);
             }}
-            style={styles.inputText} 
+            style={styles.inputText}
         />
            <TouchableOpacity onPress={() => setPasswordShow(!isPasswordShow)}>
        {isPassword ? (
@@ -66,8 +66,8 @@ import {
     </>
   );
   };
-  
-const styles=StyleSheet.create({ 
+
+const styles=StyleSheet.create({
   label:{
    marginVertical: 5,
    fontSize: 15,

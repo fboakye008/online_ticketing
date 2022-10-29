@@ -27,10 +27,10 @@ async function ResetNewPassword(userInfo) {
     };
     return fetchAPI();
 }
-async function VerifyOTP(email, otp) {
+async function VerifyOTP(email, otp,url) {
     const fetchAPI = async () => {
         const options = {
-            url: "recovers/verifyemail",
+            url: url,
             method: "POST",
             body: {email: email, otp: otp},
             no_key: true

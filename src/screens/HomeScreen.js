@@ -9,23 +9,21 @@ import {
 import utils from "../apis/utils";
 import {updateError} from "../utils";
 import HomeMap from "../components/HomeMap";
-import {useFocusEffect} from '@react-navigation/native';
-import {map} from "../constants/imagePath";
-
 
 const HomeScreen = ({navigation}) => {
-    //const {map} = require("../constants/imagePath")
     const map = require('../assets/images/map.jpeg')
     const [error, setError] = useState("");
     const keyPressRef = React.useRef(null);
     const [viewStaticMap, setViewStaticMap] = useState(true);
 
     const focusHandler = navigation.addListener('focus', () => {
+        //console.log("Focus handler called")
         populateData().catch();
         return;
     });
     const populateData = async function () {
         try {
+            //console.log("Calling PD")
             const y = await utils.isLoggedIn();
             if (y) {
                 //if y but no upcoming trips still show static image
@@ -33,14 +31,15 @@ const HomeScreen = ({navigation}) => {
             } else {
                 setViewStaticMap(true);
             }
-            return focusHandler;
+           // return focusHandler;
+            return "done"
         } catch (ee) {
             setViewStaticMap(true);
             return updateError(ee.toString(), setError);
         }
     }
     useEffect(() => {
-        populateData().catch();
+       // populateData().catch();
     }, [navigation]);
     const handleSchedule = () => {
         navigation.navigate('ScheduleScreen');

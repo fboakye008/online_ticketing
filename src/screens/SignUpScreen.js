@@ -59,23 +59,19 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   const submitForm = async () => {
-    const { phone } = userInfo;
     const { email } = userInfo;
-    const otp = Math.floor(1000 + Math.random() * 9000);
     if (isValidForm()) {
       setLoading(true);
       try {
-        //TODO: make account active after verification
-        const user = await CreateUser(userInfo);//create user and send email
+        const user_response = await CreateUser(userInfo);//create user and send email
         //Send to verification with api_key
-        if (user.email) {
-          const api_key = user.api_key;
+        if (user_response.success === "success") {
           const fromScreen = "SignUp";
-          navigation.replace("Verification", { email,api_key,fromScreen});
+          navigation.replace("Verification", { email,fromScreen});
           //navigation.replace("Signin") && alert("Successfully registered!")
         } else {
-          alert("Failed to register! " +  user?.error?.message);
-          return updateError("Failed to register! " +  user?.error?.message, setError);
+          alert("OTP could not be sent to ! " +  email);
+          return updateError("OTP could not be sent to ! " +  email, setError);
         }
       }catch(e){
         console.log(e);
@@ -89,11 +85,15 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView >
+<<<<<<< HEAD
        <StatusBar
         barStyle="light-content"
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
+=======
+
+>>>>>>> b02e4def34cf531b97c94b0a1853c7853e0f3730
         <Separator height={5} />
         <Text style={styles.headerTitle}>Create Account</Text>
         <ScrollView
@@ -109,7 +109,7 @@ const SignUpScreen = ({ navigation }) => {
         <Text style={styles.content}>
           Enter your Email, choose a username and password.
         </Text>
-       
+
         <TextField
           value={fullName}
           onChangeText={(value) => handleOnChangeText(value, "fullName")}

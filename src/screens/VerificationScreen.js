@@ -28,7 +28,6 @@ const VerificationScreen = ({navigation, route}) => {
     const [error, setError] = useState("");
     const data = route.params;
     const email = data.email;
-    const apiKey = data.api_key;
     const fromScreen = data.fromScreen;
     const [otp, setOtp] = useState({0: "", 1: "", 2: "", 3: ""});
 
@@ -71,7 +70,11 @@ const VerificationScreen = ({navigation, route}) => {
             let otpString = Object.values(otp).toString().split(",").join("");
             if (otpString.length === 4) {
                 const otp = otpString;
-                const p = VerifyOTP(email, otp);
+                let url = "recovers/verifyemail";
+                if (fromScreen && (fromScreen === "SignUp")) {
+                    url = "users/authenticateOTP";
+                }
+                const p = VerifyOTP(email, otp, url);
                 p.then(function (r) {
                     if (fromScreen && fromScreen === "ForgotPassword") {
                         navigation.replace("ResetPassword", {email, otp}) && alert("OTP Verified")
@@ -105,17 +108,17 @@ const VerificationScreen = ({navigation, route}) => {
                 </Text>
             ) : null}
             <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>OTP Verification</Text>
-           <View>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-            </View>
-          </View>
-        </TouchableOpacity>
-          
+                style={styles.header}
+                onPress={() => navigation.goBack()}>
+                <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                    <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+                    <Text style={styles.headerTopic}>OTP Verification</Text>
+                    <View>
+                        <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+                    </View>
+                </View>
+            </TouchableOpacity>
+
             <View style={styles.contentContainer}>
                 <Separator height={10}/>
                 <Text style={styles.content}>
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold",
     },
-   
+
     contentContainer: {
         paddingTop: 50,
         paddingHorizontal: 20,
@@ -237,7 +240,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         alignItems: "center",
     },
-    header:{
+    header: {
         borderBottomColor: '#eee',
         justifyContent: "space-between",
         width: "100%",
@@ -249,14 +252,14 @@ const styles = StyleSheet.create({
         marginTop: 12,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
-      },
-      Headertopic: {
+    },
+    headerTopic: {
         flex: 1,
         fontSize: 20,
         textAlign: 'center',
         fontWeight: "bold",
     },
-      Image: {
+    Image: {
 
         height: 30,
         width: 30,
