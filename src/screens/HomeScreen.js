@@ -17,11 +17,13 @@ const HomeScreen = ({navigation}) => {
     const [viewStaticMap, setViewStaticMap] = useState(true);
 
     const focusHandler = navigation.addListener('focus', () => {
+        //console.log("Focus handler called")
         populateData().catch();
         return;
     });
     const populateData = async function () {
         try {
+            //console.log("Calling PD")
             const y = await utils.isLoggedIn();
             if (y) {
                 //if y but no upcoming trips still show static image
@@ -29,14 +31,15 @@ const HomeScreen = ({navigation}) => {
             } else {
                 setViewStaticMap(true);
             }
-            return focusHandler;
+           // return focusHandler;
+            return "done"
         } catch (ee) {
             setViewStaticMap(true);
             return updateError(ee.toString(), setError);
         }
     }
     useEffect(() => {
-        populateData().catch();
+       // populateData().catch();
     }, [navigation]);
     const handleSchedule = () => {
         navigation.navigate('ScheduleScreen');

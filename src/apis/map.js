@@ -39,8 +39,7 @@ const findTicketRoute = async function () {
 
             const origin = _.findWhere(ticket_routes, {seq_order: 1})
             const originLoc = {latitude: origin.gps_location.lat, longitude: origin.gps_location.lng};
-
-            const destination = _.findWhere(ticket_routes, {route_name: ticket.route});
+            const destination = _.findWhere(ticket_routes, {bus_stop: ticket.bus_stop});
             const destinationLoc = {latitude: destination.gps_location.lat, longitude: destination.gps_location.lng};
             const departureTime = ticket.departure_time;
 
