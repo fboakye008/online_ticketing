@@ -15,6 +15,7 @@ import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import {Colors} from "../contents";
 import moment from 'moment';
 import _ from "underscore";
+const lodash = require("lodash");
 import {CreateBooking} from "../apis/booking";
 import projectlogo from "../assets/images/projectLogo.png";
 
@@ -42,11 +43,15 @@ const BusStopTimeScreen = ({navigation, route}) => {
     const extractBusStops = function (routeBusStops, route_id) {
         const bus_stops = _.where(routeBusStops, {route_id: route_id});
         if (bus_stops && bus_stops.length > 0) {
-            let result = bus_stops.map(a => ({"value": a.bus_stop_id, "label": a.bus_stop, "order": a.bus_stop_order}));
-            const bustops = _.uniq(result, function (x) {
+            let result = bus_stops.map(a => ({"value": a.bus_stop_id, "label": a.bus_stop, "order": parseInt(a.bus_stop_order)}));
+            let bustops = _.uniq(result, function (x) {
                 return x["value"];
             });
-            return _.sortBy(bustops, 'order');
+            bustops = lodash.sortBy(bustops,
+                [function(bs) { return parseInt(bs.order); }]);
+
+            bustops.pop();
+            return bustops;
         }
         return [];
     };
@@ -141,24 +146,24 @@ const BusStopTimeScreen = ({navigation, route}) => {
     }, []);
     return (
         <SafeAreaView style={styles.wrapper}>
-                 <StatusBar
-        barStyle="light-content"
-        backgroundColor={Colors.DEFAULT_GREEN}
-        translucent
-      />
+            <StatusBar
+                barStyle="light-content"
+                backgroundColor={Colors.DEFAULT_GREEN}
+                translucent
+            />
             <TouchableOpacity
-                        style={styles.header}
-            onPress={() => navigation.goBack()}>
-                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-                        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                         <Text style={styles.topic}>Departure </Text>
+                style={styles.header}
+                onPress={() => navigation.goBack()}>
+                <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                    <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+                    <Text style={styles.topic}>Departure </Text>
 
-                            <View>
-                            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-                            </View>
-                        </View>
+                    <View>
+                        <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+                    </View>
+                </View>
 
-                    </TouchableOpacity>
+            </TouchableOpacity>
             <View style={styles.container}>
                 <ReadOnlyField
                     style={styles.input}
@@ -174,9 +179,9 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 <BookingTextField numOfPassenger={true} label="Number of passengers"
                                   sendDataToParent={sendDataToBusStopTime}/>
 
-                    <View>
-                        <Text style={styles.title}>Total Amount: {amount}</Text>
-                    </View>
+                <View>
+                    <Text style={styles.title}>Total Amount: {amount}</Text>
+                </View>
 
                 <TouchableOpacity
                     style={styles.btn}
@@ -200,7 +205,7 @@ const styles = StyleSheet.create({
         height: height,
     },
 
-  
+
     btn: {
         justifyContent: "center",
         alignItems: "center",
@@ -224,19 +229,19 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "bold",
     },
-    header:{
-            borderBottomColor: '#eee',
-            justifyContent: "space-between",
-            width: "100%",
-            borderBottomWidth: 5,
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingBottom: 12,
-            marginLeft: 1,
-            paddingTop:12,
-            paddingHorizontal: 12,
-            backgroundColor: Colors.DEFAULT_WHITE,
-          },
+    header: {
+        borderBottomColor: '#eee',
+        justifyContent: "space-between",
+        width: "100%",
+        borderBottomWidth: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 12,
+        marginLeft: 1,
+        paddingTop: 12,
+        paddingHorizontal: 12,
+        backgroundColor: Colors.DEFAULT_WHITE,
+    },
     text: {
 
         justifyContent: "space-between",
