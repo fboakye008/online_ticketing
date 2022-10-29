@@ -89,7 +89,7 @@ const HomeMap = () => {
                             coordinate: mapData.origin,
                             title: mapData.originBusStop,
                             id: 1,
-                            image: imagePath.icRedMarker,
+                            image: imagePath.busIcon,
                             identifier: 'mk1'
                         },
                         {

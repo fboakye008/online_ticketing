@@ -216,7 +216,7 @@ const MapScreen = () => {
                         ref={markerRef}
                         coordinate={coordinate}
                         identifier={"mk1"}
-                        image={imagePath.icRedMarker}
+                        image={imagePath.busIcon}
                     />
 
                     {Object.keys(destination).length > 0 && (<Marker
