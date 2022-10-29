@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, StatusBar, Image, TouchableOpacity} from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import SubmitButton from '../components/CustomInput/SubmitButton';
 import TextField from '../components/CustomInput/TextInput';
@@ -50,7 +50,11 @@ const ForgotPasswordScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-           
+                 <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
         <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>

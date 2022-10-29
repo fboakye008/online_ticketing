@@ -158,6 +158,11 @@ const ScheduleScreen = ({navigation, route}) => {
     };
   return (
       <View style={styles.container}>
+         <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
         {error ? (
             <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
               {error}

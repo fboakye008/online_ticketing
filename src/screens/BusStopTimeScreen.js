@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Dimensions,
     TouchableOpacity,
+    StatusBar,
     Image,
     SafeAreaView,
 } from "react-native";
@@ -140,7 +141,11 @@ const BusStopTimeScreen = ({navigation, route}) => {
     }, []);
     return (
         <SafeAreaView style={styles.wrapper}>
-
+                 <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
             <TouchableOpacity
                         style={styles.header}
             onPress={() => navigation.goBack()}>

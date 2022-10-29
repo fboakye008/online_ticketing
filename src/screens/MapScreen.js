@@ -25,7 +25,7 @@ const MapScreen = () => {
         origin: {},
         destination: {},
         currentLocation: {},
-        live: "1",
+        live: "0",
         isLoading: false,
         coordinates: [],
         coordinate: new AnimatedRegion({

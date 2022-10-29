@@ -107,7 +107,11 @@ const SignUpScreen = ({ navigation }) => {
   }, []);
   return (
     <SafeAreaView >
-
+       <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
 
       <TouchableOpacity
             style={styles.header}
@@ -200,7 +204,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 12,
     marginLeft: 1,
-    paddingTop: 12,
+    paddingTop: 25,
     paddingHorizontal: 12,
     backgroundColor: Colors.DEFAULT_WHITE,
   },

@@ -81,6 +81,11 @@ const HomeScreen = ({navigation}) => {
         <View style={[styles.container, {
             flexDirection: "column"
         }]}>
+         <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
             <View style={{flex: 7}}>
                 {viewStaticMap ? (
                         <Image source={map} style={[styles.Image]}/>

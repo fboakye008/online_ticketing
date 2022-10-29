@@ -42,6 +42,11 @@ const Bookings = ({ navigation }) => {
   }, []);
   return (
     <SafeAreaView style={styles.wrapper}>
+     <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
       {error ? (
           <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
             {error}

@@ -2,6 +2,7 @@ import {
     View,
     Text,
     StyleSheet,
+    StatusBar,
     Image,
     SafeAreaView,
     TouchableOpacity,
@@ -110,6 +111,11 @@ const AccountScreen = ({navigation}) => {
     }, []);
     return (
         <SafeAreaView style={styles.container}>
+                 <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
             <View style={styles.userContainer}>
                 <Text style={styles.username}>{userInfo.fullName}</Text>
                 <Ionicons name="person-circle" size={60} color={Colors.DEFAULT_GREY}/>
@@ -174,7 +180,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         flexDirection: "column",
         alignItems: "center",
-        padding: 35,
+        padding: 15,
+        paddingLeft: 20,
+        marginBottom: 20,
+        paddingRight: 20,
         borderRadius: 5,
         marginHorizontal: 10,
         shadowColor: "#e6e7e8",
@@ -210,9 +219,10 @@ const styles = StyleSheet.create({
    
     Image: {
 
-        height: 100,
-        width: 100,
-        marginLeft: "35%"
+        height: 80,
+        width: 80,
+        marginLeft: "42%",
+        marginTop: 11
     },
 });
 

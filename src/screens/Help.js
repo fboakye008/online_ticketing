@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  StatusBar,
   Image,
   Dimensions,
   ScrollView,
@@ -24,19 +25,9 @@ const topics = [
   {
     title: "How to book a ticket",
     dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
+      "From the home page, click on buy ticket. Select route and click on next. Select bus stop, time, and number of passengers.  Click on next. click on pay. Make payment.",
+        
   },
-  {
-    title: "Account and Payment Options",
-    dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
-  },
-  {
-    title: "A Guide to VIP",
-    dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
-  },
-
 
 ];
 
@@ -55,10 +46,14 @@ const Help = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-
+         <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
       <TouchableOpacity
             style={styles.header}
-            onPress={() => navigation.goBack()}>
+            onPress={() => navigation.navigate('Account')}>
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
                  <Text style={styles.Headertopic}>Help </Text>
@@ -69,7 +64,6 @@ const Help = () => {
         </TouchableOpacity>
       <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
         <View style={styles.topicsWrapper}>
-          <Text style={styles.allTopics}>All Topics</Text>
           {topics?.map((topic, index) => (
             <View key={index}>
               <TouchableOpacity
@@ -97,7 +91,7 @@ const Help = () => {
                   )}
                 </View>
               </TouchableOpacity>
-              <Text>{selected === index ? topic.dropdown : null}</Text>
+              <Text style={styles.dropdown}>{selected === index ? topic.dropdown : null}</Text>
             </View>
           ))}
         </View>
@@ -111,7 +105,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-
+  dropdown:{
+    fontSize: 16,
+    paddingRight: 10,
+    paddingLeft: 10,
+  
+  },
   header:{
     borderBottomColor: '#eee',
     justifyContent: "space-between",
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 12,
     marginLeft: 1,
-    marginTop: 12,
+    marginTop: 25,
     paddingHorizontal: 12,
     backgroundColor: Colors.DEFAULT_WHITE,
   },
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
 },
   topic: {
-    fontSize: 16,
+    fontSize: 18,
     paddingLeft: 10,
     fontWeight: "500",
   },

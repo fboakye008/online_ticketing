@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity,Image, ScrollView} from "react-native";
+import {View, Text, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity,Image, ScrollView} from "react-native";
 import {MaterialIcons} from "@expo/vector-icons";
 import {Colors} from "../contents";
 import _ from "underscore";
@@ -48,10 +48,14 @@ const Trips = ({navigation}) => {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#e6e7e8"}}>
-            
+             <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
         <TouchableOpacity
             style={styles.header}
-            onPress={() => navigation.goBack()}>
+            onPress={() => navigation.navigate('Account')}>
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
                  <Text style={styles.Headertopic}>Trips ({numTrips}) </Text>
@@ -68,16 +72,12 @@ const Trips = ({navigation}) => {
         
             <ScrollView>
 
-
-            <TouchableOpacity
-            style={styles.tripHistoryWrapper} >
                      <View >
                           {trips.map(trip => {
                         return <DisplayTrip title={trip.title} key={trip.key}></DisplayTrip>
                             })}
                     </View>
 
-                    </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
     );
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 12,
         marginLeft: 1,
-        paddingTop: 12,
+        paddingTop: 25,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },

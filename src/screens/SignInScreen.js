@@ -76,7 +76,11 @@ const SignInScreen = ({navigation, route}) => {
     return (
 
         <SafeAreaView>
-
+         <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
             <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>

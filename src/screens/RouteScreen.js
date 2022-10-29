@@ -4,6 +4,7 @@ import {
     View,
     Text,
     StyleSheet,
+    StatusBar,
     Image,
     Dimensions,
     TouchableOpacity,
@@ -62,6 +63,11 @@ const Routes = ({navigation}) => {
     }, []);
     return (
         <SafeAreaView style={styles.wrapper}>
+         <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
         <TouchableOpacity
                         style={styles.header}
             onPress={() => navigation.goBack()}>

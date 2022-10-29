@@ -3,6 +3,7 @@ import {
     Text,
     SafeAreaView,
     StyleSheet,
+    StatusBar,
     TouchableOpacity,
     Dimensions,
     Image, ScrollView,
@@ -76,7 +77,11 @@ const Wallet = () => {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#e6e7e8"}}>
-
+ <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
         <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.goBack()}>
@@ -123,7 +128,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 12,
         marginLeft: 1,
-        paddingTop: 12,
+        paddingTop: 25,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },

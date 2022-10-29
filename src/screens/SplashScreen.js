@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, StatusBar, Image } from "react-native";
 import { Colors, image } from "../contents";
+import logo1 from "../assets/images/logo1.png";
 import { generateToken } from "../helpers/tokenGenerator";
 import { Display } from "./utils";
 
@@ -18,8 +19,7 @@ const SplashScreen = ({ navigation }) => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-      <Image source={image.Bus} resizeMode="contain" style={styles.image} />
-
+      <Image source={logo1} resizeMode="contain" style={styles.image} />
       <Text style={styles.titleText}>VIP Bus Online Booking</Text>
     </View>
   );
@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.DEFAULT_GREEN,
   },
   image: {
-    height: Display.setHeight(30),
-    width: Display.setWidth(60),
+    height: Display.setHeight(50),
+    width: Display.setWidth(50),
   },
   titleText: {
     color: Colors.DEFAULT_WHITE,
-    fontSize: 32,
+    fontSize: 30,
   },
 });
 

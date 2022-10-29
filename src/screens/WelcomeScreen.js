@@ -47,9 +47,9 @@ const WelcomeScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={Colors.DEFAULT_WHITE}
+       <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
       <Separator height={StatusBar.currentHeight} />
@@ -67,7 +67,7 @@ const WelcomeScreen = ({ navigation }) => {
           renderItem={({ item }) => <WelcomeCard {...item} />}
         />
       </View>
-      <Separator height={Display.setHeight(8)} />
+       <Separator height={Display.setHeight(3)} /> 
       <Pagination index={welcomeListIndex} />
       <Separator height={Display.setHeight(8)} />
       {welcomeListIndex === 2 ? (

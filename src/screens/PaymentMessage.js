@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, StatusBar,TouchableOpacity } from 'react-native';
 import { Colors } from '../contents';
 
 
@@ -10,6 +10,11 @@ const PaymentMessage = ({ navigation, route }) => {
   const numPassengers = route.params.numPassengers
   return (
     <SafeAreaView style={styles.wrapper}>
+     <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
 
       <View style={styles.container}>
         <View style={styles.messageBox}>

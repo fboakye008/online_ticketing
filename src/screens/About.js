@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  StatusBar,
   Image,
   Dimensions,
   ScrollView,
@@ -20,39 +21,6 @@ import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
-const topics = [
-  {
-    title: "How to book a ticket",
-    dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
-  },
-  {
-    title: "Account and Payment Options",
-    dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
-  },
-  {
-    title: "A Guild to VIP",
-    dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
-  },
-  {
-    title: "Signing Up",
-    dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
-  },
-  {
-    title: "Accessibility",
-    dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
-  },
-  {
-    title: "More",
-    dropdown:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. A fugiat delectus quae, voluptate quidem architecto tempore est, magnam suscipit expedita exercitationem omnis, placeat repellat laborum voluptas. Veniam officiis aliquid nostrum labore corporis voluptatibus, maiores architecto sunt cupiditate, nisi, ex quisquam? Nobis vero cum explicabo. Perferendis suscipit eligendi aliquam fugit esse",
-  },
-];
-
 const About = () => {
   const keyPressRef = React.useRef(null);
   const [selected, setSelected] = React.useState(null);
@@ -68,10 +36,14 @@ const About = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-
+         <StatusBar
+        barStyle="light-content"
+        backgroundColor={Colors.DEFAULT_GREEN}
+        translucent
+      />
       <TouchableOpacity
             style={styles.header}
-            onPress={() => navigation.goBack()}>
+            onPress={() => navigation.navigate('Account')}>
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
                  <Text style={styles.Headertopic}>About Us </Text>
@@ -82,37 +54,21 @@ const About = () => {
         </TouchableOpacity>
       <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
         <View style={styles.topicsWrapper}>
-          <Text style={styles.allTopics}>All Topics</Text>
-          {topics?.map((topic, index) => (
-            <View key={index}>
-              <TouchableOpacity
-                style={styles.topicsContainer}
-                onPress={() => handleOnPress(index)}
-                ref={keyPressRef}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <AntDesign name="bars" size={24} color="black" />
-                  <Text style={styles.topic}>{topic.title}</Text>
-                </View>
-                <View>
-                  {index === selected ? (
-                    <MaterialIcons
-                      name="keyboard-arrow-down"
-                      size={26}
-                      color="black"
-                    />
-                  ) : (
-                    <MaterialIcons
-                      name="keyboard-arrow-right"
-                      size={26}
-                      color="black"
-                    />
-                  )}
-                </View>
-              </TouchableOpacity>
-              <Text>{selected === index ? topic.dropdown : null}</Text>
-            </View>
-          ))}
+          <Text style={styles.text}>Welcome To FranJat Corp. FranJat is a Professional eCommerse Platform.</Text> 
+<Text style={styles.text}>Here we will provide you only interesting content, which you will like very much. </Text>
+<Text style={styles.text}>We're dedicated to providing you the best of eCommerse, with a focus on dependability and VIP Bus online ticketing.</Text>
+<Text style={styles.text}>We're working to turn our passion for eCommerse into a booming online website.</Text>
+<Text style={styles.text}>We hope you enjoy our eCommerse as much as we enjoy offering them to you.</Text>
+<Text style={styles.text}>We will keep posting more important posts on our Website for all of you. </Text>
+<Text style={styles.text}>Please give your support and love.
+Thanks For Visiting Our Site
+Have a nice day!</Text>
+<Text></Text>
+
+<Text style={styles.text}>Contact us on:</Text>
+<Text style={styles.text}>Tel: 0245666208</Text>
+<Text style={styles.text}>Email: linonuniford@gmail.com</Text>
+
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -134,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 12,
     marginLeft: 1,
-    marginTop: 12,
+    marginTop: 25,
     paddingHorizontal: 12,
     backgroundColor: Colors.DEFAULT_WHITE,
   },
@@ -149,10 +105,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontWeight: "500",
   },
-  allTopics: {
-    marginVertical: 10,
-    fontSize: 20,
-    fontWeight: "bold",
+  text: {
+    fontSize: 15,
+    marginVertical: 5,
   },
   topicsWrapper: {
     justifyContent: "center",

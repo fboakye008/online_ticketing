@@ -4,11 +4,13 @@ import {
     StyleSheet,
     SafeAreaView,
     TouchableOpacity,
+    StatusBar,
     Dimensions,
     KeyboardAvoidingView,
     Platform,
     Image,
     Keyboard,
+    ScrollView,
 } from "react-native";
 import React, {useEffect, useState} from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -118,7 +120,7 @@ const PaymentScreen = ({navigation, route}) => {
             </View>
           </View>
         </TouchableOpacity>
-               
+               <ScrollView>
                 <DisplayPaymentMessage paymentInfo={payload}></DisplayPaymentMessage>
 
                 <View style={styles.fieldContainer} onPress={() => Keyboard.dismiss}>
@@ -144,6 +146,7 @@ const PaymentScreen = ({navigation, route}) => {
                         <Text style={styles.btnText}>Pay</Text>
                     </TouchableOpacity>
                 </View>
+                </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
