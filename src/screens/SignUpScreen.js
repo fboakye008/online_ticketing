@@ -85,15 +85,14 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView >
-<<<<<<< HEAD
+
        <StatusBar
         barStyle="light-content"
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-=======
 
->>>>>>> b02e4def34cf531b97c94b0a1853c7853e0f3730
+
         <Separator height={5} />
         <Text style={styles.headerTitle}>Create Account</Text>
         <ScrollView

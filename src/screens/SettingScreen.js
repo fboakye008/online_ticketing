@@ -57,78 +57,6 @@ const SignUpScreen = ({navigation}) => {
                 return updateError(err.toString(), setError);
             }
         }
-<<<<<<< HEAD
-        return "done"
-      } catch (err) {
-        console.log(err);
-        console.log("Something went wrong")
-        return updateError(err.toString(), setError);
-      }
-    }
-    populateData().catch();
-  }, []);
-  return (
-    <SafeAreaView >
-       <StatusBar
-        barStyle="light-content"
-        backgroundColor={Colors.DEFAULT_GREEN}
-        translucent
-      />
-
-      <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.navigate('Account')}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>Personal Info </Text>
-           <View>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-            </View>
-          </View>
-        </TouchableOpacity>
-        {error ? (
-        <Text style={{ color: Colors.Red, fontSize: 12, textAlign: "center" }}>
-          {error}
-        </Text>
-      ) : null}
-        <ScrollView
-         contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-        style={styles.contentContainer}
-      >
-        <TextField
-          value={fullName}
-          label={`Full Name`}
-          placeholder={fullName}
-          icon={`user`}
-          autoCapitalize="none"
-        />
-        <TextField
-          value={email}
-          label={`Email`}
-          placeholder={email}
-          icon={`mail`}
-          autoCapitalize="none"
-        />
-        <TextField
-          value={phone}
-          label={`Phone Number`}
-          placeholder={phone}
-          icon={`phone`}
-          selectionColor={Colors.DEFAULT_GREEN}
-          keyboardType="number-pad"
-          autoCapitalize="none"
-        />
-        <Separator height={10} />
-        <SubmitButton
-          onPress={submitForm}
-          title="Save"
-        />
-        <View style={styles.signupContainer}>
-          <Text style={styles.accountText}>Delete account</Text>
-        </View>
-=======
->>>>>>> b02e4def34cf531b97c94b0a1853c7853e0f3730
 
         populateData().catch();
     }, []);
@@ -214,28 +142,6 @@ const styles = StyleSheet.create({
         color: Colors.Red,
     },
 
-<<<<<<< HEAD
-  header:{
-    borderBottomColor: '#eee',
-    justifyContent: "space-between",
-    width: "100%",
-    borderBottomWidth: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: 12,
-    marginLeft: 1,
-    paddingTop: 25,
-    paddingHorizontal: 12,
-    backgroundColor: Colors.DEFAULT_WHITE,
-  },
-  Headertopic: {
-    flex: 1,
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: "bold",
-},
-  Image: {
-=======
     header: {
         borderBottomColor: '#eee',
         justifyContent: "space-between",
@@ -256,7 +162,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     Image: {
->>>>>>> b02e4def34cf531b97c94b0a1853c7853e0f3730
 
         height: 30,
         width: 30,
