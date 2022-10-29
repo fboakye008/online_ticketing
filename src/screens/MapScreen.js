@@ -11,15 +11,16 @@ const MapScreen = () => {
 
     const screen = Dimensions.get('window');
     const ASPECT_RATIO = screen.width / screen.height;
-    const LATITUDE_DELTA = 0.04;
-    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+    const LATITUDE_DELTA = 0.20;
+    const LONGITUDE_DELTA =LATITUDE_DELTA * ASPECT_RATIO;
+    const CENTER_OFFSET_DELTA = 0.20;
     const mapRef = useRef();
     const markerRef = useRef();
-    let provider = PROVIDER_GOOGLE
-    // if (Platform.OS === 'ios') {
-    // } else {
-    //     provider = PROVIDER_GOOGLE
-    // }
+    let provider
+    if (Platform.OS === 'ios') {
+    } else {
+        provider = PROVIDER_GOOGLE
+    }
     const [error, setError] = useState("");
     const [state, setState] = useState({
         origin: {},
@@ -86,8 +87,8 @@ const MapScreen = () => {
                     const initRegion = {
                         latitude: parseFloat(avgLat),
                         longitude: avgLong,
-                        latitudeDelta: 0.20,
-                        longitudeDelta: 0.20,
+                        latitudeDelta: LATITUDE_DELTA + CENTER_OFFSET_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA + CENTER_OFFSET_DELTA,
                     };
                     updateState({
                         origin: mapData.origin,

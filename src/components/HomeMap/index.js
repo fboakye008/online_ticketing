@@ -3,7 +3,7 @@ import MapView, {AnimatedRegion, Callout, Marker, PROVIDER_GOOGLE} from 'react-n
 import MapViewDirections from "react-native-maps-directions";
 import {Display} from '../../screens/utils';
 import {GOOGLE_API_KEY} from "@env";
-import {useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import imagePath from '../../constants/imagePath';
 import {findTicketRoute} from "../../apis/map";
 import {updateError} from "../../utils";
@@ -16,6 +16,7 @@ const HomeMap = () => {
     }
     const LATITUDE_DELTA = 0.20;
     const LONGITUDE_DELTA = 0.20;
+    const CENTER_OFFSET_DELTA = 0.20;
     const _mapRef = useRef(null);
 
     const [state, setState] = useState({
@@ -31,11 +32,41 @@ const HomeMap = () => {
         markers,
         origin,
         destination,
-        initialRegion
+        initialRegion,
+        center
     } = state
     const updateState = (data) => setState((state) => ({...state, ...data}));
 
+    /**
+     *
+     */
+    const onCenter = () => {
+        if(center) {
+            _mapRef.current.animateToRegion(center);
+        }
+    }
+    const computeCenter = function(originArg,destinationArg){
 
+        let org = originArg;
+        let dest = destinationArg;
+        if(!org){
+            org = origin;
+            dest = destination;
+        }
+        if(org.latitude) {
+            let sumLat = parseFloat(org.latitude) + parseFloat(dest.latitude)
+            let sumLong = parseFloat(org.longitude) + parseFloat(dest.longitude)
+
+            let avgLat = (sumLat / 2) || 0;
+            let avgLong = (sumLong / 2) || 0;
+            return {
+                latitude: parseFloat(avgLat),
+                longitude: parseFloat(avgLong),
+                latitudeDelta: LATITUDE_DELTA + CENTER_OFFSET_DELTA,
+                longitudeDelta: LONGITUDE_DELTA +CENTER_OFFSET_DELTA,
+            };
+        }
+    }
     useMemo(() => {
         async function populateData() {
             try {
@@ -79,7 +110,8 @@ const HomeMap = () => {
                             latitude: parseFloat(mapData.destination.latitude),
                             longitude: parseFloat(mapData.destination.longitude)
                         },
-                        initialRegion: initRegion
+                        initialRegion: computeCenter(mapData.origin,mapData.destination),
+                        center: computeCenter(mapData.origin,mapData.destination)
                     })
                 }
                 return "done"
@@ -143,7 +175,15 @@ const HomeMap = () => {
                     }}
                 />)}
             </MapView>
-
+            <TouchableOpacity
+                style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0
+                }}
+                onPress={onCenter}>
+                <Image source={imagePath.greenIndicator}/>
+            </TouchableOpacity>
         </View>
     );
 }
