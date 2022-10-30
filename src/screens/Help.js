@@ -15,43 +15,15 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import {Display} from './utils';
 import { Colors } from "../contents";
 import imagePath from '../constants/imagePath';
-import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
-const topics = [
-  {
-    title: "",
-    dropdown:
-      "From the home page, click on buy ticket. Select route and click on next. Select bus stop, time, and number of passengers.  Click on next. click on pay. Make payment.",
-  },
-  {
-    title: "How to book a ticket",
-    dropdown:
-      "From the home page, click on buy ticket. Select route and click on next. Select bus stop, time, and number of passengers.  Click on next. click on pay. Make payment.",
-  },
-  {
-    title: "How to create Account",
-    dropdown:
-    <Text></Text>
-  },
 
-];
-
-const Help = () => {
-  const keyPressRef = React.useRef(null);
-  const [selected, setSelected] = React.useState(null);
-  const navigation = useNavigation();
-
-  const handleOnPress = (index) => {
-    if (selected === index) {
-      return setSelected(null);
-    } else {
-      return setSelected(index);
-    }
-  };
+const Help = ({navigation}) => {
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,47 +45,78 @@ const Help = () => {
         </TouchableOpacity>
       <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
         <View style={styles.topicsWrapper}>
-        <Text style={styles.title}>FAQs</Text>
-                <Text >1. How does the conductor gets to know whether the ticket is fake or not?</Text>
-                <Text style={styles.answer}>Ans:</Text>
-                <Text >2. What if my phone battery run off?</Text>
-                <Text style={styles.answer}>Ans:</Text>
-                <Text >3. How do i know if the bus is full or not after booking?</Text>
-                <Text style={styles.answer}>Ans:</Text>
-                <Text >4. After booking a ticket what do i do ?</Text>
-                <Text style={styles.answer}>Ans:</Text>
-                <Text >5. What do i do if i don't have the app ?</Text>
-
-          {topics?.map((topic, index) => (
-            <View key={index}>
-              <TouchableOpacity
-                style={styles.topicsContainer}
-                onPress={() => handleOnPress(index)}
-                ref={keyPressRef}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <AntDesign name="bars" size={24} color="black" />
-                  <Text style={styles.topic}>{topic.title}</Text>
-                </View>
-                <View>
-                  {index === selected ? (
-                    <MaterialIcons
-                      name="keyboard-arrow-down"
-                      size={26}
-                      color="black"
-                    />
-                  ) : (
-                    <MaterialIcons
-                      name="keyboard-arrow-right"
-                      size={26}
-                      color="black"
-                    />
-                  )}
-                </View>
-              </TouchableOpacity>
-              <Text style={styles.dropdown}>{selected === index ? topic.dropdown : null}</Text>
+        <View >
+                <TouchableOpacity
+                    style={styles.topicsContainer}
+                    onPress={() => navigation.navigate('TermsScreen')}>
+                    <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <AntDesign name="bars" size={24} color="black"/>
+                        <Text style={styles.topic}>Terms and Conditions</Text>
+                        <View>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                size={26}
+                                color="black"
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
             </View>
-          ))}
+
+            <View >
+                <TouchableOpacity
+                    style={styles.topicsContainer}
+                    onPress={() => navigation.navigate('CustomerServiceScreen')}>
+                    <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <AntDesign name="customerservice" size={24} color="black"/>
+                        <Text style={styles.topic}>Customer Service</Text>
+                        <View>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                size={26}
+                                color="black"
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <View >
+                <TouchableOpacity
+                    style={styles.topicsContainer}
+                    onPress={() => navigation.navigate('FAQScreen')}>
+                    <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <AntDesign name="question" size={24} color="black"/>
+                        <Text style={styles.topic}>FAQ</Text>
+                        <View>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                size={26}
+                                color="black"
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <View>
+                <TouchableOpacity
+                    style={styles.topicsContainer}
+                    onPress={() => navigation.navigate('AppInfoScreen')}>
+                    <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                        <AntDesign name="mobile1" size={24} color="black"/>
+                        <Text style={styles.topic}>App Info</Text>
+                        <View>
+                            <MaterialIcons
+                                name="keyboard-arrow-right"
+                                size={26}
+                                color="black"
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
+          
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -125,12 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  dropdown:{
-    fontSize: 16,
-    paddingRight: 10,
-    paddingLeft: 10,
   
-  },
   header:{
     borderBottomColor: '#eee',
     justifyContent: "space-between",
@@ -151,33 +149,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
 },
   topic: {
+    flex: 1,
     fontSize: 18,
-    paddingLeft: 10,
+    paddingLeft: 20,
     fontWeight: "500",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    marginLeft: "8%"
-},
-answer: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: Colors.DEFAULT_RED
-    
-  },
-  topicsWrapper: {
-    justifyContent: "center",
-    marginHorizontal: 10,
-    marginVertical: 20,
   },
   topicsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 15,
-  },
+    marginVertical: 10,
+    marginLeft: 10,
+    width: "95%",
+    borderRadius: 50,
+    backgroundColor: Colors.DEFAULT_WHITE,
+    paddingHorizontal: 10,
+    height: Display.setHeight(8),
+    marginTop: 8,
+    shadowColor: Colors.DEFAULT_BLACK,
+    shadowOffset: {
+        width: 0,
+        height: 5,
+    },
+    shadowOpacity: 0.121,
+    shadowRadius: 9.11,
+    elevation: 5,
+},
+
   Image: {
 
     height: 30,

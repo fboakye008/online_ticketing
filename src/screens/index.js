@@ -13,6 +13,10 @@ import AccountScreen from "./AccountScreen";
 import ScheduleScreen from "./ScheduleScreen";
 import MapScreen from "./MapScreen";
 import TicketScreen from "./TicketScreen";
+import FAQScreen from "./FAQScreen";
+import CustomerServiceScreen from "./CustomerServiceScreen";
+import AppInfoScreen from "./AppInfoScreen";
+import TermsScreen from "./TermsScreen";
 import Help from "./Help";
 import About from "./About";
 import Wallet from "./Wallet";
@@ -37,6 +41,10 @@ export {
     AccountScreen,
     ScheduleScreen,
     MapScreen,
+    FAQScreen,
+    CustomerServiceScreen,
+    AppInfoScreen,
+    TermsScreen,
     Help,
     About,
     Wallet,

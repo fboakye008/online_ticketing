@@ -14,6 +14,10 @@ import {
     BusStopTimeScreen,
     AccountScreen,
     TicketScreen,
+    FAQScreen,
+    AppInfoScreen,
+    TermsScreen,
+    CustomerServiceScreen,
     Help,
     About,
     Trips,
@@ -47,6 +51,10 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="Home" component={HomeScreen}/>
             <HomeStack.Screen name="Route" component={RouteScreen}/>
             <HomeStack.Screen name="BusStopTimeScreen" component={BusStopTimeScreen}/>
+            <HomeStack.Screen name="FAQScreen" component={FAQScreen}/>
+            <HomeStack.Screen name="CustomerServiceScreen" component={CustomerServiceScreen}/>
+            <HomeStack.Screen name="AppInfoScreen" component={AppInfoScreen}/>
+            <HomeStack.Screen name="TermsScreen" component={TermsScreen}/>
             <HomeStack.Screen name="TicketScreen" component={TicketScreen}/>
             <HomeStack.Screen name="PaymentScreen" component={PaymentScreen}/>
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
