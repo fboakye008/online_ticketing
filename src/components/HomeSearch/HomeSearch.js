@@ -9,7 +9,8 @@ import {EvilIcons} from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
 import {fetchTickets} from "../../apis/tickets";
 import _ from "underscore";
-import moment from "moment";
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 import {updateError} from "../../utils";
 
 const HomeSearch = () => {
@@ -70,7 +71,7 @@ const HomeSearch = () => {
             <View style={styles.signupContainer}>
                 <Text style={styles.accountText}>Today's Schedule</Text>
                 <Text style={styles.signupText} onPress={() => navigation.navigate('MapScreen')}>View</Text>
-                
+
             </View>
         </View>
     );

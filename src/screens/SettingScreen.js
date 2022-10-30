@@ -19,7 +19,8 @@ import projectlogo from "../assets/images/projectLogo.png";
 import LoadingScreen from "./utils/LoadingScreen";
 import {isValidObjField, updateError, isValidPhone, isValidEmail} from '../utils';
 import utils from "../apis/utils";
-import moment from "moment";
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 
 const SignUpScreen = ({navigation}) => {
      const [loading, setLoading] = useState(false);

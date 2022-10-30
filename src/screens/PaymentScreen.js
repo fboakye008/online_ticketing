@@ -26,10 +26,6 @@ const {width} = Dimensions.get("window");
 
 const PaymentScreen = ({navigation, route}) => {
     const payload = route.params;
-    //console.log(payload.departureTimeObj)
-    //const departureTimeObj = payload.departureTimeObj;
-
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("");
@@ -134,12 +130,12 @@ const PaymentScreen = ({navigation, route}) => {
                             autoCapitalize="none"
                             onChangeText={(value) => handleOnChangeTextPhone(value)}
                         />
-                  
+
                         <Text style={{fontSize: 18,
-                                textAlign: "center",  
+                                textAlign: "center",
                                  marginTop: 15,
                                 paddingBottom: 5}}>Total Amount: {amountPaid}</Text>
-                    
+
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={submitForm}>
@@ -162,7 +158,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginVertical: 2,
     },
-   
+
 
     btn: {
         justifyContent: "center",

@@ -1,9 +1,9 @@
 import {fetchTickets, fetchBusStops} from "./tickets";
 import _ from "underscore";
-import moment from "moment";
 import {decode} from "@mapbox/polyline";
 import utils from "./utils";
-
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 /**
  *
  * @returns {Promise<null>}
@@ -96,4 +96,4 @@ const findMapRoute = async function () {
     }
     return null;
 }
-export {findMapRoute,findTicketRoute};
+export {findMapRoute,findTicketRoute,findUpComingTripTicket};

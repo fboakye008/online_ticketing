@@ -13,7 +13,8 @@ import {
 import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import {Colors} from "../contents";
-import moment from 'moment';
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 import {RequestRoutes} from "../apis/routes";
 import projectlogo from "../assets/images/projectLogo.png";
 const {height, width} = Dimensions.get("window");

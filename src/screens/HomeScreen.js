@@ -9,6 +9,10 @@ import {
 import utils from "../apis/utils";
 import {updateError} from "../utils";
 import HomeMap from "../components/HomeMap";
+import {findUpComingTripTicket} from "../apis/map";
+
+import MapViewDirections from "react-native-maps-directions";
+import {Polyline} from "react-native-maps";
 
 const HomeScreen = ({navigation}) => {
     const map = require('../assets/images/map.jpeg')
@@ -17,15 +21,15 @@ const HomeScreen = ({navigation}) => {
     const [viewStaticMap, setViewStaticMap] = useState(true);
 
     const focusHandler = navigation.addListener('focus', () => {
-        //console.log("Focus handler called")
+        console.log("Focus handler called")
         populateData().catch();
         return;
     });
     const populateData = async function () {
         try {
-            //console.log("Calling PD")
-            const y = await utils.isLoggedIn();
-            if (y) {
+            const promises = [utils.isLoggedIn(),findUpComingTripTicket()];
+            const responses = await Promise.all(promises);
+            if (responses[0] && responses[1]) {
                 //if y but no upcoming trips still show static image
                 setViewStaticMap(false);
             } else {
@@ -77,6 +81,7 @@ const HomeScreen = ({navigation}) => {
         }
     };
     return (
+
         <View style={[styles.container, {
             flexDirection: "column"
         }]}>
@@ -156,6 +161,7 @@ const HomeScreen = ({navigation}) => {
             </View>
             <View style={{flex: 1}}>
                 <TouchableOpacity
+                    disabled={viewStaticMap}
                     style={styles.topicsContainer}
                     onPress={() => handleMap()}
                     ref={keyPressRef}>

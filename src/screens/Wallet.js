@@ -16,7 +16,8 @@ import SwitchButton from "../components/CustomSwitch/SwitchButton";
 import Receipt from "../components/CustomTicket/Receipt";
 import projectlogo from "../assets/images/projectLogo.png";
 import _ from "underscore";
-import moment from "moment";
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 import {fetchTickets} from "../apis/tickets";
 import {updateError} from "../utils";
 

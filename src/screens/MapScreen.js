@@ -144,7 +144,6 @@ const MapScreen = () => {
         //         clearInterval(interval);
         //     }
         // }, 2000);
-       // console.log("Calling ob center")
       //  onCenter();
     }, [intervalID])
     const startAnimation = function (clive) {

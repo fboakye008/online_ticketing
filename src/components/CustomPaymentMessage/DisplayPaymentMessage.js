@@ -1,7 +1,8 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import React from 'react'
 import {Colors} from '../../contents';
-import moment from "moment";
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 
 
 const DisplayPaymentMessage = ({paymentInfo}) => {

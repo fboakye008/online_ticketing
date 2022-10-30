@@ -13,7 +13,8 @@ import {
 import BookingTextField from "../components/CustomBookingInput";
 import ReadOnlyField from "../components/CustomInput/ReadOnlyField";
 import {Colors} from "../contents";
-import moment from 'moment';
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 import _ from "underscore";
 const lodash = require("lodash");
 import {CreateBooking} from "../apis/booking";
@@ -105,7 +106,6 @@ const BusStopTimeScreen = ({navigation, route}) => {
         }
         const bus_stops = _.where(objArray, {route_id: route_id});
         if (bus_stops && bus_stops.length > 0) {
-            const moment = require("moment");
             let result = bus_stops.map(a => ({
                 "value": a.departure_time,
                 "label": moment(a.departure_time).format("hh:mm A"),

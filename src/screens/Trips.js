@@ -3,7 +3,8 @@ import {View, Text, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity,Image,
 import {MaterialIcons} from "@expo/vector-icons";
 import {Colors} from "../contents";
 import _ from "underscore";
-import moment from "moment";
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 import {fetchTickets} from "../apis/tickets";
 import projectlogo from "../assets/images/projectLogo.png";
 import {updateError} from '../utils';
@@ -69,7 +70,7 @@ const Trips = ({navigation}) => {
                     {error}
                 </Text>
             ) : null}
-        
+
             <ScrollView>
 
                      <View >

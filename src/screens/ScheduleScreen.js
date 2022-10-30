@@ -9,7 +9,8 @@ import {Colors,image} from "../contents";
 import {updateError} from '../utils';
 import projectlogo from "../assets/images/projectLogo.png";
 import SearchBar from "../components/ListSearch/SearchBar";
-import moment from "moment";
+const moment = require('moment-timezone');
+moment.tz.setDefault('UTC');
 
 
 const ScheduleScreen = ({navigation, route}) => {
