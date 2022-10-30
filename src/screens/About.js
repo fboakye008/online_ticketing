@@ -20,7 +20,35 @@ import imagePath from '../constants/imagePath';
 import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
+const topics = [
+  {
+    title: "About Us",
+    dropdown:
+    <> <Text >Welcome To FranJat Corp. FranJat is a Professional eCommerse Platform.</Text> 
+    <Text >Here we will provide you only interesting content, which you will like very much. </Text>
+    <Text >We're dedicated to providing you the best of eCommerse, with a focus on dependability and VIP Bus online ticketing.</Text>
+    <Text >We're working to turn our passion for eCommerse into a booming online website.</Text>
+    <Text >We hope you enjoy our eCommerse as much as we enjoy offering them to you.</Text>
+    <Text >We will keep posting more important posts on our Website for all of you. </Text>
+    <Text >Please give your support and love.
+    Thanks For Visiting Our Site
+    Have a nice day!</Text>
+    <Text></Text>
+    
+    <Text >Contact us on:</Text>
+    <Text >Tel: 0245666208</Text>
+    <Text >Email: linonuniford@gmail.com</Text>
+    </>
+      // "From the home page, click on buy ticket. Select route and click on next. Select bus stop, time, and number of passengers.  Click on next. click on pay. Make payment.",
+  },
+  {
+    title: "About the App",
+    dropdown:
+      "From the home page, click on buy ticket. Select route and click on next. Select bus stop, time, and number of passengers.  Click on next. click on pay. Make payment.",
+  },
+ 
 
+];
 const About = () => {
   const keyPressRef = React.useRef(null);
   const [selected, setSelected] = React.useState(null);
@@ -54,21 +82,39 @@ const About = () => {
         </TouchableOpacity>
       <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
         <View style={styles.topicsWrapper}>
-          <Text style={styles.text}>Welcome To FranJat Corp. FranJat is a Professional eCommerse Platform.</Text> 
-<Text style={styles.text}>Here we will provide you only interesting content, which you will like very much. </Text>
-<Text style={styles.text}>We're dedicated to providing you the best of eCommerse, with a focus on dependability and VIP Bus online ticketing.</Text>
-<Text style={styles.text}>We're working to turn our passion for eCommerse into a booming online website.</Text>
-<Text style={styles.text}>We hope you enjoy our eCommerse as much as we enjoy offering them to you.</Text>
-<Text style={styles.text}>We will keep posting more important posts on our Website for all of you. </Text>
-<Text style={styles.text}>Please give your support and love.
-Thanks For Visiting Our Site
-Have a nice day!</Text>
-<Text></Text>
-
-<Text style={styles.text}>Contact us on:</Text>
-<Text style={styles.text}>Tel: 0245666208</Text>
-<Text style={styles.text}>Email: linonuniford@gmail.com</Text>
-
+         
+{topics?.map((topic, index) => (
+            <View key={index}>
+            <ScrollView>
+              <TouchableOpacity
+                style={styles.topicsContainer}
+                onPress={() => handleOnPress(index)}
+                ref={keyPressRef}
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <AntDesign name="bars" size={24} color="black" />
+                  <Text style={styles.topic}>{topic.title}</Text>
+                </View>
+                <View>
+                  {index === selected ? (
+                    <MaterialIcons
+                      name="keyboard-arrow-down"
+                      size={26}
+                      color="black"
+                    />
+                  ) : (
+                    <MaterialIcons
+                      name="keyboard-arrow-right"
+                      size={26}
+                      color="black"
+                    />
+                  )}
+                </View>
+              </TouchableOpacity>
+              <Text style={styles.dropdown}>{selected === index ? topic.dropdown : null}</Text>
+              </ScrollView>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>

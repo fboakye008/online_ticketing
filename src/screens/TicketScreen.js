@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, ScrollView, SafeAreaView, Image, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, StatusBar, SafeAreaView, Image, TouchableOpacity} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { Colors } from '../contents';
 import Receipt from '../components/CustomTicket/Receipt'
@@ -42,7 +42,7 @@ const TicketScreen = ({navigation,route}) => {
             style={styles.header}
             onPress={() => navigation.replace('Home')}>
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+            <MaterialIcons name="close" size={25} color="#000" />
                  <Text style={styles.Headertopic}>Ticket</Text>
            <View>
                <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 12,
         marginLeft: 1,
-        paddingTop: 12,
+        paddingTop: 25,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },

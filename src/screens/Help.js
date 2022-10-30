@@ -23,10 +23,19 @@ const { width, height } = Dimensions.get("window");
 
 const topics = [
   {
+    title: "",
+    dropdown:
+      "From the home page, click on buy ticket. Select route and click on next. Select bus stop, time, and number of passengers.  Click on next. click on pay. Make payment.",
+  },
+  {
     title: "How to book a ticket",
     dropdown:
       "From the home page, click on buy ticket. Select route and click on next. Select bus stop, time, and number of passengers.  Click on next. click on pay. Make payment.",
-        
+  },
+  {
+    title: "How to create Account",
+    dropdown:
+    <Text></Text>
   },
 
 ];
@@ -64,6 +73,17 @@ const Help = () => {
         </TouchableOpacity>
       <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
         <View style={styles.topicsWrapper}>
+        <Text style={styles.title}>FAQs</Text>
+                <Text >1. How does the conductor gets to know whether the ticket is fake or not?</Text>
+                <Text style={styles.answer}>Ans:</Text>
+                <Text >2. What if my phone battery run off?</Text>
+                <Text style={styles.answer}>Ans:</Text>
+                <Text >3. How do i know if the bus is full or not after booking?</Text>
+                <Text style={styles.answer}>Ans:</Text>
+                <Text >4. After booking a ticket what do i do ?</Text>
+                <Text style={styles.answer}>Ans:</Text>
+                <Text >5. What do i do if i don't have the app ?</Text>
+
           {topics?.map((topic, index) => (
             <View key={index}>
               <TouchableOpacity
@@ -135,10 +155,17 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontWeight: "500",
   },
-  allTopics: {
-    marginVertical: 10,
+  title: {
     fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    marginLeft: "8%"
+},
+answer: {
+    fontSize: 14,
     fontWeight: "bold",
+    color: Colors.DEFAULT_RED
+    
   },
   topicsWrapper: {
     justifyContent: "center",
