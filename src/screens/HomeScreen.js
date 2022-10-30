@@ -21,7 +21,6 @@ const HomeScreen = ({navigation}) => {
     const [viewStaticMap, setViewStaticMap] = useState(true);
 
     const focusHandler = navigation.addListener('focus', () => {
-        console.log("Focus handler called")
         populateData().catch();
         return;
     });
