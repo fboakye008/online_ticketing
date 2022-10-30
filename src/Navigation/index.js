@@ -68,11 +68,10 @@ const HomeStackNavigator = () => {
 const AccountStack = createNativeStackNavigator();
 const AccountStackNavigator = () => {
     return (
-        <AccountStack.Navigator
-            screenOptions={{
-                headerShown: false,
-            }}>
+        <AccountStack.Navigator screenOptions={{headerShown: false,}}>
             <AccountStack.Screen name="Account" component={AccountScreen}/>
+            <AccountStack.Screen name="Help" component={Help}/>
+            <AccountStack.Screen name="About" component={About}/>
             <AccountStack.Screen name="Wallet" component={Wallet} />
             <AccountStack.Screen name="Trips" component={Trips}/>
         </AccountStack.Navigator>
@@ -91,8 +90,7 @@ const BottomTabNavigator = () => {
                 inactiveTintColor: Colors.DEFAULT_GREY,
                 tabBarActiveTintColor: Colors.DEFAULT_BLACK,
                 tabBarInactiveTintColor: Colors.DEFAULT_GREY,
-            }}
-        >
+            }}>
             <BottomTab.Screen
                 name="HomeStack"
                 component={HomeStackNavigator}
