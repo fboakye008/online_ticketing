@@ -1,9 +1,9 @@
-import {View, Text, StyleSheet, ScrollView, StatusBar, SafeAreaView, Image, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, SafeAreaView, Image, TouchableOpacity, StatusBar} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { Colors } from '../contents';
 import Receipt from '../components/CustomTicket/Receipt'
 import {MaterialIcons} from "@expo/vector-icons";
-import projectlogo from "../assets/images/projectLogo.png";
+import projectLogo from "../assets/images/projectLogo.png";
 import {fetchTickets} from "../apis/tickets";
 import { updateError } from '../utils';
 
@@ -37,7 +37,7 @@ const TicketScreen = ({navigation,route}) => {
                 {error}
             </Text>
         ) : null}
-      
+
         <TouchableOpacity
             style={styles.header}
             onPress={() => navigation.replace('Home')}>
@@ -45,20 +45,18 @@ const TicketScreen = ({navigation,route}) => {
             <MaterialIcons name="close" size={25} color="#000" />
                  <Text style={styles.Headertopic}>Ticket</Text>
            <View>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+               <Image source={projectLogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
           </View>
         </TouchableOpacity>
-              <ScrollView>
-      <View>
+        <ScrollView>
+        <View>
           {tickets.map(ticket => {
               return <Receipt ticketInfo={ticket} key={ticket.ticket_id}></Receipt>
           })}
-
-      </View>
-     </ScrollView>
+        </View>
+        </ScrollView>
     </SafeAreaView>
-
   )
 }
 
@@ -69,15 +67,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: Colors.ticketbg,
     },
-    header:{
-        borderBottomColor: '#eee',
-        borderBottomWidth: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingBottom: 12,
-        paddingHorizontal: 12,
-        backgroundColor: Colors.DEFAULT_WHITE,
-      },
       header:{
         borderBottomColor: '#eee',
         justifyContent: "space-between",
@@ -91,14 +80,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },
-      Headertopic: {
+      headerTopic: {
         flex: 1,
         fontSize: 20,
         textAlign: 'center',
         fontWeight: "bold",
     },
       Image: {
-
         height: 30,
         width: 30,
         marginRight: 20,

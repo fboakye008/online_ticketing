@@ -16,13 +16,14 @@ const HomeMap = () => {
     }
     const LATITUDE_DELTA = 0.20;
     const LONGITUDE_DELTA = 0.20;
-    const CENTER_OFFSET_DELTA = 0.20;
+    const CENTER_OFFSET_DELTA = 2.00;
     const _mapRef = useRef(null);
 
     const [state, setState] = useState({
         markers: [],
         origin: {},
         destination: {},
+        lastStop: {},
         distanceStr: "",
         timeStr: "",
         time: 0,
@@ -32,6 +33,7 @@ const HomeMap = () => {
         markers,
         origin,
         destination,
+        lastStop,
         initialRegion,
         center
     } = state
@@ -41,29 +43,29 @@ const HomeMap = () => {
      *
      */
     const onCenter = () => {
-        if(center) {
+        if (center) {
             _mapRef.current.animateToRegion(center);
         }
     }
-    const computeCenter = function(originArg,destinationArg){
+    const computeCenter = function (originArg, destinationArg) {
 
         let org = originArg;
         let dest = destinationArg;
-        if(!org){
+        if (!org) {
             org = origin;
             dest = destination;
         }
-        if(org.latitude) {
-            let sumLat = parseFloat(org.latitude) + parseFloat(dest.latitude)
-            let sumLong = parseFloat(org.longitude) + parseFloat(dest.longitude)
+        if (org.latitude) {
+            const sumLat = parseFloat(org.latitude) + parseFloat(dest.latitude)
+            const sumLong = parseFloat(org.longitude) + parseFloat(dest.longitude)
 
-            let avgLat = (sumLat / 2) || 0;
-            let avgLong = (sumLong / 2) || 0;
+            const avgLat = (sumLat / 2) || 0;
+            const avgLong = (sumLong / 2) || 0;
             return {
                 latitude: parseFloat(avgLat),
                 longitude: parseFloat(avgLong),
-                latitudeDelta: LATITUDE_DELTA + CENTER_OFFSET_DELTA,
-                longitudeDelta: LONGITUDE_DELTA +CENTER_OFFSET_DELTA,
+                latitudeDelta: (LATITUDE_DELTA + CENTER_OFFSET_DELTA),
+                longitudeDelta: (LONGITUDE_DELTA + CENTER_OFFSET_DELTA),
             };
         }
     }
@@ -72,8 +74,8 @@ const HomeMap = () => {
             try {
                 const mapData = await findTicketRoute();
                 if (mapData) {
-                    let sumLat = parseFloat(mapData.origin.latitude) + parseFloat(mapData.destination.latitude)
-                    let sumLong = parseFloat(mapData.origin.longitude) + parseFloat(mapData.destination.longitude)
+                    let sumLat = parseFloat(mapData.origin.latitude) + parseFloat(mapData.lastStop.latitude)
+                    let sumLong = parseFloat(mapData.origin.longitude) + parseFloat(mapData.lastStop.longitude)
 
                     let avgLat = (sumLat / 2) || 0;
                     let avgLong = (sumLong / 2) || 0;
@@ -97,6 +99,13 @@ const HomeMap = () => {
                             title: mapData.destinationBusStop,
                             id: 2,
                             identifier: 'mk2',
+                            image: imagePath.busStop
+                        },
+                        {
+                            coordinate: mapData.lastStop,
+                            title: mapData.lastStopBusStop,
+                            id: 3,
+                            identifier: 'mk3',
                             image: imagePath.icGreenMarker
                         }
                     ]
@@ -110,8 +119,12 @@ const HomeMap = () => {
                             latitude: parseFloat(mapData.destination.latitude),
                             longitude: parseFloat(mapData.destination.longitude)
                         },
-                        initialRegion: computeCenter(mapData.origin,mapData.destination),
-                        center: computeCenter(mapData.origin,mapData.destination)
+                        lastStop: {
+                            latitude: parseFloat(mapData.lastStop.latitude),
+                            longitude: parseFloat(mapData.lastStop.longitude)
+                        },
+                        initialRegion: computeCenter(mapData.origin, mapData.lastStop),
+                        center: computeCenter(mapData.origin, mapData.lastStop)
                     })
                 }
                 return "done"
@@ -165,7 +178,7 @@ const HomeMap = () => {
                 ))}
                 {Object.keys(origin).length > 0 && (<MapViewDirections
                     origin={origin}
-                    destination={destination}
+                    destination={lastStop}
                     strokeWidth={5}
                     strokeColor="#0096FF"
                     apikey={GOOGLE_API_KEY}

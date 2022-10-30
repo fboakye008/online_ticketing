@@ -1,6 +1,6 @@
 export default {
     icGreenMarker: require("../assets/images/greenMarker.png"),
-    busIcon: require("../assets/images/google-maps-bus-icon-25.jpeg"),
+    busIcon: require("../assets/images/bus-icon-1.png"),
     greenIndicator: require("../assets/images/greenIndicator.png"),
     icBike: require("../assets/images/bike.png"),
     bus: require('../assets/images/logo1.png'),

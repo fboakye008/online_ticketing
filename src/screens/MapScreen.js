@@ -13,7 +13,7 @@ const MapScreen = () => {
     const ASPECT_RATIO = screen.width / screen.height;
     const LATITUDE_DELTA = 0.20;
     const LONGITUDE_DELTA =LATITUDE_DELTA * ASPECT_RATIO;
-    const CENTER_OFFSET_DELTA = 0.20;
+    const CENTER_OFFSET_DELTA = 2.00;
     const mapRef = useRef();
     const markerRef = useRef();
     let provider
@@ -36,6 +36,10 @@ const MapScreen = () => {
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA
         }),
+        lastStop: {},
+        originBusStop :"",
+        destinationBusStop: "",
+        lastStopBusStop: "",
         distanceStr: "",
         timeStr: "",
         time: 0,
@@ -45,6 +49,10 @@ const MapScreen = () => {
     const {
         origin,
         destination,
+        lastStop,
+        originBusStop,
+        destinationBusStop,
+        lastStopBusStop,
         currentLocation,
         live,
         isLoading, coordinates, coordinate,
@@ -74,7 +82,6 @@ const MapScreen = () => {
             try {
                 const mapData = await findMapRoute();
                 if (mapData) {
-
                     let sumLat = mapData.coordinates.reduce((a, c) => {
                         return parseFloat(a) + parseFloat(c.latitude)
                     }, 0);
@@ -96,6 +103,10 @@ const MapScreen = () => {
                         currentLocation: mapData.origin,
                         coordinates: mapData.coordinates,
                         destination: mapData?.destination,
+                        lastStop: mapData?.lastStop,
+                        originBusStop :mapData?.originBusStop,
+                        destinationBusStop: mapData?.destinationBusStop,
+                        lastStopBusStop: mapData?.lastStopBusStop,
                         initialRegion: initRegion,
                         coordinate: new AnimatedRegion({
                             latitude: mapData.origin.latitude,
@@ -116,8 +127,9 @@ const MapScreen = () => {
                 return updateError(err.toString(), setError);
             }
         }
+        populateData().then(function(f){
 
-        populateData().catch();
+        }).catch();
     }, []);
     /**
      *
@@ -132,6 +144,8 @@ const MapScreen = () => {
         //         clearInterval(interval);
         //     }
         // }, 2000);
+       // console.log("Calling ob center")
+      //  onCenter();
     }, [intervalID])
     const startAnimation = function (clive) {
         if (coordinates && coordinates.length > 0) {
@@ -207,7 +221,7 @@ const MapScreen = () => {
                     provider={provider}
                     initialRegion={initialRegion}
                     onMapReady={() => {
-                        mapRef.current.fitToSuppliedMarkers(['mk1', 'mk2'])
+                        mapRef.current.fitToSuppliedMarkers(['mk1', 'mk2','mk3'])
                     }
                     }
                 >
@@ -222,6 +236,11 @@ const MapScreen = () => {
                     {Object.keys(destination).length > 0 && (<Marker
                         coordinate={destination}
                         identifier={"mk2"}
+                        image={imagePath.busStop}
+                    />)}
+                    {Object.keys(lastStop).length > 0 && (<Marker
+                        coordinate={lastStop}
+                        identifier={"mk3"}
                         image={imagePath.icGreenMarker}
                     />)}
                     {(() => {
