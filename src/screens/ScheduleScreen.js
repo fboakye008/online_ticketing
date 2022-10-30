@@ -19,10 +19,11 @@ const ScheduleScreen = ({navigation, route}) => {
     const [clicked, setClicked] = useState(false);
     const [columns, setColumns] = useState([
         "Route",
-        "Departure",
+        "Time",
         "Bus #",
-        "# Av. Seats",
-        // "Fare"
+        "Av. Seats",
+        "Fare",
+       // "Buy"
     ]);
     let selectedR = route?.params?.selectedRoute;
 
@@ -48,13 +49,13 @@ const ScheduleScreen = ({navigation, route}) => {
     const sortTable = (column) => {
         let mappedCol = column;
         switch (column) {
-            case "# Av. Seats" :
+            case "Av. Seats" :
                 mappedCol = "available_seats"
                 break;
             case "Route" :
                 mappedCol = "route"
                 break;
-            case "Departure" :
+            case "Time" :
                 mappedCol = "short_depart"
                 break;
             case "Bus #" :
@@ -105,42 +106,48 @@ const ScheduleScreen = ({navigation, route}) => {
         }
         let num = null;
         if(phrase.startsWith(">=")){
-            num = phrase.match(/[0-9]+$/);
+            num = phrase.match(/[+-]?\d+(\.\d+)?$/);
             if(num) {
-                return item.available_seats >= parseInt(num);
+                return (item.available_seats >= parseInt(num) ||
+                    item.fare >= parseFloat(num));
             }
             return false;
         }
         if(phrase.startsWith("<=")){
-            num = phrase.match(/[0-9]+$/);
+            num = phrase.match(/[+-]?\d+(\.\d+)?$/);
             if(num) {
-                return item.available_seats <= parseInt(num);
+                return (item.available_seats <= parseInt(num)||
+                    item.fare <= parseFloat(num));
             }
             return false;
         }
         if(phrase.startsWith("<")){
-            num = phrase.match(/[0-9]+$/);
+            num = phrase.match(/[+-]?\d+(\.\d+)?$/);
             if(num) {
-                return item.available_seats < parseInt(num);
+                return (item.available_seats < parseInt(num) ||
+                    item.fare < parseFloat(num))
             }
             return false;
         }
         if(phrase.startsWith(">")){
-            num = phrase.match(/[0-9]+$/);
+            num = phrase.match(/[+-]?\d+(\.\d+)?$/);
             if(num) {
-                return item.available_seats > parseInt(num);
+                return (item.available_seats > parseInt(num)||
+                    item.fare > parseFloat(num));
             }
             return false;
         }
         if(phrase.startsWith("=")){
-            num = phrase.match(/[0-9]+$/);
+            num = phrase.match(/[+-]?\d+(\.\d+)?$/);
             if(num) {
-                return item.available_seats === parseInt(num);
+                return (item.available_seats === parseInt(num)||
+                    item.fare == parseFloat(num));
             }
             return false;
         }
         if(!isNaN(phrase)){
-            return item.available_seats === parseInt(phrase)
+            return (item.available_seats === parseInt(phrase) ||
+                item.fare == parseFloat(phrase))
         }
         return false;
     }
@@ -152,8 +159,8 @@ const ScheduleScreen = ({navigation, route}) => {
                 <Text style={styles.columnRowTxt}>{item.short_depart}</Text>
                 <Text style={styles.columnRowTxt}>{item.plate_no}</Text>
                 <Text style={styles.columnRowTxt}>{item.available_seats}</Text>
-                {/* <Text style={styles.columnRowTxt}>{item.fare}</Text> */}
-            </View>);
+                 <Text style={styles.columnRowTxt}>{item.fare}</Text>
+             </View>);
         }
     };
   return (
@@ -257,6 +264,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 60,
     alignItems:"center",
+        justifyContent: "space-evenly",
   },
   topic: {
     flex: 1,
