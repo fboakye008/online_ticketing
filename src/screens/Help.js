@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: "95%",
     borderRadius: 50,
-    backgroundColor: Colors.DEFAULT_WHITE,
+    backgroundColor: Colors.LIGHT_GREEN,
     paddingHorizontal: 10,
     height: Display.setHeight(8),
     marginTop: 8,
