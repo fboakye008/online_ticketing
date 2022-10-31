@@ -120,7 +120,7 @@ const FAQScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#fff",
+      backgroundColor: "#e6e7e8",
     },
     
     header:{
@@ -142,28 +142,15 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontWeight: "bold",
   },
-  messageBox: {
-    width: '100%',
-    backgroundColor: Colors.SECONDARY_BLACK,
-    marginBottom: 2,
-    shadowColor: Colors.DEFAULT_BLACK,
-    shadowOffset: {
-        width: 0,
-        height: 5,
-    },
-    shadowOpacity: 0.121,
-    shadowRadius: 9.11,
-},
+
 text: {
     fontSize: 15,
-    color: Colors.DEFAULT_WHITE,
     marginLeft:"3%",
     marginRight:"3%"
 },
 title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: Colors.DEFAULT_WHITE,
     marginBottom: 10,
     marginTop: 10,
     marginLeft:"3%",
