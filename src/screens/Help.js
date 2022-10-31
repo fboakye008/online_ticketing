@@ -6,24 +6,33 @@ import {
   SafeAreaView,
   StatusBar,
   Image,
+  Alert,
+  Linking,
   Dimensions,
   ScrollView,
 } from "react-native";
-import React from "react";
-import {
-  AntDesign,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import React, {useCallback, useState, useEffect} from "react";
+import {AntDesign, MaterialIcons,} from "@expo/vector-icons";
 import {Display} from './utils';
 import { Colors } from "../contents";
 import imagePath from '../constants/imagePath';
 
 const { width, height } = Dimensions.get("window");
 
+const url ="https://online-ticketing.github.io/terms-and%20conditions.html";
+
 
 const Help = ({navigation}) => {
   
+  const openUrl = async (url) => {
+      const isSupported = await Linking.canOpenURL(url);
+      if (isSupported){
+        await Linking.openURL(url);
+      }else{
+        Alert.alert(`Don't know how to open this URL: ${url}`);
+      }
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,7 +57,7 @@ const Help = ({navigation}) => {
         <View >
                 <TouchableOpacity
                     style={styles.topicsContainer}
-                    onPress={() => navigation.navigate('TermsScreen')}>
+                    onPress={() => openUrl(url)}>
                     <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
                         <AntDesign name="bars" size={24} color="black"/>
                         <Text style={styles.topic}>Terms and Conditions</Text>

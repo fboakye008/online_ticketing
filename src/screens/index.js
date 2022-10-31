@@ -16,7 +16,7 @@ import TicketScreen from "./TicketScreen";
 import FAQScreen from "./FAQScreen";
 import CustomerServiceScreen from "./CustomerServiceScreen";
 import AppInfoScreen from "./AppInfoScreen";
-import TermsScreen from "./TermsScreen";
+// import TermsScreen from "./TermsScreen";
 import Help from "./Help";
 import About from "./About";
 import Wallet from "./Wallet";
@@ -44,7 +44,7 @@ export {
     FAQScreen,
     CustomerServiceScreen,
     AppInfoScreen,
-    TermsScreen,
+    // TermsScreen,
     Help,
     About,
     Wallet,

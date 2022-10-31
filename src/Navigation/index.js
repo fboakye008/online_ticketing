@@ -54,7 +54,7 @@ const HomeStackNavigator = () => {
             <HomeStack.Screen name="FAQScreen" component={FAQScreen}/>
             <HomeStack.Screen name="CustomerServiceScreen" component={CustomerServiceScreen}/>
             <HomeStack.Screen name="AppInfoScreen" component={AppInfoScreen}/>
-            <HomeStack.Screen name="TermsScreen" component={TermsScreen}/>
+            {/* <HomeStack.Screen name="TermsScreen" component={TermsScreen}/> */}
             <HomeStack.Screen name="TicketScreen" component={TicketScreen}/>
             <HomeStack.Screen name="PaymentScreen" component={PaymentScreen}/>
             <HomeStack.Screen name="PaymentMessage" component={PaymentMessage}/>
