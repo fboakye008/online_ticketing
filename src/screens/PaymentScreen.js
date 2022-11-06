@@ -8,6 +8,7 @@ import {
     Dimensions,
     KeyboardAvoidingView,
     Platform,
+    Pressable,
     Image,
     Keyboard,
     ScrollView,
@@ -105,17 +106,19 @@ const PaymentScreen = ({navigation, route}) => {
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-            <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>Make Payment </Text>
-           <View>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            <View style={styles.header}>
+         <Pressable  
+                    onPress={() => navigation.goBack()}>
+                <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                    <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                </View>
+        </Pressable>
+            <View><Text style={styles.Headertopic}>Make Payment</Text></View>
+            <View>
+            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
-          </View>
-        </TouchableOpacity>
+            </View>
+            
                <ScrollView>
                 <DisplayPaymentMessage paymentInfo={payload}></DisplayPaymentMessage>
 

@@ -2,6 +2,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Pressable,
   StyleSheet,
   SafeAreaView,
   StatusBar,
@@ -41,17 +42,19 @@ const Help = ({navigation}) => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-      <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.navigate('Account')}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+      <View style={styles.header}>
+    <Pressable  
+    onPress={() => navigation.navigate('Account')}>
+      <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>Help </Text>
-           <View>
+                 
+           </View>
+    </Pressable>
+            <View><Text style={styles.Headertopic}>Help</Text></View>
+            <View>
                <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
-          </View>
-        </TouchableOpacity>
+            </View>
       <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
         <View style={styles.topicsWrapper}>
         <View >

@@ -4,11 +4,11 @@ import {
     Text,
     StyleSheet,
     Dimensions,
-    TouchableOpacity,
     StatusBar,
     ScrollView,
     Image,
     SafeAreaView,
+    Pressable,
 } from "react-native";
 import {MaterialIcons} from "@expo/vector-icons";
   import {Display} from './utils';
@@ -18,19 +18,21 @@ import {MaterialIcons} from "@expo/vector-icons";
 const AppInfoScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-    <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.navigate('Help')}>
+<View style={styles.header}>
+      <Pressable  
+              onPress={() => navigation.navigate('Help')}>
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>App Info</Text>
-           <View>
+          </View>
+       </Pressable>
+            <View><Text style={styles.Headertopic}>App Info</Text></View>
+            <View>
                <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
-          </View>
-        </TouchableOpacity>
+</View>
+
         <ScrollView>
-        <View style={styles.messageBox}>
+        {/* <View style={styles.messageBox}>
         <Text style={styles.text}>The application is an online ticketing system. It allows users to book ticket with the VIP Bus transport 
         for travelling, just as, going to the VIP Bus station to purchase ticket before travel.</Text>
         <Text></Text>
@@ -40,7 +42,7 @@ const AppInfoScreen = ({navigation}) => {
                 <Text style={styles.text}>Also, to avoid the situation where passengers would have to travel all the way to the stations to board bus while there is no available bus going to their destinations.</Text>
                 <Text></Text>
                 <Text style={styles.text}>From the app, users can see if there is any available bus to their destination, the time of departure, the fare per route, and even, the number of available seats for each bus.</Text>
-            </View>
+            </View> */}
         </ScrollView>
      </SafeAreaView>
   );

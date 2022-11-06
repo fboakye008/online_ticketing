@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, StatusBar, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, StatusBar, Image,Pressable ,TouchableOpacity} from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import SubmitButton from '../components/CustomInput/SubmitButton';
 import TextField from '../components/CustomInput/TextInput';
@@ -55,17 +55,20 @@ const ForgotPasswordScreen = ({navigation}) => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-        <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
+      <View style={styles.header}>
+      <Pressable  
+              onPress={() => navigation.goBack()}>
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>Make Payment </Text>
-           <View>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-            </View>
           </View>
-        </TouchableOpacity>
+       </Pressable>
+            <View><Text style={styles.Headertopic}>Forgot Password</Text></View>
+            <View>
+            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+
+            </View>
+       </View>
+        
             <View style={styles.contentContainer}>
             {error ? (
                 <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 12,
         marginLeft: 1,
-        marginTop: 12,
+        marginTop: 25,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
       },

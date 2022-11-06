@@ -5,6 +5,7 @@ import {
     SafeAreaView,
     StatusBar,
     Image,
+    Pressable,
     ScrollView,
 } from "react-native";
 import {Colors} from "../contents";
@@ -92,17 +93,19 @@ const ResetPassword = ({navigation, route}) => {
                 </Text>
             ) : null}
             
-            <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
+            <View style={styles.header}>
+      <Pressable  
+              onPress={() => navigation.goBack()}>
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>Create New Password </Text>
-           <View>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-            </View>
           </View>
-        </TouchableOpacity>
+       </Pressable>
+            <View><Text style={styles.Headertopic}>Create New Password</Text></View>
+            <View>
+            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+
+            </View>
+       </View>
         <ScrollView
                 contentContainerStyle={{flexGrow: 1}}
                 keyboardShouldPersistTaps="handled"

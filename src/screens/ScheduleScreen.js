@@ -1,6 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity,Image, SafeAreaView,} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity,Image,Pressable,ScrollView, SafeAreaView,} from 'react-native';
 import {MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import _ from "lodash"
 import uds from "underscore"
@@ -177,34 +177,35 @@ const ScheduleScreen = ({navigation, route}) => {
             </Text>
         ) : null}
 
-        <TouchableOpacity
-                        style={styles.header}
-            onPress={() => navigation.goBack()}>
-                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-                        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                        {!clicked && <Text style={styles.topic}>Schedule ({dateToday})</Text>}
-
-                            <View>
-                            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-                            </View>
-                        </View>
-
-                    </TouchableOpacity>
+        <View style={styles.header}>
+    <Pressable  
+    onPress={() => navigation.goBack()}>
+      <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+                 
+           </View>
+    </Pressable>
+            <View><Text style={styles.topic}>Schedule ({dateToday})</Text></View>
+            <View>
+            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+            </View>
+        
           <SearchBar
               searchPhrase={searchPhrase}
               setSearchPhrase={setSearchPhrase}
               clicked={clicked}
               setClicked={setClicked}
           />
-        <FlatList
+        
+         <FlatList
             data={data}
-            style={{width:"90%",flexGrow: 0,height: "75%"}}
+            style={{width:"96%",flexGrow: 0,height: "75%"}}
             keyExtractor={(item, index) => index+""}
             ListHeaderComponent={tableHeader}
             stickyHeaderIndices={[0]}
             renderItem={renderItem}
         />
-        {/* <StatusBar style="auto" /> */}
       </View>
 
 

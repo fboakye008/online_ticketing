@@ -4,7 +4,7 @@ import {
     Text,
     StyleSheet,
     Dimensions,
-    TouchableOpacity,
+    Pressable,
     StatusBar,
     Image,
     SafeAreaView,
@@ -20,17 +20,19 @@ import {
 const FAQScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-    <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.navigate('Help')}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+    <View style={styles.header}>
+    <Pressable  
+    onPress={() => navigation.navigate('Help')}>
+      <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>FAQ</Text>
-           <View>
+                 
+           </View>
+    </Pressable>
+            <View><Text style={styles.Headertopic}>FAQ</Text></View>
+            <View>
                <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
-          </View>
-        </TouchableOpacity>
+            </View>
         <ScrollView>
         <View style={styles.messageBox}>
         <Text style={styles.title}> What are the requirements for creating an account?</Text>

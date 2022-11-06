@@ -5,6 +5,7 @@ import {
     StyleSheet,
     StatusBar,
     TouchableOpacity,
+    Pressable,
     Dimensions,
     Image, ScrollView,
 } from "react-native";
@@ -83,17 +84,18 @@ const Wallet = () => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-        <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.goBack()}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>Ticket Wallet </Text>
-           <View>
+        <View style={styles.header}>
+          <Pressable  
+              onPress={() => navigation.navigate('Account')}>
+              <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+              </View>
+          </Pressable>
+            <View><Text style={styles.Headertopic}>Wallet</Text></View>
+             <View>
                <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-            </View>
-          </View>
-        </TouchableOpacity>
+            </View> 
+      </View>
 
             <View style={styles.walletContainer}>
                 <SwitchButton toggleSwitch={toggleSwitch} options={options}/>

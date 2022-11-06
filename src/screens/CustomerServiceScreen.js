@@ -4,8 +4,8 @@ import {
     Text,
     StyleSheet,
     Dimensions,
-    TouchableOpacity,
     StatusBar,
+    Pressable,
     Image,
     ScrollView,
     SafeAreaView,
@@ -18,17 +18,19 @@ import {MaterialIcons} from "@expo/vector-icons";
 const CustomerServiceScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-    <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.navigate('Help')}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+    <View style={styles.header}>
+    <Pressable  
+    onPress={() => navigation.navigate('Help')}>
+      <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>Customer Service</Text>
-           <View>
+                 
+           </View>
+    </Pressable>
+            <View><Text style={styles.Headertopic}>Customer Service</Text></View>
+            <View>
                <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
-          </View>
-        </TouchableOpacity>
+            </View>
         <ScrollView>
             
         </ScrollView>

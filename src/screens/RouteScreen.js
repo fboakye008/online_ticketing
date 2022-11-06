@@ -7,6 +7,7 @@ import {
     StatusBar,
     Image,
     Dimensions,
+    Pressable,
     TouchableOpacity,
     SafeAreaView,
 } from "react-native";
@@ -69,17 +70,18 @@ const Routes = ({navigation}) => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-        <TouchableOpacity
-                        style={styles.header}
-            onPress={() => navigation.goBack()}>
-                        <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-                        <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                            <Text style={styles.topic}>Select Your Route</Text>
-                            <View>
-                            </View>
-                        </View>
-
-                    </TouchableOpacity>
+    <View style={styles.header}>
+        <Pressable  
+                onPress={() => navigation.goBack()}>
+            <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" /> 
+           </View>
+        </Pressable>
+            <View>
+            <Text style={styles.topic}>Select Your Route</Text>
+            </View>
+    </View>
+        
                     <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
                     {error ? (
                 <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
     topic: {
         flex: 1,
         fontSize: 18,
-        marginLeft: -38,
+        marginLeft: "20%",
         fontWeight:'bold',
        textAlign: 'center',
     },

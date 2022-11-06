@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, SafeAreaView, Pressable} from 'react-native';
 import Separator from '../components/WelcomeCard/Separator';
 import {Colors, image as MyImage} from '../contents';
 import TextField from '../components/CustomInput/TextInput';
@@ -89,15 +89,15 @@ const SignInScreen = ({navigation, route}) => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-            <TouchableOpacity
-                style={styles.header}
+      <View style={styles.header}>
+            <Pressable
                 onPress={() => navigation.goBack()}>
                 <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
+            </Pressable>
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Welcome!</Text>
-
                 </View>
-            </TouchableOpacity>
+                </View>
             {error ? (
                 <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
                     {error}
@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 12,
         paddingHorizontal: 12,
+        marginTop: 25,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
 

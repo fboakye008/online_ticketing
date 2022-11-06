@@ -1,9 +1,9 @@
-import {View, Text, StyleSheet, ScrollView, SafeAreaView, Image, TouchableOpacity, StatusBar} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, SafeAreaView, Image, Pressable,TouchableOpacity, StatusBar} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { Colors } from '../contents';
 import Receipt from '../components/CustomTicket/Receipt'
 import {MaterialIcons} from "@expo/vector-icons";
-import projectLogo from "../assets/images/projectLogo.png";
+import imagePath from '../constants/imagePath';
 import {fetchTickets} from "../apis/tickets";
 import { updateError } from '../utils';
 
@@ -38,17 +38,21 @@ const TicketScreen = ({navigation,route}) => {
             </Text>
         ) : null}
 
-        <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.replace('Home')}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-            <MaterialIcons name="close" size={25} color="#000" />
-                 <Text style={styles.Headertopic}>Ticket</Text>
-           <View>
-               <Image source={projectLogo} style={[styles.Image]} resizeMode="cover"/>
+        <View style={styles.header}>
+         <Pressable  
+                    onPress={() => navigation.replace('Home')}>
+              <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                <MaterialIcons name="close" size={25} color="#000" />     
+              </View>
+        </Pressable>
+            <View>
+            <Text style={styles.Headertopic}>Ticket</Text>
             </View>
-          </View>
-        </TouchableOpacity>
+            <View>
+            <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+            </View>
+      
         <ScrollView>
         <View>
           {tickets.map(ticket => {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity,Image, ScrollView} from "react-native";
+import {View, Text, SafeAreaView, StyleSheet, StatusBar, Pressable, TouchableOpacity,Image, ScrollView} from "react-native";
 import {MaterialIcons} from "@expo/vector-icons";
 import {Colors} from "../contents";
 import _ from "underscore";
@@ -54,17 +54,21 @@ const Trips = ({navigation}) => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-        <TouchableOpacity
-            style={styles.header}
+  <View style={styles.header}>
+        <Pressable  
             onPress={() => navigation.navigate('Account')}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>Trips ({numTrips}) </Text>
-           <View>
-               <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" /> 
             </View>
-          </View>
-        </TouchableOpacity>
+        </Pressable>
+            <View>
+                <Text style={styles.Headertopic}>Trips ({numTrips}) </Text>
+            </View>
+            <View>
+                <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+    </View>
+       
         {error ? (
                 <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
                     {error}

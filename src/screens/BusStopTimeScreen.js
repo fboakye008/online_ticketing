@@ -7,6 +7,7 @@ import {
     Dimensions,
     TouchableOpacity,
     StatusBar,
+    Pressable,
     Image,
     SafeAreaView,
 } from "react-native";
@@ -151,19 +152,19 @@ const BusStopTimeScreen = ({navigation, route}) => {
                 backgroundColor={Colors.DEFAULT_GREEN}
                 translucent
             />
-            <TouchableOpacity
-                style={styles.header}
-                onPress={() => navigation.goBack()}>
+        <View style={styles.header}>
+         <Pressable  
+                    onPress={() => navigation.goBack()}>
                 <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-                    <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
-                    <Text style={styles.topic}>Departure </Text>
-
-                    <View>
-                        <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-                    </View>
+                    <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
                 </View>
-
-            </TouchableOpacity>
+        </Pressable>
+            <View><Text style={styles.topic}>Departure</Text></View>
+            <View>
+            <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+            </View>
+           
             <View style={styles.container}>
                 <ReadOnlyField
                     style={styles.input}

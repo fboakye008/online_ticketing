@@ -5,6 +5,8 @@ import {
   StatusBar,
   StyleSheet,
   SafeAreaView,
+  Alert,
+  Linking,
   ScrollView,
 } from "react-native";
 import { Colors } from "../contents";
@@ -15,7 +17,19 @@ import CreateUser from "../apis/user";
 import LoadingScreen from "./utils/LoadingScreen";
 import { isValidObjField, updateError,isValidPhone,isValidEmail } from '../utils';
 
+const url ="https://online-ticketing.github.io/terms-and%20conditions.html";
+
+
 const SignUpScreen = ({ navigation }) => {
+
+  const openUrl = async (url) => {
+    const isSupported = await Linking.canOpenURL(url);
+    if (isSupported){
+      await Linking.openURL(url);
+    }else{
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+};
   const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isPasswordShow, setPasswordShow] = useState(false);
@@ -93,8 +107,9 @@ const SignUpScreen = ({ navigation }) => {
       />
 
 
-        <Separator height={5} />
+      <View style={styles.head}>
         <Text style={styles.headerTitle}>Create Account</Text>
+        </View>
         <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
@@ -181,14 +196,14 @@ const SignUpScreen = ({ navigation }) => {
             By signing up, you confirm that you accept our {""}
             <Text
               style={styles.signupText}
-              onPress={() => navigation.navigate(onTermsOfUsePressed)}
+              onPress={() => openUrl(url)}
             >
               Terms of Use {""}
             </Text>
             and {""}
             <Text
               style={styles.signupText}
-              onPress={() => navigation.navigate(onPrivacyPressed)}
+              onPress={() => openUrl(url)}
             >
               Privacy Policy
             </Text>
@@ -221,7 +236,7 @@ const styles = StyleSheet.create({
   content: {
     colors: Colors.grey,
     fontSize: 18,
-    marginVertical: 10,
+    marginLeft: "5%",
   },
 
   signupContainer: {
@@ -242,6 +257,10 @@ const styles = StyleSheet.create({
     lineHeight: 13 * 1.4,
     marginLeft: 5,
   },
+  head:{
+    marginTop: "5%",
+    marginLeft: "25%",
+  }
 });
 
 export default SignUpScreen;

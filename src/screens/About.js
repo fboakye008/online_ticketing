@@ -1,7 +1,7 @@
 import {
   View,
   Text,
-  TouchableOpacity,
+ Pressable,
   StyleSheet,
   SafeAreaView,
   StatusBar,
@@ -41,17 +41,18 @@ const About = () => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-      <TouchableOpacity
-            style={styles.header}
-            onPress={() => navigation.navigate('Account')}>
-          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
-                 <Text style={styles.Headertopic}>About Us </Text>
-           <View>
+      <View style={styles.header}>
+          <Pressable  
+              onPress={() => navigation.navigate('Account')}>
+              <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+              </View>
+          </Pressable>
+            <View><Text style={styles.Headertopic}>About</Text></View>
+            <View>
                <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
-          </View>
-        </TouchableOpacity>
+      </View>
       <ScrollView style={{ flex: 1, backgroundColor: "#e6e7e8" }}>
         <View style={styles.topicsWrapper}>
         <Text style={styles.text}>Welcome To FranJat Corp. FranJat is a Professional eCommerse Platform.</Text> 

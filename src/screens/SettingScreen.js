@@ -6,6 +6,7 @@ import {
     StyleSheet,
     SafeAreaView,
     TouchableOpacity,
+    Pressable,
     Image,
     ScrollView,
 } from "react-native";
@@ -63,17 +64,20 @@ const SignUpScreen = ({navigation}) => {
     }, []);
     return (
         <SafeAreaView>
-            <TouchableOpacity
-                style={styles.header}
-                onPress={() => navigation.navigate('Account')}>
-                <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
-                    <MaterialIcons name="keyboard-arrow-left" size={30} color="#000"/>
-                    <Text style={styles.headerTopic}>Personal Info </Text>
-                    <View>
-                        <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
-                    </View>
-                </View>
-            </TouchableOpacity>
+    <View style={styles.header}>
+        <Pressable  
+            onPress={() => navigation.navigate('Account')}>
+            <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+                <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" /> 
+            </View>
+        </Pressable>
+            <View>
+                <Text style={styles.topic}>Personal Info </Text>
+            </View>
+            <View>
+                <Image source={projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+    </View>
             {error ? (
                 <Text style={{color: Colors.Red, fontSize: 12, textAlign: "center"}}>
                     {error}
@@ -152,15 +156,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 12,
         marginLeft: 1,
-        paddingTop: 12,
+        marginTop: 25,
         paddingHorizontal: 12,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
-    headerTopic: {
+    topic: {
         flex: 1,
-        fontSize: 20,
-        textAlign: 'center',
-        fontWeight: "bold",
+        fontSize: 18,
+        fontWeight:'bold',
+       textAlign: 'center',
     },
     Image: {
 
