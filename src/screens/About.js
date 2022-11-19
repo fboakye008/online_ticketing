@@ -65,11 +65,7 @@ const About = () => {
     Thanks For Visiting Our Site
     Have a nice day!</Text>
     <Text></Text>
-    
-    <Text style={styles.text}>Contact us on:</Text>
-    <Text style={styles.text}>Tel: 0245666208</Text>
-    <Text style={styles.text}>Email: linonuniford@gmail.com</Text>
-
+  
         </View>
       </ScrollView>
     </SafeAreaView>

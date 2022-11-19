@@ -2,7 +2,9 @@ import React, {useLayoutEffect, useState} from "react";
 import {
     Text,
     StyleSheet,
+    View,
     SafeAreaView,
+    MaterialIcons,
     StatusBar,
     Image,
     Pressable,

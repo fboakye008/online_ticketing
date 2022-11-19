@@ -89,21 +89,20 @@ const HomeScreen = ({navigation}) => {
         backgroundColor={Colors.DEFAULT_GREEN}
         translucent
       />
-            <View style={{flex: 7}}>
+            <View>
                 {viewStaticMap ? (
                         <Image source={map} style={[styles.Image]}/>
                     ) :
                     <HomeMap/>
                 }
             </View>
-            <View style={[styles.messageBox, {
-                flex: 1}]}>
+            <View style={styles.messageBox}>
                 <Text style={styles.title}> Travel only if necessary</Text>
                 <Text style={styles.text}>
                     We wish you safe travels, unforgettable experiences, and memories to last a lifetime.
                 </Text>
             </View>
-            <View style={{flex: 1}}>
+            <View >
                 <TouchableOpacity
                     style={styles.topicsContainer}
                     onPress={() => handleBuyTicket()}
@@ -121,7 +120,7 @@ const HomeScreen = ({navigation}) => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <View style={{flex: 1}}>
+            <View>
                 <TouchableOpacity
                     style={styles.topicsContainer}
                     onPress={() => handleTicketWallet()}
@@ -139,7 +138,7 @@ const HomeScreen = ({navigation}) => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <View style={{flex: 1}}>
+            <View>
                 <TouchableOpacity
                     style={styles.topicsContainer}
                     onPress={() => handleSchedule()}
@@ -158,7 +157,7 @@ const HomeScreen = ({navigation}) => {
 
                 </TouchableOpacity>
             </View>
-            <View style={{flex: 1}}>
+            <View>
                 <TouchableOpacity
                     disabled={viewStaticMap}
                     style={styles.topicsContainer}
@@ -185,13 +184,12 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-       padding: 20,
     },
     Image: {
         backgroundColor: "#a0abff",
         justifyContent: 'center',
         alignItems: 'center',
-        height: Display.setHeight(50),
+        height: Display.setHeight(46),
         width: Display.setWidth(100),
     },
     messageBox: {
@@ -217,6 +215,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     topic: {
+        flex: 1,
         fontSize: 16,
         paddingLeft: 5,
         fontWeight: "500",

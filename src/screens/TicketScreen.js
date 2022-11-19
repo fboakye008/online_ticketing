@@ -38,7 +38,21 @@ const TicketScreen = ({navigation,route}) => {
             </Text>
         ) : null}
 
+
         <View style={styles.header}>
+      <Pressable  
+              onPress={() => navigation.navigate('Help')}>
+          <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
+            <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
+          </View>
+       </Pressable>
+            <View><Text style={styles.Headertopic}>App Info</Text></View>
+            <View>
+               <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
+            </View>
+</View>
+
+        {/* <View style={styles.header}>
          <Pressable  
                     onPress={() => navigation.replace('Home')}>
               <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15}}>
@@ -52,7 +66,7 @@ const TicketScreen = ({navigation,route}) => {
             <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
             </View>
-      
+       */}
         <ScrollView>
         <View>
           {tickets.map(ticket => {

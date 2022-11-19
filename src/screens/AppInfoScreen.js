@@ -25,13 +25,28 @@ const AppInfoScreen = ({navigation}) => {
             <MaterialIcons name="keyboard-arrow-left" size={30} color="#000" />
           </View>
        </Pressable>
-            <View><Text style={styles.Headertopic}>App Info</Text></View>
             <View>
-               <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
+               <Text style={styles.Headertopic}>App Info</Text>
+            </View>
+            <View>
+                <Image source={imagePath.projectlogo} style={[styles.Image]} resizeMode="cover"/>
             </View>
 </View>
 
         <ScrollView>
+        <Text></Text>
+        <Text style={styles.text}>Application Identified</Text>
+        <Text style={styles.text}>A515U1UES7CVD1</Text>
+        <Text style={styles.text}>Application Version</Text>
+        <Text style={styles.text}>6.13.90</Text>
+        <Text style={styles.text}>SDK Version</Text>
+        <Text style={styles.text}>8.3.0</Text>
+        <Text style={styles.text}>Platform Name</Text>
+        <Text style={styles.text}>Android Version 11</Text>
+        <Text style={styles.text}>Device Model</Text>
+        <Text style={styles.text}>Galaxy A51</Text>
+        <Text style={styles.text}>Build Number</Text>
+        <Text style={styles.text}>1629973879</Text>
         {/* <View style={styles.messageBox}>
         <Text style={styles.text}>The application is an online ticketing system. It allows users to book ticket with the VIP Bus transport 
         for travelling, just as, going to the VIP Bus station to purchase ticket before travel.</Text>
@@ -73,10 +88,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: "bold",
 },
-text: {
+text1: {
   fontSize: 16,
   marginLeft:"3%",
   marginRight:"3%"
+},
+text: {
+  marginHorizontal: 20,
+  fontSize: 15,
+    textAlign: 'center',
+    marginTop: "5%"
 },
 title: {
   fontSize: 18,
